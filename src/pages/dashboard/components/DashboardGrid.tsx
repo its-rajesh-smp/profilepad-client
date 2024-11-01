@@ -4,6 +4,8 @@ import {
 } from "react-grid-layout";
 import "react-grid-layout/css/styles.css";
 import "react-resizable/css/styles.css";
+import DashboardCard from "./UI/DashboardCard";
+import GridItem from "./UI/GridItem";
 
 const ReactGridLayout = WidthProvider(ResponsiveGridLayout);
 
@@ -11,7 +13,7 @@ function DashboardGrid() {
   const layout = [
     { i: "1", x: 0, y: 0, w: 1, h: 1 },
     { i: "2", x: 1, y: 0, w: 1, h: 1 },
-    { i: "3", x: 2, y: 0, w: 1, h: 1 },
+    { i: "3", x: 2, y: 0, w: 2, h: 1 },
   ];
   return (
     <div className="flex h-full flex-1">
@@ -21,15 +23,11 @@ function DashboardGrid() {
         layouts={{ lg: layout }}
         autoSize={true}
       >
-        <div style={{ backgroundColor: "red" }} key="1">
-          1 dsfgskdf
-        </div>
-        <div style={{ backgroundColor: "red" }} key="2">
-          2
-        </div>
-        <div style={{ backgroundColor: "red" }} key="3">
-          3
-        </div>
+        {layout.map((item) => (
+          <GridItem key={item.i}>
+            <DashboardCard />
+          </GridItem>
+        ))}
       </ReactGridLayout>
     </div>
   );
