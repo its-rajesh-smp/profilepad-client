@@ -4,7 +4,7 @@ import Profile from "./components/Profile";
 
 function Dashboard() {
   return (
-    <div className="flex h-full flex-col gap-20 p-5 lg:flex-row lg:p-16">
+    <div className="flex h-full flex-col gap-20 overflow-x-hidden p-5 lg:flex-row lg:p-16">
       <Profile />
       <DashboardGrid />
       <ActionBar />
