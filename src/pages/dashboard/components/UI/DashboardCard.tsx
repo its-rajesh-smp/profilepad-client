@@ -3,7 +3,7 @@ import ImageCard from "../cards/ImageCard";
 import LinkCard from "../cards/LinkCard";
 import TextCard from "../cards/TextCard";
 
-const DashboardCard = ({ type, link }: IDashboardCard) => {
+const DashboardCard = ({ type, link, id }: IDashboardCard) => {
   const getCard = (type: IDashboardCard["type"]) => {
     switch (type) {
       case "image":
@@ -11,7 +11,7 @@ const DashboardCard = ({ type, link }: IDashboardCard) => {
       case "link":
         return <LinkCard link={link ?? ""} />;
       default:
-        return <TextCard />;
+        return <TextCard id={id} />;
     }
   };
 
