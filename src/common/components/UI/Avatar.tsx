@@ -4,10 +4,14 @@ import {
   Avatar as ShadcnAvatar,
 } from "../shadcn/ui/avatar";
 
-function Avatar(props: React.ComponentProps<typeof ShadcnAvatar>) {
+interface AvatarProps extends React.ComponentProps<typeof ShadcnAvatar> {
+  src?: string;
+}
+
+function Avatar(props: AvatarProps) {
   return (
     <ShadcnAvatar {...props}>
-      <AvatarImage src="https://github.com/shadcn.png" />
+      <AvatarImage src={props.src ?? "https://github.com/shadcn.png"} />
       <AvatarFallback>CN</AvatarFallback>
     </ShadcnAvatar>
   );

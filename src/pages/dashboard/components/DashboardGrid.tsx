@@ -27,7 +27,8 @@ function DashboardGrid() {
           <GridItem key={item.i}>
             <DashboardCard
               id={item.i}
-              type={item.i == "1" ? "image" : "text"}
+              link="https://redbubble.vercel.app"
+              type={item.i == "1" ? "link" : "text"}
             />
           </GridItem>
         ))}

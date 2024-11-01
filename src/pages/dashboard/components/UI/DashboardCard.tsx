@@ -1,12 +1,15 @@
 import { IDashboardCard } from "../../types/dashboard.type";
 import ImageCard from "../cards/ImageCard";
+import LinkCard from "../cards/LinkCard";
 import TextCard from "../cards/TextCard";
 
-const DashboardCard = ({ type }: IDashboardCard) => {
+const DashboardCard = ({ type, link }: IDashboardCard) => {
   const getCard = (type: IDashboardCard["type"]) => {
     switch (type) {
       case "image":
         return <ImageCard />;
+      case "link":
+        return <LinkCard link={link ?? ""} />;
       default:
         return <TextCard />;
     }
