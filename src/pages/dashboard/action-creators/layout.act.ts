@@ -5,8 +5,27 @@ import {
   setLayoutItems,
 } from "../reducers/layout-items.reducer";
 import { updateLayout } from "../reducers/layout.reducer";
-import { createLayout, getLayouts } from "../services/layout.service";
+import {
+  createLayout,
+  getLayouts,
+  updateLayoutGroup,
+} from "../services/layout.service";
 import { DashboardCardType } from "../types/dashboard.type";
+
+/**
+ * Fetches the current layout of the dashboard from the server.
+ * @returns {ThunkAction<void, RootState, unknown, Action<string>>} A thunk that dispatches the actions.
+ */
+export const getLayoutAct = () => {
+  return async (dispatch: AppDispatch) => {
+    const layoutResponse = await getLayouts();
+    const { data, LayoutItem } = layoutResponse.data;
+
+    // Dispatch the actions
+    dispatch(updateLayout(data));
+    dispatch(setLayoutItems(LayoutItem));
+  };
+};
 
 /**
  * Creates a new layout item of a given type and appends it to the end of the current layout.
@@ -38,21 +57,7 @@ export const updateLayoutAct = ({
   all: ReactGridLayout.Layouts;
 }) => {
   return async (_dispatch: AppDispatch) => {
-    console.log(all, current);
-  };
-};
-
-/**
- * Fetches the current layout of the dashboard from the server.
- * @returns {ThunkAction<void, RootState, unknown, Action<string>>} A thunk that dispatches the actions.
- */
-export const getLayoutAct = () => {
-  return async (dispatch: AppDispatch) => {
-    const layoutResponse = await getLayouts();
-    const { data, LayoutItem } = layoutResponse.data;
-
-    // Dispatch the actions
-    dispatch(updateLayout(data));
-    dispatch(setLayoutItems(LayoutItem));
+    const updatedLayoutResponse = await updateLayoutGroup({ lg: current });
+    console.log(updatedLayoutResponse.data);
   };
 };

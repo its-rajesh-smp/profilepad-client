@@ -9,6 +9,7 @@ import "react-resizable/css/styles.css";
 import { updateLayoutAct } from "../action-creators/layout.act";
 import DashboardCard from "./UI/DashboardCard";
 import GridItem from "./UI/GridItem";
+import { debounce } from "@/common/heplers/debounce";
 
 const ReactGridLayout = WidthProvider(ResponsiveGridLayout);
 
@@ -37,7 +38,7 @@ function DashboardGrid() {
         layouts={layout}
         autoSize={true}
         rowHeight={50}
-        onLayoutChange={onLayoutChange}
+        onLayoutChange={debounce(onLayoutChange, 500)}
       >
         {layoutItems.map((item) => (
           <GridItem key={item.id}>
