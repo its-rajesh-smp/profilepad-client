@@ -3,21 +3,21 @@ import ImageCard from "../cards/ImageCard";
 import LinkCard from "../cards/LinkCard";
 import TextCard from "../cards/TextCard";
 
-const DashboardCard = ({ type, link, id }: IDashboardCard) => {
+const DashboardCard = (props: IDashboardCard) => {
   const getCard = (type: IDashboardCard["type"]) => {
-    switch (type) {
+    switch (props.type) {
       case "image":
-        return <ImageCard />;
+        return <ImageCard {...props} />;
       case "link":
-        return <LinkCard link={link ?? ""} />;
+        return <LinkCard {...props} />;
       default:
-        return <TextCard id={id} />;
+        return <TextCard {...props} />;
     }
   };
 
   return (
     <div className="h-full w-full cursor-pointer overflow-hidden rounded-2xl border bg-white shadow-md">
-      {getCard(type)}
+      {getCard(props.type)}
     </div>
   );
 };

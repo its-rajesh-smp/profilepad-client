@@ -1,10 +1,11 @@
 import { Badge } from "@/common/components/shadcn/ui/badge";
+import { IDashboardCard } from "../../types/dashboard.type";
 
-function ImageCard() {
+function ImageCard({}: IDashboardCard) {
   return (
-    <div className="inh rounded-inherit relative h-full w-full overflow-hidden">
+    <div className="inh relative h-full w-full overflow-hidden rounded-inherit">
       <img
-        className="rounded-inherit h-full w-full object-cover object-center"
+        className="h-full w-full rounded-inherit object-cover object-center"
         src="https://creatorspace.imgix.net/users/clhd96j6h00s2nt01z0ccjybj/DygSYNZprv7IWvu5-IMG_20240330_163621.jpg?w=750&h=750"
       />
       <div>

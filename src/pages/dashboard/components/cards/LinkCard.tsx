@@ -7,9 +7,10 @@ import { BiWorld } from "react-icons/bi";
 
 import { extractBaseUrl } from "@/common/utils/url.util";
 import { Button } from "@/common/components/shadcn/ui/button";
+import { IDashboardCard } from "../../types/dashboard.type";
 
-function LinkCard({ link }: { link: string }) {
-  const url = extractBaseUrl(link);
+function LinkCard({ link }: IDashboardCard) {
+  const url = extractBaseUrl(link ?? "");
 
   return (
     <div className="flex h-full w-full flex-col justify-between gap-2 p-3">
