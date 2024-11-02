@@ -1,3 +1,4 @@
+import { debounce } from "@/common/heplers/debounce";
 import { useAppDispatch } from "@/common/hooks/useAppDispatch";
 import { useAppSelector } from "@/common/hooks/useAppSelector";
 import {
@@ -9,7 +10,6 @@ import "react-resizable/css/styles.css";
 import { updateLayoutAct } from "../action-creators/layout.act";
 import DashboardCard from "./UI/DashboardCard";
 import GridItem from "./UI/GridItem";
-import { debounce } from "@/common/heplers/debounce";
 
 const ReactGridLayout = WidthProvider(ResponsiveGridLayout);
 
@@ -39,6 +39,7 @@ function DashboardGrid() {
         autoSize={true}
         rowHeight={50}
         onLayoutChange={debounce(onLayoutChange, 500)}
+        draggableCancel=".no-drag"
       >
         {layoutItems.map((item) => (
           <GridItem key={item.id}>

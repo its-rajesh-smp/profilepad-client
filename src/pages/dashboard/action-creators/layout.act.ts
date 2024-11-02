@@ -10,7 +10,6 @@ import {
   getLayouts,
   updateLayoutGroup,
 } from "../services/layout.service";
-import { DashboardCardType } from "../types/dashboard.type";
 
 /**
  * Fetches the current layout of the dashboard from the server.
@@ -29,12 +28,12 @@ export const getLayoutAct = () => {
 
 /**
  * Creates a new layout item of a given type and appends it to the end of the current layout.
- * @param {DashboardCardType} type The type of the item to be created.
+ * @param data The data to be sent to the server.
  * @returns {ThunkAction<void, RootState, unknown, Action<string>>} A thunk that dispatches the actions.
  */
-export const createLayoutAct = (type: DashboardCardType) => {
+export const createLayoutAct = (data: any) => {
   return async (dispatch: AppDispatch, _getState: () => RootState) => {
-    const layoutResponse = await createLayout(type);
+    const layoutResponse = await createLayout({ data });
     const { layoutGroup, layoutItem } = layoutResponse?.data;
 
     // Dispatch the actions

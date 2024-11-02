@@ -2,17 +2,17 @@ import { Button } from "@/common/components/shadcn/ui/button";
 import { useAppDispatch } from "@/common/hooks/useAppDispatch";
 import { BiImage, BiLink, BiText } from "react-icons/bi";
 import { createLayoutAct } from "../action-creators/layout.act";
-import { DashboardCardType } from "../types/dashboard.type";
+import ActionButtonWithInput from "./UI/ActionButtonWithInput";
 
 function ActionBar() {
   const dispatch = useAppDispatch();
 
   /**
    * Creates a new dashboard item of a given type.
-   * @param {DashboardCardType} type The type of the item to be created.
+   * @param data The data to be sent to the server.
    */
-  const onCreateBtnClick = (type: DashboardCardType) => {
-    dispatch(createLayoutAct(type));
+  const onCreateBtnClick = (data: any) => {
+    dispatch(createLayoutAct(data));
   };
 
   return (
@@ -20,22 +20,23 @@ function ActionBar() {
       <Button variant="default" size="xs">
         Share
       </Button>
-      <Button
-        onClick={() => onCreateBtnClick("link")}
-        variant="secondary"
-        size="xs"
-        uiType="icon"
+
+      <ActionButtonWithInput
+        onSubmit={onCreateBtnClick}
+        fieldName="url"
+        type="link"
         icon={<BiLink />}
       />
-      <Button
-        onClick={() => onCreateBtnClick("image")}
-        variant="secondary"
-        size="xs"
-        uiType="icon"
+
+      <ActionButtonWithInput
+        onSubmit={onCreateBtnClick}
+        fieldName="src"
+        type="image"
         icon={<BiImage />}
       />
+
       <Button
-        onClick={() => onCreateBtnClick("text")}
+        onClick={() => onCreateBtnClick({ type: "text" })}
         variant="secondary"
         size="xs"
         uiType="icon"

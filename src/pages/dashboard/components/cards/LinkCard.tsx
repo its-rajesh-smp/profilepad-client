@@ -5,29 +5,46 @@ import {
 } from "@/common/components/shadcn/ui/avatar";
 import { BiWorld } from "react-icons/bi";
 
-import { extractBaseUrl } from "@/common/utils/url.util";
 import { Button } from "@/common/components/shadcn/ui/button";
+import AutoSaveTextField from "@/common/components/UI/AutoSaveTextField";
+import { extractBaseUrl } from "@/common/utils/url.util";
 import { IDashboardCard } from "../../types/dashboard.type";
 
-function LinkCard({ link }: IDashboardCard) {
-  const url = extractBaseUrl(link ?? "");
+function LinkCard({ url, text, id }: IDashboardCard) {
+  const domain = extractBaseUrl(url ?? "");
+
+  /**
+   * Opens the specified URL in a new browser tab.
+   */
+  const onBtnClick = () => {
+    window.open(url, "_blank");
+  };
 
   return (
     <div className="flex h-full w-full flex-col justify-between gap-2 p-3">
       <div>
         {/* Website's Icon */}
         <Avatar className="rounded-md">
-          <AvatarImage className="rounded-inherit" src={url ?? ""} />
+          <AvatarImage
+            className="rounded-inherit"
+            src={`${domain}/favicon.ico`}
+          />
           <AvatarFallback className="rounded-inherit">
             <BiWorld />
           </AvatarFallback>
         </Avatar>
 
         {/* Website's Name */}
-        <p className="mt-3">Shadcn</p>
-        <p>{url}</p>
+        <p className="mt-3">
+          <AutoSaveTextField fieldToUpdate="text" id={id}>
+            {text ?? "Type your name here"}
+          </AutoSaveTextField>
+        </p>
+        <p>{domain}</p>
       </div>
-      <Button className="w-fit">Visit</Button>
+      <Button onClick={onBtnClick} className="no-drag w-fit">
+        Visit
+      </Button>
 
       {/* Website's Content */}
       {/* <img
