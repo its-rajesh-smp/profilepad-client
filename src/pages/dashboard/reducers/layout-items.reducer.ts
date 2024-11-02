@@ -1,11 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { IDashboardCard } from "../types/dashboard.type";
 
-const defaultLayoutItems: IDashboardCard[] = [
-  { id: "1", type: "text", link: "https://redbubble.vercel.app" },
-  { id: "2", type: "text", link: "https://redbubble.vercel.app" },
-  { id: "3", type: "text", link: "https://redbubble.vercel.app" },
-];
+const defaultLayoutItems: IDashboardCard[] = [];
 
 const layoutItemsSlice = createSlice({
   name: "dashboard-layout-items",
