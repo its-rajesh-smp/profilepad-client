@@ -19,7 +19,6 @@ export const getLayoutAct = () => {
   return async (dispatch: AppDispatch) => {
     const layoutResponse = await getLayouts();
     const { data, LayoutItem } = layoutResponse.data;
-
     // Dispatch the actions
     dispatch(updateLayout(data));
     dispatch(setLayoutItems(LayoutItem));
@@ -55,8 +54,9 @@ export const updateLayoutAct = ({
   current: ReactGridLayout.Layout[];
   all: ReactGridLayout.Layouts;
 }) => {
-  return async (_dispatch: AppDispatch) => {
-    const updatedLayoutResponse = await updateLayoutGroup({ lg: current });
-    console.log(updatedLayoutResponse.data);
+  return async (dispatch: AppDispatch) => {
+    const updatedLayoutResponse = await updateLayoutGroup({ ...all });
+    // Dispatch the actions
+    dispatch(updateLayout(all));
   };
 };

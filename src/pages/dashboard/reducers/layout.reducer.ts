@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const defaultLayout: ReactGridLayout.Layouts = {
   lg: [],
+  xs: [],
 };
 
 const layoutSlice = createSlice({

@@ -18,6 +18,15 @@ function DashboardGrid() {
   const { layoutItems } = useAppSelector((state) => state.layoutItemsSlice);
   const dispatch = useAppDispatch();
 
+  // Define the layouts for mobile and large screens
+  const layouts = {
+    lg: layout.lg, // Define your large screen layout
+    xs: layout.xs, // Define your mobile layout
+  };
+
+  // Define breakpoints
+  const breakpoints = { lg: 800, xs: 0 };
+
   /**
    * Handles changes to the grid layout.
    *
@@ -28,6 +37,7 @@ function DashboardGrid() {
     current: ReactGridLayout.Layout[],
     all: ReactGridLayout.Layouts,
   ) => {
+    console.log(all);
     dispatch(updateLayoutAct({ current, all }));
   };
 
@@ -35,7 +45,8 @@ function DashboardGrid() {
     <div className="flex h-full flex-1">
       <ReactGridLayout
         className="layout h-full w-full flex-1 !p-0"
-        layouts={layout}
+        layouts={layouts}
+        breakpoints={breakpoints}
         autoSize={true}
         rowHeight={50}
         onLayoutChange={debounce(onLayoutChange, 500)}
