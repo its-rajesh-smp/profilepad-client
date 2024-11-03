@@ -56,7 +56,6 @@ export const updateLayoutAct = ({
 }) => {
   return async (dispatch: AppDispatch) => {
     const updatedLayoutResponse = await updateLayoutGroup({ ...all });
-    // Dispatch the actions
     dispatch(updateLayout(all));
   };
 };
