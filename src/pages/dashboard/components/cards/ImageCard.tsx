@@ -1,6 +1,7 @@
 import { Badge } from "@/common/components/shadcn/ui/badge";
 import { IDashboardCard } from "../../types/dashboard.type";
 import AutoSaveTextField from "@/common/components/UI/AutoSaveTextField";
+import { updateLayoutItem } from "../../services/layout-item.service";
 
 function ImageCard({ id, text, src }: IDashboardCard) {
   return (
@@ -11,7 +12,12 @@ function ImageCard({ id, text, src }: IDashboardCard) {
       />
       <div>
         <Badge className="absolute bottom-3 left-3 z-10 mr-3 bg-white p-0 text-zinc-500">
-          <AutoSaveTextField className="px-2" id={id} fieldToUpdate="text">
+          <AutoSaveTextField
+            onChange={updateLayoutItem}
+            className="px-2"
+            id={id}
+            fieldToUpdate="text"
+          >
             {text ?? "Caption"}
           </AutoSaveTextField>
         </Badge>

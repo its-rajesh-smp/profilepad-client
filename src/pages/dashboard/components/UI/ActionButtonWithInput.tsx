@@ -13,6 +13,7 @@ interface IActionButtonProps {
   fieldName: string;
   type: DashboardCardType;
   icon?: React.ReactNode;
+  triggerClassName?: string;
 }
 
 function ActionButtonWithInput({
@@ -20,6 +21,7 @@ function ActionButtonWithInput({
   fieldName,
   type,
   icon,
+  triggerClassName,
 }: IActionButtonProps) {
   const [input, setInput] = useState<string>("");
 
@@ -33,7 +35,7 @@ function ActionButtonWithInput({
 
   return (
     <Popover>
-      <PopoverTrigger asChild>
+      <PopoverTrigger className={triggerClassName} asChild>
         <Button variant="secondary" size="xs" uiType="icon" icon={icon} />
       </PopoverTrigger>
       <PopoverContent className="p-0" sideOffset={20}>
@@ -41,7 +43,7 @@ function ActionButtonWithInput({
           <Input
             value={input}
             onChange={(e) => setInput(e.target.value)}
-            className="h-full w-full border-0 outline-none focus-visible:ring-0"
+            className="h-full w-full border-0 shadow-none outline-none focus-visible:ring-0"
           />
           <Button onClick={handleButtonClick}>Add</Button>
         </div>

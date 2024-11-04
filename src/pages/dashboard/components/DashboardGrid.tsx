@@ -42,7 +42,8 @@ function DashboardGrid() {
         autoSize={true}
         rowHeight={50}
         onLayoutChange={debouncedOnLayoutChange}
-        // draggableCancel=".no-drag"
+        draggableCancel=".no-drag"
+        useCSSTransforms={true}
       >
         {layoutItems.map((item) => (
           <GridItem key={item.id}>

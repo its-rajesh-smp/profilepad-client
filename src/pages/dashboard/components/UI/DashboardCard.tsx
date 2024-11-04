@@ -1,3 +1,4 @@
+import { motion } from "framer-motion";
 import { IDashboardCard } from "../../types/dashboard.type";
 import ImageCard from "../cards/ImageCard";
 import LinkCard from "../cards/LinkCard";
@@ -16,9 +17,14 @@ const DashboardCard = (props: IDashboardCard) => {
   };
 
   return (
-    <div className="h-full w-full cursor-pointer overflow-hidden rounded-2xl border bg-white shadow-md">
+    <motion.div
+      initial={{ scale: 0.9, opacity: 0 }}
+      animate={{ scale: 1, opacity: 1 }}
+      transition={{ duration: 1, delay: Math.random() * 0.5 }}
+      className="h-full w-full cursor-pointer overflow-hidden rounded-2xl border bg-white shadow-md"
+    >
       {getCard(props.type)}
-    </div>
+    </motion.div>
   );
 };
 

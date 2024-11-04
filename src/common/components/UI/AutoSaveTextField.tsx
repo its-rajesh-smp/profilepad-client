@@ -1,5 +1,4 @@
 import { debounce } from "@/common/heplers/debounce";
-import { updateLayoutItem } from "@/pages/dashboard/services/layout-item.service";
 
 import { useCallback } from "react";
 
@@ -8,6 +7,8 @@ interface IAutoSaveTextFieldProps {
   id: string;
   fieldToUpdate: string;
   className?: string;
+  onChange?: (id: string, data: any) => void;
+  onSave?: (data: any) => void;
 }
 
 function AutoSaveTextField({
@@ -15,10 +16,11 @@ function AutoSaveTextField({
   fieldToUpdate,
   children,
   className,
+  onChange,
 }: IAutoSaveTextFieldProps) {
   const debouncedUpdateOnDb = useCallback(
     debounce((value: string) => {
-      updateLayoutItem(id, { [fieldToUpdate]: value });
+      onChange?.(id, { [fieldToUpdate]: value });
     }, 500),
     [id],
   );

@@ -4,6 +4,7 @@ import { BiImage, BiLink, BiText } from "react-icons/bi";
 
 import ActionButtonWithInput from "./UI/ActionButtonWithInput";
 import { createLayoutAct } from "../action-creators/layout-item.act";
+import { motion } from "framer-motion";
 
 function ActionBar() {
   const dispatch = useAppDispatch();
@@ -17,7 +18,12 @@ function ActionBar() {
   };
 
   return (
-    <div className="fixed bottom-5 left-1/2 right-0 flex w-fit translate-x-[-50%] gap-2 rounded-md border bg-white p-2 shadow-md">
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 1, delay: 2 }}
+      className="fixed bottom-5 left-1/2 right-0 flex w-fit translate-x-[-50%] gap-2 rounded-md border bg-white p-2 shadow-md"
+    >
       <Button variant="default" size="xs">
         Share
       </Button>
@@ -43,7 +49,7 @@ function ActionBar() {
         uiType="icon"
         icon={<BiText />}
       />
-    </div>
+    </motion.div>
   );
 }
 

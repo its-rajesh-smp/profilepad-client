@@ -6,4 +6,5 @@ export interface IDashboardCard {
   src?: string;
   url?: string;
   text?: string;
+  index?: number;
 }

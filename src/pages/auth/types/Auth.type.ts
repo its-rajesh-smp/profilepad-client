@@ -4,4 +4,5 @@ export interface IAuthUser {
   email: string;
   slug: string;
   profileImageSrc?: string;
+  headline?: string;
 }

@@ -1,3 +1,4 @@
+import { motion } from "framer-motion";
 import React, { MouseEvent, ReactNode, TouchEvent } from "react";
 
 interface GridItemProps {
@@ -23,7 +24,10 @@ const GridItem = React.forwardRef<HTMLDivElement, GridItemProps>(
     ref,
   ) => {
     return (
-      <div
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1, delay: Math.random() * 0.5 }}
         style={{ ...style }}
         className={className}
         ref={ref}
@@ -33,7 +37,7 @@ const GridItem = React.forwardRef<HTMLDivElement, GridItemProps>(
         {...props} // Spread remaining props
       >
         {children}
-      </div>
+      </motion.div>
     );
   },
 );

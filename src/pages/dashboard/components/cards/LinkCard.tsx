@@ -9,6 +9,7 @@ import { Button } from "@/common/components/shadcn/ui/button";
 import AutoSaveTextField from "@/common/components/UI/AutoSaveTextField";
 import { extractBaseUrl } from "@/common/utils/url.util";
 import { IDashboardCard } from "../../types/dashboard.type";
+import { updateLayoutItem } from "../../services/layout-item.service";
 
 function LinkCard({ url, text, id }: IDashboardCard) {
   const domain = extractBaseUrl(url ?? "");
@@ -36,7 +37,11 @@ function LinkCard({ url, text, id }: IDashboardCard) {
 
         {/* Website's Name */}
         <p className="mt-3">
-          <AutoSaveTextField fieldToUpdate="text" id={id}>
+          <AutoSaveTextField
+            onChange={updateLayoutItem}
+            fieldToUpdate="text"
+            id={id}
+          >
             {text ?? "Type your name here"}
           </AutoSaveTextField>
         </p>
