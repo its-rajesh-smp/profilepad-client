@@ -1,10 +1,10 @@
 import layoutItemsSlice from "@/pages/dashboard/reducers/layout-items.reducer";
-import layoutSlice from "@/pages/dashboard/reducers/grid-layout-config.reducer";
+import gridLayoutConfigSlice from "@/pages/dashboard/reducers/grid-layout-config.reducer";
 import authSlice from "@/pages/auth/reducers/auth.reducer";
 import { configureStore } from "@reduxjs/toolkit";
 
 const reduxStore = configureStore({
-  reducer: { layoutSlice, layoutItemsSlice, authSlice },
+  reducer: { gridLayoutConfigSlice, layoutItemsSlice, authSlice },
 });
 
 export type RootState = ReturnType<typeof reduxStore.getState>;

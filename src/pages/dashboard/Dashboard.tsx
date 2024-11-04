@@ -1,11 +1,12 @@
 import useAxiosFetch from "@/common/hooks/useAxiosFetch";
+import { getDashboardAct } from "./action-creators/dashboard.act";
 import ActionBar from "./components/ActionBar";
 import DashboardGrid from "./components/DashboardGrid";
 import Profile from "./components/Profile";
-import { getLayoutAct } from "./action-creators/layout.act";
 
 function Dashboard() {
-  useAxiosFetch(getLayoutAct);
+  // Fetch the layout
+  useAxiosFetch(getDashboardAct);
 
   return (
     <div className="flex h-full flex-col gap-20 overflow-x-hidden p-5 lg:flex-row lg:p-16">

@@ -5,23 +5,18 @@ const defaultLayout: ReactGridLayout.Layouts = {
   xs: [],
 };
 
-const layoutSlice = createSlice({
-  name: "dashboard-layout",
+const gridLayoutConfigSlice = createSlice({
+  name: "dashboard-grid-layout-config",
   initialState: {
     layout: defaultLayout,
   },
   reducers: {
-    setLayout: (state, action) => {
-      state.layout = action.payload;
-      return state;
-    },
-
-    updateLayout: (state, action) => {
+    setGridLayoutConfig: (state, action) => {
       state.layout = action.payload;
       return state;
     },
   },
 });
 
-export default layoutSlice.reducer;
-export const { setLayout, updateLayout } = layoutSlice.actions;
+export default gridLayoutConfigSlice.reducer;
+export const { setGridLayoutConfig } = gridLayoutConfigSlice.actions;

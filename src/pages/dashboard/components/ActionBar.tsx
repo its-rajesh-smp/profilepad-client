@@ -1,8 +1,9 @@
 import { Button } from "@/common/components/shadcn/ui/button";
 import { useAppDispatch } from "@/common/hooks/useAppDispatch";
 import { BiImage, BiLink, BiText } from "react-icons/bi";
-import { createLayoutAct } from "../action-creators/layout.act";
+
 import ActionButtonWithInput from "./UI/ActionButtonWithInput";
+import { createLayoutAct } from "../action-creators/layout-item.act";
 
 function ActionBar() {
   const dispatch = useAppDispatch();

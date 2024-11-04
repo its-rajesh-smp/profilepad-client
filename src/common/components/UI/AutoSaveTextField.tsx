@@ -1,5 +1,5 @@
 import { debounce } from "@/common/heplers/debounce";
-import { updateLayoutItem } from "@/pages/dashboard/services/layout_item.service";
+import { updateLayoutItem } from "@/pages/dashboard/services/layout-item.service";
 
 import { useCallback } from "react";
 
