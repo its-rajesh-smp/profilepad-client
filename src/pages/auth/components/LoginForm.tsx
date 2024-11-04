@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 function LoginForm() {
   return (
-    <div className="flex h-full w-1/2 items-center">
+    <div className="flex h-full items-center lg:w-1/2">
       <form className="flex flex-col gap-20">
         <div className="flex flex-col gap-3">
           <h1 className="text-4xl font-bold">First, claim your unique link</h1>
