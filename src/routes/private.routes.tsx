@@ -1,16 +1,14 @@
+import Dashboard from "@/pages/dashboard/Dashboard";
 import AuthGuard from "./guards/AuthGuard";
 
 const privateRoutes = [
   {
     element: <AuthGuard />,
+    path: "/",
     children: [
       {
-        path: "/",
-        element: <div>Dashboard</div>,
-      },
-      {
         path: "/dashboard",
-        element: <div>Dashboard</div>,
+        element: <Dashboard />,
       },
     ],
   },

@@ -16,11 +16,6 @@ const layoutSlice = createSlice({
       return state;
     },
 
-    addNewLayout: (state, action: { payload: ReactGridLayout.Layout }) => {
-      state.layout.lg.push(action.payload);
-      return state;
-    },
-
     updateLayout: (state, action) => {
       state.layout = action.payload;
       return state;
@@ -29,4 +24,4 @@ const layoutSlice = createSlice({
 });
 
 export default layoutSlice.reducer;
-export const { setLayout, updateLayout, addNewLayout } = layoutSlice.actions;
+export const { setLayout, updateLayout } = layoutSlice.actions;

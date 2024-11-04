@@ -1,6 +1,6 @@
 import axiosInterceptors from "@/setup/axios.conf";
 
-export const getLayouts = () => axiosInterceptors.get("/dashboard/layout");
+export const getLayouts = () => axiosInterceptors.get("/dashboard");
 
 export const createLayout = (data: any) =>
   axiosInterceptors.post("/dashboard/layout/create", data);

@@ -4,6 +4,10 @@ import GuestGuard from "./guards/GuestGuard";
 
 const publicRoutes = [
   {
+    path: "/slug",
+    element: <div>Preview Profile</div>,
+  },
+  {
     element: <GuestGuard />,
     children: [
       {
@@ -19,10 +23,6 @@ const publicRoutes = [
         element: <Register />,
       },
     ],
-  },
-  {
-    path: "/slug",
-    element: <div>Preview Profile</div>,
   },
 ];
 

@@ -1,11 +1,12 @@
-import { Outlet, useNavigate } from "react-router-dom";
+import { useAppSelector } from "@/common/hooks/useAppSelector";
+import { Navigate, Outlet } from "react-router-dom";
 
 function GuestGuard() {
-  const navigate = useNavigate();
+  const isAuthenticated = useAppSelector(
+    (state) => state.authSlice.isAuthenticated,
+  );
 
-  const isAuthenticated = true;
-
-  return isAuthenticated ? <Outlet /> : <div>GuestGuard</div>;
+  return !isAuthenticated ? <Outlet /> : <Navigate to="/dashboard" />;
 }
 
 export default GuestGuard;

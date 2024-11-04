@@ -5,6 +5,7 @@ const axiosInterceptors = axios.create({
   timeout: 10000, // Optional: specify request timeout in milliseconds
   headers: {
     "Content-Type": "application/json", // Optional: set default headers
+    Authorization: `Bearer ${localStorage.getItem("authToken") || ""}`, // Optional: set authorization token
   },
 });
 

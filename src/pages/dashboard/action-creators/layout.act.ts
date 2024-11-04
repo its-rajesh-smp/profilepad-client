@@ -4,7 +4,7 @@ import {
   addNewLayoutItem,
   setLayoutItems,
 } from "../reducers/layout-items.reducer";
-import { updateLayout } from "../reducers/layout.reducer";
+import { updateLayout } from "../reducers/grid-layout-config.reducer";
 import {
   createLayout,
   getLayouts,
@@ -18,10 +18,13 @@ import {
 export const getLayoutAct = () => {
   return async (dispatch: AppDispatch) => {
     const layoutResponse = await getLayouts();
-    const { data, LayoutItem } = layoutResponse.data;
+    console.log(layoutResponse);
+
+    const { gridLayoutConfig, layoutItems } = layoutResponse.data;
+
     // Dispatch the actions
-    dispatch(updateLayout(data));
-    dispatch(setLayoutItems(LayoutItem));
+    dispatch(updateLayout(gridLayoutConfig));
+    dispatch(setLayoutItems(layoutItems));
   };
 };
 
