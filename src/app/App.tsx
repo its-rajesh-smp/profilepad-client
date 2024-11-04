@@ -1,10 +1,11 @@
-import Dashboard from "@/pages/dashboard/Dashboard";
+import appRouter from "@/routes/app.router";
+import { RouterProvider } from "react-router-dom";
 import "./App.css";
 
 function App() {
   return (
     <div className="h-full w-full">
-      <Dashboard />
+      <RouterProvider router={appRouter} />
     </div>
   );
 }
