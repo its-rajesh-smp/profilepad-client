@@ -1,3 +1,4 @@
+import { useAppSelector } from "@/common/hooks/useAppSelector";
 import { debounce } from "@/common/utils/debounce.util";
 
 import { useCallback } from "react";
@@ -18,6 +19,8 @@ function AutoSaveTextField({
   className,
   onChange,
 }: IAutoSaveTextFieldProps) {
+  const { editMode } = useAppSelector((state) => state.authSlice);
+
   const debouncedUpdateOnDb = useCallback(
     debounce((value: string) => {
       onChange?.(id, { [fieldToUpdate]: value });
@@ -33,7 +36,7 @@ function AutoSaveTextField({
   return (
     <span
       className={`h-full w-full ${className}`}
-      contentEditable
+      contentEditable={editMode}
       suppressContentEditableWarning
       onInput={onTextChange}
     >

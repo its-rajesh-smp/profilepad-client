@@ -21,6 +21,7 @@ const breakpoints = { lg: 1000, xs: 0 };
 function DashboardGrid() {
   const { layout } = useAppSelector((state) => state.gridLayoutConfigSlice);
   const { layoutItems } = useAppSelector((state) => state.layoutItemsSlice);
+  const isEditMode = useAppSelector((state) => state.authSlice.editMode);
   const dispatch = useAppDispatch();
 
   const debouncedOnLayoutChange = debounce(
@@ -43,6 +44,9 @@ function DashboardGrid() {
         rowHeight={50}
         onLayoutChange={debouncedOnLayoutChange}
         draggableCancel=".no-drag"
+        isDraggable={isEditMode}
+        isDroppable={isEditMode}
+        isResizable={isEditMode}
         useCSSTransforms={true}
       >
         {layoutItems.map((item) => (
