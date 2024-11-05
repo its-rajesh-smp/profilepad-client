@@ -1,4 +1,4 @@
-export type DashboardCardType = "image" | "text" | "link";
+export type DashboardCardType = "image" | "text" | "link" | "section" | "empty";
 
 export interface IDashboardCard {
   id: string;

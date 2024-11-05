@@ -2,15 +2,24 @@ import { motion } from "framer-motion";
 import { IDashboardCard } from "../../types/dashboard.type";
 import ImageCard from "../cards/ImageCard";
 import LinkCard from "../cards/LinkCard";
+import SectionCard from "../cards/SectionCard";
 import TextCard from "../cards/TextCard";
+import EmptyCard from "../cards/EmptyCard";
 
 const DashboardCard = (props: IDashboardCard) => {
-  const getCard = (type: IDashboardCard["type"]) => {
+  const isEmpty = props.type === "empty" || props.type === "section";
+  const className = `h-full w-full cursor-pointer overflow-hidden rounded-2xl hover:bg-zinc-50  bg-white ${!isEmpty && "shadow-md border"}`;
+
+  const getCard = () => {
     switch (props.type) {
       case "image":
         return <ImageCard {...props} />;
       case "link":
         return <LinkCard {...props} />;
+      case "section":
+        return <SectionCard {...props} />;
+      case "empty":
+        return <EmptyCard {...props} />;
       default:
         return <TextCard {...props} />;
     }
@@ -21,9 +30,9 @@ const DashboardCard = (props: IDashboardCard) => {
       initial={{ scale: 0.9, opacity: 0 }}
       animate={{ scale: 1, opacity: 1 }}
       transition={{ duration: 1, delay: Math.random() * 0.5 }}
-      className="h-full w-full cursor-pointer overflow-hidden rounded-2xl border bg-white shadow-md"
+      className={className}
     >
-      {getCard(props.type)}
+      {getCard()}
     </motion.div>
   );
 };

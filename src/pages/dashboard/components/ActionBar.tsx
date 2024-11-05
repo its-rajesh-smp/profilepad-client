@@ -1,6 +1,6 @@
 import { Button } from "@/common/components/shadcn/ui/button";
 import { useAppDispatch } from "@/common/hooks/useAppDispatch";
-import { BiImage, BiLink, BiText } from "react-icons/bi";
+import { BiBox, BiGrid, BiImage, BiLink, BiText } from "react-icons/bi";
 
 import ActionButtonWithInput from "./UI/ActionButtonWithInput";
 import { createLayoutAct } from "../action-creators/layout-item.act";
@@ -48,6 +48,22 @@ function ActionBar() {
         size="xs"
         uiType="icon"
         icon={<BiText />}
+      />
+
+      <Button
+        onClick={() => onCreateBtnClick({ type: "section" })}
+        variant="secondary"
+        size="xs"
+        uiType="icon"
+        icon={<BiGrid />}
+      />
+
+      <Button
+        onClick={() => onCreateBtnClick({ type: "empty" })}
+        variant="secondary"
+        size="xs"
+        uiType="icon"
+        icon={<BiBox />}
       />
     </motion.div>
   );
