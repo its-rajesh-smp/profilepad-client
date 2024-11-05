@@ -1,4 +1,4 @@
-import { debounce } from "@/common/heplers/debounce";
+import { debounce } from "@/common/utils/debounce.util";
 
 import { useCallback } from "react";
 

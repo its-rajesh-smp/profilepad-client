@@ -1,6 +1,6 @@
 import { Button } from "@/common/components/shadcn/ui/button";
 import { Input } from "@/common/components/shadcn/ui/input";
-import { debounce } from "@/common/heplers/debounce";
+import { debounce } from "@/common/utils/debounce.util";
 import { useCallback, useState } from "react";
 import { BiLoader } from "react-icons/bi";
 import { IoMdCheckmark } from "react-icons/io";

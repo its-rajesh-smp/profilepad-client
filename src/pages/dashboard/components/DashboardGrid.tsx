@@ -1,4 +1,4 @@
-import { debounce } from "@/common/heplers/debounce";
+import { debounce } from "@/common/utils/debounce.util";
 import { useAppDispatch } from "@/common/hooks/useAppDispatch";
 import { useAppSelector } from "@/common/hooks/useAppSelector";
 import isEqual from "lodash.isequal";
