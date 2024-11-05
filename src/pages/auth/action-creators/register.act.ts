@@ -4,7 +4,7 @@ import { authenticate } from "../reducers/auth.reducer";
 import { createAccount, verifyUser } from "../services/register.service";
 
 export const registerAct = (formData: { email: string; password: string }) => {
-  return async (dispatch: AppDispatch, getState: () => RootState) => {
+  return async (dispatch: AppDispatch) => {
     const slug = localStorage.getItem("slug");
     if (!slug) return;
 
@@ -17,11 +17,12 @@ export const registerAct = (formData: { email: string; password: string }) => {
 };
 
 export const verifyUserAct = () => {
-  return async (dispatch: AppDispatch, getState: () => RootState) => {
+  return async (dispatch: AppDispatch) => {
     const authToken = localStorage.getItem("authToken");
-    if (!authToken) return;
+    if (!authToken) return false;
     const response = await verifyUser();
     const { user } = response.data;
     dispatch(authenticate({ user, authToken }));
+    return true;
   };
 };

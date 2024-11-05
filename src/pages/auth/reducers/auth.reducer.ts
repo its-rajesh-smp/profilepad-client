@@ -2,13 +2,13 @@ import { createSlice } from "@reduxjs/toolkit";
 import { IAuthUser } from "../types/Auth.type";
 
 interface IAuthState {
-  isAuthenticated: boolean;
+  isAuthenticated: boolean | undefined;
   authToken?: string;
   user: IAuthUser;
 }
 
 const initialState: IAuthState = {
-  isAuthenticated: false,
+  isAuthenticated: undefined,
   user: {
     id: "",
     name: "",

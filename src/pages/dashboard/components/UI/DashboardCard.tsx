@@ -8,7 +8,7 @@ import EmptyCard from "../cards/EmptyCard";
 
 const DashboardCard = (props: IDashboardCard) => {
   const isEmpty = props.type === "empty" || props.type === "section";
-  const className = `h-full w-full cursor-pointer overflow-hidden rounded-2xl hover:bg-zinc-50  bg-white ${!isEmpty && "shadow-md border"}`;
+  const className = `h-full w-full cursor-pointer overflow-hidden rounded-2xl hover:bg-zinc-50  bg-white ${!isEmpty && "shadow border"}`;
 
   const getCard = () => {
     switch (props.type) {

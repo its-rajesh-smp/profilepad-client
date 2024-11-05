@@ -1,15 +1,24 @@
 import { useAppDispatch } from "@/common/hooks/useAppDispatch";
 import { verifyUserAct } from "@/pages/auth/action-creators/register.act";
 import appRouter from "@/routes/app.router";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { RouterProvider } from "react-router-dom";
 import "./App.css";
+import Loading from "@/pages/loading/Loading";
 
 function App() {
   const dispatch = useAppDispatch();
+  const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
-    dispatch(verifyUserAct());
+    (async () => {
+      await dispatch(verifyUserAct());
+      setIsLoading(false);
+    })();
   }, []);
+
+  if (isLoading) {
+    return <Loading />;
+  }
 
   return (
     <div className="h-full w-full">
