@@ -9,7 +9,6 @@ import ActionButtonWithInput from "./ActionButtonWithInput";
 function UserAvatar() {
   const user = useAppSelector((state) => state.authSlice.user);
   const editMode = useAppSelector((state) => state.authSlice.editMode);
-  console.log(editMode);
   const dispatch = useAppDispatch();
 
   const onSaveBtnClick = async (data: any) => {
@@ -23,6 +22,7 @@ function UserAvatar() {
       {editMode && (
         <ActionButtonWithInput
           onSubmit={onSaveBtnClick}
+          tooltipText="Update profile image"
           fieldName="profileImageSrc"
           type="image"
           triggerClassName="absolute bottom-2 right-2"

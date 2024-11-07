@@ -1,6 +1,12 @@
 import * as React from "react";
 import { Slot } from "@radix-ui/react-slot";
 import { cva, type VariantProps } from "class-variance-authority";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/common/components/shadcn/ui/tooltip";
 
 import { cn } from "@/common/lib/utils";
 
@@ -42,6 +48,7 @@ export interface ButtonProps
   asChild?: boolean;
   uiType?: "normal" | "icon";
   icon?: React.ReactNode;
+  tooltipText?: string; // Add tooltipText prop
 }
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
@@ -53,33 +60,40 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       asChild = false,
       uiType = "normal",
       icon,
+      tooltipText, // Destructure the tooltipText prop
       ...props
     },
     ref,
   ) => {
     const Comp = asChild ? Slot : "button";
 
-    if (uiType === "icon") {
-      return (
-        <Comp
-          className={cn(buttonVariants({ variant, size, className }))}
-          ref={ref}
-          {...props}
-        >
-          {icon}
-        </Comp>
-      );
-    }
-
-    return (
+    const buttonContent = (
       <Comp
         className={cn(buttonVariants({ variant, size, className }))}
         ref={ref}
         {...props}
-      />
+      >
+        {icon}
+        {uiType === "normal" && props.children}
+      </Comp>
     );
+
+    // Render Tooltip only if tooltipText is provided
+    if (tooltipText) {
+      return (
+        <TooltipProvider>
+          <Tooltip>
+            <TooltipTrigger asChild>{buttonContent}</TooltipTrigger>
+            <TooltipContent>{tooltipText}</TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
+      );
+    }
+
+    return buttonContent;
   },
 );
+
 Button.displayName = "Button";
 
 export { Button, buttonVariants };

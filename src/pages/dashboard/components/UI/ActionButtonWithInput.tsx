@@ -14,6 +14,7 @@ interface IActionButtonProps {
   type: DashboardCardType;
   icon?: React.ReactNode;
   triggerClassName?: string;
+  tooltipText?: string;
 }
 
 function ActionButtonWithInput({
@@ -22,6 +23,7 @@ function ActionButtonWithInput({
   type,
   icon,
   triggerClassName,
+  tooltipText,
 }: IActionButtonProps) {
   const [input, setInput] = useState<string>("");
 
@@ -36,7 +38,13 @@ function ActionButtonWithInput({
   return (
     <Popover>
       <PopoverTrigger className={triggerClassName} asChild>
-        <Button variant="secondary" size="xs" uiType="icon" icon={icon} />
+        <Button
+          tooltipText={tooltipText}
+          variant="secondary"
+          size="xs"
+          uiType="icon"
+          icon={icon}
+        />
       </PopoverTrigger>
       <PopoverContent className="p-0" sideOffset={20}>
         <div className="flex items-center p-1">

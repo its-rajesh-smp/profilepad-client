@@ -7,4 +7,5 @@ export interface IDashboardCard {
   url?: string;
   text?: string;
   index?: number;
+  style?: React.CSSProperties;
 }

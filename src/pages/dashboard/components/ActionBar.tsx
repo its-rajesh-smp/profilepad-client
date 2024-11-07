@@ -2,10 +2,10 @@ import { Button } from "@/common/components/shadcn/ui/button";
 import { useAppDispatch } from "@/common/hooks/useAppDispatch";
 import { BiBox, BiGrid, BiImage, BiLink, BiText } from "react-icons/bi";
 
-import ActionButtonWithInput from "./UI/ActionButtonWithInput";
-import { createLayoutAct } from "../action-creators/layout-item.act";
-import { motion } from "framer-motion";
 import { useAppSelector } from "@/common/hooks/useAppSelector";
+import { motion } from "framer-motion";
+import { createLayoutAct } from "../action-creators/layout-item.act";
+import ActionButtonWithInput from "./UI/ActionButtonWithInput";
 
 function ActionBar() {
   const dispatch = useAppDispatch();
@@ -30,11 +30,17 @@ function ActionBar() {
       transition={{ duration: 1, delay: 2 }}
       className="fixed bottom-5 left-1/2 right-0 flex w-fit translate-x-[-50%] gap-2 rounded-md border bg-white p-2 shadow-md"
     >
-      <Button onClick={onClickShareBtn} variant="default" size="xs">
+      <Button
+        tooltipText="Share"
+        onClick={onClickShareBtn}
+        variant="default"
+        size="xs"
+      >
         Share
       </Button>
 
       <ActionButtonWithInput
+        tooltipText="URL"
         onSubmit={onCreateBtnClick}
         fieldName="url"
         type="link"
@@ -42,6 +48,7 @@ function ActionBar() {
       />
 
       <ActionButtonWithInput
+        tooltipText="Image"
         onSubmit={onCreateBtnClick}
         fieldName="src"
         type="image"
@@ -49,6 +56,7 @@ function ActionBar() {
       />
 
       <Button
+        tooltipText="Text"
         onClick={() => onCreateBtnClick({ type: "text" })}
         variant="secondary"
         size="xs"
@@ -57,6 +65,7 @@ function ActionBar() {
       />
 
       <Button
+        tooltipText="Section"
         onClick={() => onCreateBtnClick({ type: "section" })}
         variant="secondary"
         size="xs"
@@ -65,6 +74,7 @@ function ActionBar() {
       />
 
       <Button
+        tooltipText="Empty Box"
         onClick={() => onCreateBtnClick({ type: "empty" })}
         variant="secondary"
         size="xs"

@@ -10,6 +10,7 @@ interface IAutoSaveTextFieldProps {
   className?: string;
   onChange?: (id: string, data: any) => void;
   onSave?: (data: any) => void;
+  style?: React.CSSProperties;
 }
 
 function AutoSaveTextField({
@@ -18,6 +19,7 @@ function AutoSaveTextField({
   children,
   className,
   onChange,
+  style = {},
 }: IAutoSaveTextFieldProps) {
   const { editMode } = useAppSelector((state) => state.authSlice);
 
@@ -35,6 +37,7 @@ function AutoSaveTextField({
 
   return (
     <span
+      style={style}
       className={`h-full w-full ${className}`}
       contentEditable={editMode}
       suppressContentEditableWarning
