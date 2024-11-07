@@ -1,7 +1,7 @@
 import { AppDispatch } from "@/common/hooks/useAppDispatch";
-import { RootState } from "@/store/store";
 import { authenticate } from "../reducers/auth.reducer";
 import { createAccount, verifyUser } from "../services/register.service";
+import { setAppMetadataBasedOnUser } from "@/common/utils/app_metadata.util";
 
 export const registerAct = (formData: { email: string; password: string }) => {
   return async (dispatch: AppDispatch) => {
@@ -22,6 +22,8 @@ export const verifyUserAct = () => {
     if (!authToken) return false;
     const response = await verifyUser();
     const { user } = response.data;
+
+    setAppMetadataBasedOnUser(user);
     dispatch(authenticate({ user, authToken }));
     return true;
   };

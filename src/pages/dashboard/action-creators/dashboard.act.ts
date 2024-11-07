@@ -6,6 +6,7 @@ import {
   getDashboardPreview,
 } from "../services/dashboard.service";
 import { setEditMode, setUser } from "@/pages/auth/reducers/auth.reducer";
+import { setAppMetadataBasedOnUser } from "@/common/utils/app_metadata.util";
 
 export const getDashboardAct = () => {
   return async (dispatch: AppDispatch) => {
@@ -24,6 +25,7 @@ export const getDashboardPreviewAct = (slug: string | undefined) => {
     const { data } = await getDashboardPreview(slug);
 
     const { gridLayoutConfig, layoutItems, user } = data;
+    setAppMetadataBasedOnUser(user);
     dispatch(setGridLayoutConfig(gridLayoutConfig));
     dispatch(setLayoutItems(layoutItems));
     dispatch(setUser(user));
