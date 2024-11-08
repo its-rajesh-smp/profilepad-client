@@ -1,12 +1,13 @@
 import { AppDispatch } from "@/common/hooks/useAppDispatch";
+import { setAppMetadataBasedOnUser } from "@/common/utils/app_metadata.util";
+import { setEditMode, setUser } from "@/pages/auth/reducers/auth.reducer";
 import { setGridLayoutConfig } from "../reducers/grid-layout-config.reducer";
 import { setLayoutItems } from "../reducers/layout-items.reducer";
 import {
   getDashboard,
   getDashboardPreview,
+  resetDashboard,
 } from "../services/dashboard.service";
-import { setEditMode, setUser } from "@/pages/auth/reducers/auth.reducer";
-import { setAppMetadataBasedOnUser } from "@/common/utils/app_metadata.util";
 
 export const getDashboardAct = () => {
   return async (dispatch: AppDispatch) => {
@@ -30,5 +31,17 @@ export const getDashboardPreviewAct = (slug: string | undefined) => {
     dispatch(setLayoutItems(layoutItems));
     dispatch(setUser(user));
     dispatch(setEditMode(false));
+  };
+};
+
+export const resetDashboardAct = () => {
+  return async (dispatch: AppDispatch) => {
+    const layoutResponse = await resetDashboard();
+    const { gridLayoutConfig, layoutItems } = layoutResponse.data;
+
+    // Dispatch the actions
+    dispatch(setGridLayoutConfig(gridLayoutConfig));
+    dispatch(setLayoutItems(layoutItems));
+    dispatch(setEditMode(true));
   };
 };

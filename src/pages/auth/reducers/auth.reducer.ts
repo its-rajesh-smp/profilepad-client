@@ -39,7 +39,10 @@ const authSlice = createSlice({
       state.editMode = action.payload;
       return state;
     },
-    logout: () => {},
+    logout: () => {
+      localStorage.removeItem("authToken");
+      return initialState;
+    },
   },
 });
 

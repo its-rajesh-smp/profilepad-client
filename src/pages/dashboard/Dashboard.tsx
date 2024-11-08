@@ -4,6 +4,7 @@ import { getDashboardAct } from "./action-creators/dashboard.act";
 import ActionBar from "./components/ActionBar";
 import DashboardGrid from "./components/DashboardGrid";
 import Profile from "./components/Profile";
+import ProfileActionBar from "./components/ProfileActionBar";
 
 function Dashboard() {
   const dispatch = useAppDispatch();
@@ -18,6 +19,7 @@ function Dashboard() {
       <Profile />
       <DashboardGrid />
       <ActionBar />
+      <ProfileActionBar />
     </div>
   );
 }
