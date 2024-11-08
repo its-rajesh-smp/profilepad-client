@@ -5,3 +5,6 @@ export const updateLayoutItem = (id: string, data: any) =>
 
 export const createLayoutItem = (data: any) =>
   axiosInterceptors.post("/layout-item/create", data);
+
+export const deleteLayoutItem = (id: string) =>
+  axiosInterceptors.delete(`/layout-item/delete/${id}`);

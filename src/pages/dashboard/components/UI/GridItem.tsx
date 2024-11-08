@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
-import React, { MouseEvent, ReactNode, TouchEvent } from "react";
+import React, { MouseEvent, ReactNode, TouchEvent, useState } from "react";
+import CardDeleteBtn from "./Toolbars/CardDeleteBtn";
 
 interface GridItemProps {
   style?: React.CSSProperties; // Style prop (optional)
@@ -8,6 +9,7 @@ interface GridItemProps {
   onMouseUp?: (e: MouseEvent) => void; // Mouse up event handler (optional)
   onTouchEnd?: (e: TouchEvent) => void; // Touch end event handler (optional)
   children: ReactNode; // Children of the component
+  itemId: string;
 }
 
 const GridItem = React.forwardRef<HTMLDivElement, GridItemProps>(
@@ -19,10 +21,13 @@ const GridItem = React.forwardRef<HTMLDivElement, GridItemProps>(
       onMouseUp,
       onTouchEnd,
       children,
+      itemId,
       ...props
     },
     ref,
   ) => {
+    const [isHovered, setIsHovered] = useState(false);
+
     return (
       <motion.div
         initial={{ opacity: 0 }}
@@ -34,9 +39,12 @@ const GridItem = React.forwardRef<HTMLDivElement, GridItemProps>(
         onMouseDown={onMouseDown}
         onMouseUp={onMouseUp}
         onTouchEnd={onTouchEnd}
+        onMouseEnter={() => setIsHovered(true)} // Show toolbar on hover
+        onMouseLeave={() => setIsHovered(false)} // Hide toolbar on hover exit
         {...props} // Spread remaining props
       >
         {children}
+        {isHovered && <CardDeleteBtn id={itemId} />}
       </motion.div>
     );
   },

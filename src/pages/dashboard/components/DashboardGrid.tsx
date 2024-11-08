@@ -55,7 +55,7 @@ function DashboardGrid() {
         cols={COLS}
       >
         {layoutItems.map((item) => (
-          <GridItem key={item.id}>
+          <GridItem key={item.id} itemId={item.id}>
             <DashboardCard {...item} />
           </GridItem>
         ))}
