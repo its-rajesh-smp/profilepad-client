@@ -14,36 +14,58 @@ import {
   Palette,
   Type,
 } from "lucide-react";
+import { motion } from "framer-motion";
+import { updateLayoutItem } from "@/pages/dashboard/services/layout-item.service";
+import { debounce } from "@/common/utils/debounce.util";
 
 interface FormattingToolbarProps {
   style: React.CSSProperties;
   setStyle: React.Dispatch<React.SetStateAction<React.CSSProperties>>;
+  itemId: string;
 }
 
+// FIXME: Need to fix the debounced update
 export default function FormattingToolbar({
-  style = {},
+  style,
   setStyle,
+  itemId,
 }: FormattingToolbarProps) {
   const isEdit = useAppSelector((state) => state.authSlice.editMode);
+  const debouncedUpdateOnDb = debounce(
+    (id: string, data: any) => updateLayoutItem(id, data),
+    500,
+  );
+
+  const handleStyleChange = async (style: any) => {
+    setStyle((prevStyle: React.CSSProperties) => {
+      const updatedStyle = { ...prevStyle, ...style };
+      debouncedUpdateOnDb(itemId, { style: updatedStyle });
+      return updatedStyle;
+    });
+  };
 
   return (
     isEdit && (
       <Popover>
         <PopoverTrigger
           asChild
-          className="no-drag absolute right-0 top-0 opacity-15 transition-all hover:cursor-pointer hover:opacity-100"
+          className="no-drag absolute -right-2 -top-2 opacity-15 transition-all hover:cursor-pointer hover:opacity-100"
         >
-          <Button variant="ghost" size="icon">
+          <motion.button
+            initial={{ opacity: 0 }}
+            whileTap={{ scale: 0.7 }}
+            whileInView={{ opacity: 1 }}
+            transition={{ duration: 0.5 }}
+            className="flex h-8 w-8 items-center justify-center rounded-full !bg-white shadow-md"
+          >
             <Type className="h-4 w-4" />
-          </Button>
+          </motion.button>
         </PopoverTrigger>
         <PopoverContent className="no-drag flex gap-2">
           <Button
             variant={style.fontWeight === "bold" ? "default" : "ghost"}
             size="icon"
-            onClick={() =>
-              setStyle((prev) => ({ ...prev, fontWeight: "bold" }))
-            }
+            onClick={() => handleStyleChange({ fontWeight: "bold" })}
             className="h-8 w-8"
           >
             <Bold className="h-4 w-4" />
@@ -52,9 +74,7 @@ export default function FormattingToolbar({
           <Button
             variant={style.fontStyle === "italic" ? "default" : "ghost"}
             size="icon"
-            onClick={() =>
-              setStyle((prev) => ({ ...prev, fontStyle: "italic" }))
-            }
+            onClick={() => handleStyleChange({ fontStyle: "italic" })}
             className="h-8 w-8"
           >
             <Italic className="h-4 w-4" />
@@ -63,7 +83,11 @@ export default function FormattingToolbar({
           <Button
             variant={style.textAlign === "left" ? "default" : "ghost"}
             size="icon"
-            onClick={() => setStyle((prev) => ({ ...prev, textAlign: "left" }))}
+            onClick={() =>
+              handleStyleChange({
+                textAlign: style.textAlign === "left" ? "center" : "left",
+              })
+            }
             className="h-8 w-8"
           >
             <AlignLeft className="h-4 w-4" />
@@ -73,7 +97,9 @@ export default function FormattingToolbar({
             variant={style.textAlign === "center" ? "default" : "ghost"}
             size="icon"
             onClick={() =>
-              setStyle((prev) => ({ ...prev, textAlign: "center" }))
+              handleStyleChange({
+                textAlign: style.textAlign === "center" ? "left" : "center",
+              })
             }
             className="h-8 w-8"
           >
@@ -84,7 +110,9 @@ export default function FormattingToolbar({
             variant={style.textAlign === "right" ? "default" : "ghost"}
             size="icon"
             onClick={() =>
-              setStyle((prev) => ({ ...prev, textAlign: "right" }))
+              handleStyleChange({
+                textAlign: style.textAlign === "right" ? "left" : "right",
+              })
             }
             className="h-8 w-8"
           >
@@ -101,9 +129,7 @@ export default function FormattingToolbar({
               <input
                 type="color"
                 value={style.color}
-                onChange={(e) =>
-                  setStyle((prev) => ({ ...prev, color: e.target.value }))
-                }
+                onChange={(e) => handleStyleChange({ color: e.target.value })}
                 className="h-8 w-full"
               />
             </PopoverContent>
@@ -122,10 +148,7 @@ export default function FormattingToolbar({
                 max="24"
                 value={style.fontSize || 16}
                 onChange={(e) =>
-                  setStyle((prev) => ({
-                    ...prev,
-                    fontSize: Number(e.target.value),
-                  }))
+                  handleStyleChange({ fontSize: Number(e.target.value) })
                 }
                 className="w-full"
               />

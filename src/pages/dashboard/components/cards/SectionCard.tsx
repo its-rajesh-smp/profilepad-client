@@ -5,7 +5,7 @@ import { IDashboardCard } from "../../types/dashboard.type";
 function SectionCard({ id, text }: IDashboardCard) {
   return (
     <div className="flex h-full w-full items-center p-3 text-xl font-semibold">
-      <div className="flex h-full w-full resize-none items-center border-none text-2xl shadow-none outline-none focus-visible:ring-0">
+      <div className="flex h-full w-full resize-none items-center border-none shadow-none outline-none focus-visible:ring-0">
         <AutoSaveTextField
           onChange={updateLayoutItem}
           className="px-2"

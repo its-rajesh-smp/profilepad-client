@@ -5,11 +5,22 @@ import FormattingToolbar from "../UI/Toolbars/TextFormattingToolbar";
 import { useState } from "react";
 
 function TextCard({ id, text, style = {} }: IDashboardCard) {
-  const [textStyle, setTextStyle] = useState(style);
+  const [isHovered, setIsHovered] = useState(false);
+  const [textStyle, setTextStyle] = useState(style ?? {});
 
   return (
-    <div className="relative flex h-full w-full items-center p-3 hover:bg-zinc-50">
-      <FormattingToolbar setStyle={setTextStyle} style={textStyle} />
+    <div
+      onMouseEnter={() => setIsHovered(true)} // Show toolbar on hover
+      onMouseLeave={() => setIsHovered(false)} // Hide toolbar on hover exit
+      className="flex h-full w-full items-center p-3 hover:bg-zinc-50"
+    >
+      {isHovered && (
+        <FormattingToolbar
+          itemId={id}
+          setStyle={setTextStyle}
+          style={textStyle}
+        />
+      )}
       <div className="flex h-full w-full resize-none items-center border-none shadow-none outline-none focus-visible:ring-0">
         <AutoSaveTextField
           style={textStyle}
