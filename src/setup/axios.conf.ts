@@ -1,4 +1,5 @@
 import axios, { AxiosError, AxiosResponse } from "axios";
+import { toast } from "sonner";
 
 const axiosInterceptors = axios.create({
   baseURL: "http://localhost:3000", // Replace with your backend URL and port
@@ -20,7 +21,8 @@ axiosInterceptors.interceptors.response.use(
   (error: AxiosError) => {
     const { response } = error;
     const data: any = response?.data;
-    const message = data?.message || error.message;
+    const message = data?.error || data?.message || error.message;
+    toast.error(message);
     return Promise.reject({
       ...error,
       message,

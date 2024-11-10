@@ -1,11 +1,14 @@
 import FloatingElementsContainer from "./components/FloatingElementsContainer";
-import RegistrationForm from "./components/RegistrationForm";
 import AuthPageContainer from "./components/UI/AuthPageContainer";
+import RegistrationStepsContainer from "./components/UI/RegistrationStepsContainer";
+import { RegistrationContextProvider } from "./context/RegistrationContext";
 
 function Register() {
   return (
     <AuthPageContainer>
-      <RegistrationForm />
+      <RegistrationContextProvider>
+        <RegistrationStepsContainer />
+      </RegistrationContextProvider>
       <FloatingElementsContainer />
     </AuthPageContainer>
   );

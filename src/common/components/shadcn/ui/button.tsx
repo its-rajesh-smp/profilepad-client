@@ -7,7 +7,6 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/common/components/shadcn/ui/tooltip";
-
 import { cn } from "@/common/lib/utils";
 
 const buttonVariants = cva(
@@ -49,6 +48,7 @@ export interface ButtonProps
   uiType?: "normal" | "icon";
   icon?: React.ReactNode;
   tooltipText?: string; // Add tooltipText prop
+  loading?: boolean; // Add loading prop
 }
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
@@ -60,7 +60,8 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       asChild = false,
       uiType = "normal",
       icon,
-      tooltipText, // Destructure the tooltipText prop
+      tooltipText,
+      loading = false, // Destructure and set default to false
       ...props
     },
     ref,
@@ -69,12 +70,21 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
 
     const buttonContent = (
       <Comp
-        className={cn(buttonVariants({ variant, size, className }))}
+        className={cn(buttonVariants({ variant, size, className }), {
+          "cursor-not-allowed opacity-50": loading, // Style for loading state
+        })}
         ref={ref}
+        disabled={loading || props.disabled} // Disable button when loading
         {...props}
       >
-        {icon}
-        {uiType === "normal" && props.children}
+        {loading ? (
+          <span className="loader h-4 w-4 animate-spin rounded-full border-2 border-t-transparent"></span> // Loader spinner
+        ) : (
+          <>
+            {icon}
+            {uiType === "normal" && props.children}
+          </>
+        )}
       </Comp>
     );
 

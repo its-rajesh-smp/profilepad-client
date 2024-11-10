@@ -2,26 +2,30 @@ import { Button } from "@/common/components/shadcn/ui/button";
 import { Input } from "@/common/components/shadcn/ui/input";
 import { useAppDispatch } from "@/common/hooks/useAppDispatch";
 import { getErrorMessage } from "@/common/utils/error.util";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
-import { loginAct } from "../action-creators/login.act";
+import { registerAct } from "../action-creators/register.act";
+import RegistrationContext from "../context/RegistrationContext";
 import AuthErrorMassage from "./UI/AuthErrorMassage";
+import { ArrowLeft } from "lucide-react";
 
-function LoginForm() {
+function CreateNewAccountForm() {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
+  const { slugText, setStep } = useContext(RegistrationContext);
   const dispatch = useAppDispatch();
   const [errorMessage, setErrorMessage] = useState("");
   const [loader, setLoader] = useState(false);
 
   // Function to handle login
-  const onClickLogin = async (e: any) => {
+  const onClickCreateAccount = async (e: any) => {
     e.preventDefault();
+    if (slugText.length === 0) return;
     try {
       setLoader(true);
-      await dispatch(loginAct(formData));
+      await dispatch(registerAct({ ...formData, slug: slugText }));
     } catch (error: any) {
       setErrorMessage(getErrorMessage(error));
     } finally {
@@ -29,12 +33,23 @@ function LoginForm() {
     }
   };
 
+  const onBackStepClick = () => {
+    setStep(1);
+  };
+
   return (
     <div className="flex h-full items-center lg:w-1/2">
       <form className="flex flex-col gap-20">
         <div className="flex flex-col gap-3">
-          <h1 className="text-4xl font-bold">Log in to your ProfilePad</h1>
-          <h1 className="text-xl text-gray-500">Good to have you back!</h1>
+          <Button
+            onClick={onBackStepClick}
+            type="button"
+            className="w-fit"
+            icon={<ArrowLeft />}
+            variant="ghost"
+          />
+          <h1 className="text-gray-500">profilepad.me/{slugText} is yours!</h1>
+          <h1 className="text-4xl font-bold">Now, create your account.</h1>
         </div>
         <div className="flex flex-col gap-5">
           <div className="flex items-center gap-3">
@@ -61,24 +76,23 @@ function LoginForm() {
           <p className="text-xs font-extrabold text-gray-500 opacity-0">OR</p>
           <Button
             loading={loader}
-            onClick={onClickLogin}
+            onClick={onClickCreateAccount}
             className="visible h-12 w-full"
           >
-            Login
+            Create Account
           </Button>
           {/* <Button className="visible h-12 w-full">
             <BiLogoGoogle />
             Sign in with Google
           </Button> */}
-
           <AuthErrorMassage
-            message={errorMessage}
             show={errorMessage.length > 0}
+            message={errorMessage}
           />
         </div>
         <div>
-          <Link to="/register" className="text-xs text-gray-500">
-            or sign up
+          <Link to="/login" className="text-xs text-gray-500">
+            or log in
           </Link>
         </div>
       </form>
@@ -86,4 +100,4 @@ function LoginForm() {
   );
 }
 
-export default LoginForm;
+export default CreateNewAccountForm;

@@ -1,29 +1,33 @@
 import { Button } from "@/common/components/shadcn/ui/button";
 import { Input } from "@/common/components/shadcn/ui/input";
 import { debounce } from "@/common/utils/debounce.util";
-import { useCallback, useState } from "react";
+import { useCallback, useContext, useState } from "react";
 import { BiLoader } from "react-icons/bi";
 import { IoMdCheckmark } from "react-icons/io";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+import RegistrationStepContext from "../context/RegistrationContext";
 import { verifySlug } from "../services/register.service";
+import AuthErrorMassage from "./UI/AuthErrorMassage";
 
-function RegistrationForm() {
-  const [slugText, setSlugText] = useState("");
-  const [isAvailable, setIsAvailable] = useState<boolean | undefined>(
-    undefined,
-  );
+function ClaimUniqueLinkForm() {
   const [loading, setLoading] = useState(false);
-  const navigate = useNavigate();
+  const {
+    setStep,
+    setSlugText,
+    slugText,
+    setIsSlugAvailable,
+    isSlugAvailable,
+  } = useContext(RegistrationStepContext);
 
   // Debounced function for verifying the slug
   const debouncedVerifySlug = useCallback(
     debounce(async (slug: string) => {
       if (slug.length === 0) {
-        setIsAvailable(undefined);
+        setIsSlugAvailable(undefined);
         return;
       }
       const response = await verifySlug(slug);
-      setIsAvailable(response.data.isAvailable);
+      setIsSlugAvailable(response.data.isAvailable);
       setLoading(false);
     }, 500),
     [],
@@ -42,7 +46,7 @@ function RegistrationForm() {
     setSlugText(formattedSlug);
 
     if (formattedSlug.length === 0) {
-      setIsAvailable(undefined); // Reset availability when slug is empty
+      setIsSlugAvailable(undefined); // Reset availability when slug is empty
       setLoading(false);
       return;
     }
@@ -53,10 +57,10 @@ function RegistrationForm() {
    *  On claim button click set slug in local storage and navigate to login
    */
   const onClaimBtnClick = () => {
-    if (isAvailable) {
-      localStorage.setItem("slug", slugText);
-      navigate("/login");
+    if (!isSlugAvailable) {
+      return;
     }
+    setStep(2);
   };
 
   return (
@@ -80,20 +84,22 @@ function RegistrationForm() {
             {loading && (
               <BiLoader className="h-6 w-6 animate-spin text-gray-500" />
             )}
-            {isAvailable && slugText.length > 0 && (
+            {isSlugAvailable && slugText.length > 0 && (
               <IoMdCheckmark className="h-6 w-6 text-gray-500" />
             )}
           </div>
           <Button
             onClick={onClaimBtnClick}
-            disabled={slugText.length === 0 || !isAvailable} // Disable if slug is empty or not available
-            className={`visible mt-5 w-full ${!isAvailable && slugText.length > 0 ? "cursor-not-allowed" : ""}`}
+            disabled={slugText.length === 0 || !isSlugAvailable} // Disable if slug is empty or not available
+            className={`visible mt-5 w-full ${!isSlugAvailable && slugText.length > 0 ? "cursor-not-allowed" : ""}`}
           >
             Claim
           </Button>
-          <p className="mt-2 text-xs text-red-500">
-            {isAvailable === false && "Error: Slug is not available"}
-          </p>
+
+          <AuthErrorMassage
+            message="Slug is not available"
+            show={isSlugAvailable === false}
+          />
         </div>
         <div>
           <Link to="/login" className="text-xs text-gray-500">
@@ -105,4 +111,4 @@ function RegistrationForm() {
   );
 }
 
-export default RegistrationForm;
+export default ClaimUniqueLinkForm;

@@ -1,18 +1,21 @@
 import { AppDispatch } from "@/common/hooks/useAppDispatch";
+import { setAppMetadataBasedOnUser } from "@/common/utils/app_metadata.util";
 import { authenticate } from "../reducers/auth.reducer";
 import { createAccount, verifyUser } from "../services/register.service";
-import { setAppMetadataBasedOnUser } from "@/common/utils/app_metadata.util";
 
-export const registerAct = (formData: { email: string; password: string }) => {
+export const registerAct = (formData: {
+  email: string;
+  password: string;
+  slug: string;
+}) => {
   return async (dispatch: AppDispatch) => {
-    const slug = localStorage.getItem("slug");
-    if (!slug) return;
-
-    const response = await createAccount({ ...formData, slug });
-    localStorage.removeItem("slug");
-
-    const { authToken, user } = response.data;
-    dispatch(authenticate({ authToken, user }));
+    try {
+      const response = await createAccount(formData);
+      const { authToken, user } = response.data;
+      dispatch(authenticate({ authToken, user }));
+    } catch (error) {
+      throw error;
+    }
   };
 };
 
@@ -22,9 +25,7 @@ export const verifyUserAct = () => {
     if (!authToken) return false;
     const response = await verifyUser();
     const { user } = response.data;
-
     setAppMetadataBasedOnUser(user);
     dispatch(authenticate({ user, authToken }));
-    return true;
   };
 };
