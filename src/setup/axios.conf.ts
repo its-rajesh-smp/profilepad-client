@@ -10,6 +10,11 @@ const axiosInterceptors = axios.create({
   },
 });
 
+export const setAuthTokenOnAxiosInterceptors = (token: string) => {
+  axiosInterceptors.defaults.headers.common["Authorization"] =
+    `Bearer ${token}`;
+};
+
 axiosInterceptors.interceptors.response.use(
   (response: AxiosResponse) => {
     const { data } = response;
