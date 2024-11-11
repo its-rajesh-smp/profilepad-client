@@ -12,7 +12,7 @@ function getRandomAnimation() {
     opacity: Array.from({ length: 5 }, () => 0.8 + Math.random() * 0.2), // Random opacity between 0.8 and 1.0
   };
 }
-function FloatingElement() {
+function FloatingElement({ src }: { src: string }) {
   return (
     <motion.div
       animate={getRandomAnimation()}
@@ -22,18 +22,9 @@ function FloatingElement() {
         repeatType: "mirror",
         ease: "easeInOut", // Smooth easing for fluid motion
       }}
-      style={{
-        display: "inline-block", // Style to center the element if needed
-        padding: "20px",
-        backgroundColor: "lightblue",
-        borderRadius: "8px",
-        boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
-      }}
+      className="overflow-hidden rounded-[2rem] border shadow"
     >
-      <img
-        src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80"
-        alt="Floating Image"
-      />
+      <img src={src} alt="Floating Image" />
     </motion.div>
   );
 }
