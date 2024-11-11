@@ -22,7 +22,7 @@ function LinkCard({ url, text, id }: IDashboardCard) {
   };
 
   return (
-    <div className="flex h-full w-full flex-col justify-between gap-2 p-3">
+    <div className="flex h-full w-full justify-between gap-2 p-3 lg:flex-col">
       <div>
         {/* Website's Icon */}
         <Avatar className="rounded-md">

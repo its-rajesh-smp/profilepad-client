@@ -38,7 +38,7 @@ function AutoSaveTextField({
   return (
     <span
       style={style}
-      className={`h-full w-full ${className}`}
+      className={`h-full w-full outline-none ${className}`}
       contentEditable={editMode}
       suppressContentEditableWarning
       onInput={onTextChange}
