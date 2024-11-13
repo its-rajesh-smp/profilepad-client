@@ -10,6 +10,8 @@ interface IAutoSaveTextFieldProps {
   className?: string;
   onChange?: (id: string, data: any) => void;
   onSave?: (data: any) => void;
+  onFocus?: () => void;
+  onBlur?: () => void;
   style?: React.CSSProperties;
 }
 
@@ -20,6 +22,8 @@ function AutoSaveTextField({
   className,
   onChange,
   style = {},
+  onBlur = () => {},
+  onFocus = () => {},
 }: IAutoSaveTextFieldProps) {
   const { editMode } = useAppSelector((state) => state.authSlice);
 
@@ -42,6 +46,8 @@ function AutoSaveTextField({
       contentEditable={editMode}
       suppressContentEditableWarning
       onInput={onTextChange}
+      onFocus={onFocus}
+      onBlur={onBlur}
     >
       {children}
     </span>
