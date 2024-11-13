@@ -5,7 +5,7 @@ export const MARGIN: { [P: string]: [number, number] } = {
   lg: [40, 40],
   xs: [40, 40],
 };
-export const resizeConstants = {
+export const resizeConstants: { [key: string]: { w: number; h: number } } = {
   SMALL_SQUARE: { w: 1, h: 2 },
   HORIZONTAL_RECTANGLE: { w: 2, h: 1 },
   HORIZONTAL_WIDE_RECTANGLE: { w: 2, h: 2 },

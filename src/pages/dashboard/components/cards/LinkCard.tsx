@@ -8,11 +8,14 @@ import { BiWorld } from "react-icons/bi";
 import { Button } from "@/common/components/shadcn/ui/button";
 import AutoSaveTextField from "@/common/components/UI/AutoSaveTextField";
 import { extractBaseUrl } from "@/common/utils/url.util";
-import { IDashboardCard } from "../../types/dashboard.type";
+import { IDashboardCard, TCardLayoutStyle } from "../../types/dashboard.type";
 import { updateLayoutItem } from "../../services/layout-item.service";
+import useCurrentCardLayoutSize from "../../hooks/useCurrentCardLayoutSize";
 
 function LinkCard({ url, text, id }: IDashboardCard) {
   const domain = extractBaseUrl(url ?? "");
+
+  const currentLayoutStyle: TCardLayoutStyle = useCurrentCardLayoutSize(id);
 
   /**
    * Opens the specified URL in a new browser tab.
@@ -22,8 +25,12 @@ function LinkCard({ url, text, id }: IDashboardCard) {
   };
 
   return (
-    <div className="flex h-full w-full justify-between gap-2 p-3 lg:flex-col">
-      <div>
+    <div
+      className={`flex h-full w-full justify-between gap-2 p-3 ${currentLayoutStyle !== "HORIZONTAL_RECTANGLE" && "lg:flex-col"}`}
+    >
+      <div
+        className={`${currentLayoutStyle === "HORIZONTAL_RECTANGLE" && "flex items-center gap-3"}`}
+      >
         {/* Website's Icon */}
         <Avatar className="rounded-md">
           <AvatarImage
@@ -36,7 +43,9 @@ function LinkCard({ url, text, id }: IDashboardCard) {
         </Avatar>
 
         {/* Website's Name */}
-        <p className="mt-3">
+        <p
+          className={`${currentLayoutStyle !== "HORIZONTAL_RECTANGLE" && "m-0"}`}
+        >
           <AutoSaveTextField
             onChange={updateLayoutItem}
             fieldToUpdate="text"
@@ -45,7 +54,11 @@ function LinkCard({ url, text, id }: IDashboardCard) {
             {text ?? "Type your name here"}
           </AutoSaveTextField>
         </p>
-        <p>{domain}</p>
+        {currentLayoutStyle !== "HORIZONTAL_RECTANGLE" && (
+          <>
+            <p className="text-xs text-gray-400">{domain}</p>
+          </>
+        )}
       </div>
       <Button onClick={onBtnClick} className="no-drag w-fit">
         Visit

@@ -9,3 +9,10 @@ export interface IDashboardCard {
   index?: number;
   style?: React.CSSProperties;
 }
+
+export type TCardLayoutStyle =
+  | "SMALL_SQUARE"
+  | "HORIZONTAL_RECTANGLE"
+  | "HORIZONTAL_WIDE_RECTANGLE"
+  | "VERTICAL_RECTANGLE"
+  | "LARGE_SQUARE";
