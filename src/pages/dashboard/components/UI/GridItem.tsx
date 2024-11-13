@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import React, { MouseEvent, ReactNode, TouchEvent, useState } from "react";
 import CardDeleteBtn from "./Toolbars/CardDeleteBtn";
+import ResizeToolbar from "./Toolbars/ResizeToolbar";
 
 interface GridItemProps {
   style?: React.CSSProperties; // Style prop (optional)
@@ -45,6 +46,7 @@ const GridItem = React.forwardRef<HTMLDivElement, GridItemProps>(
       >
         {children}
         {isHovered && <CardDeleteBtn id={itemId} />}
+        {isHovered && <ResizeToolbar id={itemId} />}
       </motion.div>
     );
   },

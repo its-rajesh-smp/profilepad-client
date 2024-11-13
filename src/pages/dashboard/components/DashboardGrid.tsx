@@ -13,10 +13,12 @@ import { updateGridLayoutConfigAct } from "../action-creators/grid-layout-config
 import {
   BREAKPOINTS,
   COLS,
+  MARGIN,
   ROW_HIGHT,
 } from "../constants/dashboard-grid.const";
 import DashboardCard from "./UI/DashboardCard";
 import GridItem from "./UI/GridItem";
+import { setBreakpoint } from "../reducers/grid-layout-config.reducer";
 
 const ReactGridLayout = WidthProvider(ResponsiveGridLayout);
 
@@ -38,21 +40,27 @@ function DashboardGrid() {
     500,
   );
 
+  const onBreakpointChange = (breakpoint: string) => {
+    dispatch(setBreakpoint(breakpoint));
+  };
+
   return (
     <div className="flex h-full flex-1">
       <ReactGridLayout
         className="h-full w-full !p-0"
         layouts={layout}
         breakpoints={BREAKPOINTS}
+        onBreakpointChange={onBreakpointChange}
         autoSize={true}
         rowHeight={ROW_HIGHT}
         onLayoutChange={debouncedOnLayoutChange}
         draggableCancel=".no-drag"
         isDraggable={isEditMode}
         isDroppable={isEditMode}
-        isResizable={isEditMode}
+        isResizable={false}
         useCSSTransforms={true}
         cols={COLS}
+        margin={MARGIN}
       >
         {layoutItems.map((item) => (
           <GridItem key={item.id} itemId={item.id}>
