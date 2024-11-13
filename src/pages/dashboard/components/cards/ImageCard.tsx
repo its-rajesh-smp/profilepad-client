@@ -7,7 +7,7 @@ function ImageCard({ id, text, src }: IDashboardCard) {
   return (
     <div className="inh relative h-full w-full overflow-hidden rounded-inherit">
       <img
-        className="h-full w-full rounded-inherit object-contain object-center"
+        className="h-full w-full rounded-inherit object-cover object-center"
         src={src ?? ""}
       />
       <div>
