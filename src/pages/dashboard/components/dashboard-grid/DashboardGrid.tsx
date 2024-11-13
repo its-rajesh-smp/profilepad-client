@@ -8,17 +8,17 @@ import {
 } from "react-grid-layout";
 import "react-grid-layout/css/styles.css";
 import "react-resizable/css/styles.css";
-
-import { updateGridLayoutConfigAct } from "../action-creators/grid-layout-config.act";
+import { updateGridLayoutConfigAct } from "../../action-creators/grid-layout-config.act";
 import {
   BREAKPOINTS,
   COLS,
   MARGIN,
   ROW_HIGHT,
-} from "../constants/dashboard-grid.const";
-import DashboardCard from "./UI/DashboardCard";
-import GridItem from "./UI/GridItem";
-import { setBreakpoint } from "../reducers/grid-layout-config.reducer";
+} from "../../constants/dashboard-grid.const";
+import { setBreakpoint } from "../../reducers/grid-layout-config.reducer";
+import DashboardCard from "../UI/DashboardCard";
+import GridItem from "../UI/GridItem";
+import "./dashboard-grid.css";
 
 const ReactGridLayout = WidthProvider(ResponsiveGridLayout);
 
@@ -63,7 +63,7 @@ function DashboardGrid() {
         margin={MARGIN}
       >
         {layoutItems.map((item) => (
-          <GridItem key={item.id} itemId={item.id}>
+          <GridItem type={item.type} key={item.id} itemId={item.id}>
             <DashboardCard {...item} />
           </GridItem>
         ))}

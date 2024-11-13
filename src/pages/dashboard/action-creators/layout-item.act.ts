@@ -33,7 +33,7 @@ export const deleteLayoutItemAct = (id: string) => {
   };
 };
 
-export const resizeGridLayoutItem = (id: string, x: number, y: number) => {
+export const resizeGridLayoutItem = (id: string, w: number, h: number) => {
   return async (dispatch: AppDispatch, _getState: () => RootState) => {
     const { layout, currentBreakpoint } = _getState().gridLayoutConfigSlice;
 
@@ -41,7 +41,7 @@ export const resizeGridLayoutItem = (id: string, x: number, y: number) => {
       ...layout,
       [currentBreakpoint]: layout[currentBreakpoint].map((item) => {
         if (item.i === id) {
-          return { ...item, w: x, h: y };
+          return { ...item, w, h };
         }
         return item;
       }),

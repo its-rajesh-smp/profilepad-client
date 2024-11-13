@@ -2,7 +2,7 @@ import { useAppDispatch } from "@/common/hooks/useAppDispatch";
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { getDashboardPreviewAct } from "./action-creators/dashboard.act";
-import DashboardGrid from "./components/DashboardGrid";
+import DashboardGrid from "./components/dashboard-grid/DashboardGrid";
 import Profile from "./components/Profile";
 
 function DashboardPreview() {

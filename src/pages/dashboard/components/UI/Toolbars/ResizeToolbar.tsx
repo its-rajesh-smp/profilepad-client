@@ -11,8 +11,8 @@ import { PiSquare } from "react-icons/pi";
 function ResizeToolbar({ id }: { id: string }) {
   const dispatch = useAppDispatch();
 
-  const onResize = ({ x, y }: { x: number; y: number }) => {
-    dispatch(resizeGridLayoutItem(id, x, y));
+  const onResize = ({ w, h }: { w: number; h: number }) => {
+    dispatch(resizeGridLayoutItem(id, w, h));
   };
 
   return (

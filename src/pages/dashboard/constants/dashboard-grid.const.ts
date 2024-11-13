@@ -6,9 +6,9 @@ export const MARGIN: { [P: string]: [number, number] } = {
   xs: [40, 40],
 };
 export const resizeConstants = {
-  SMALL_SQUARE: { x: 1, y: 2 },
-  HORIZONTAL_RECTANGLE: { x: 2, y: 1 },
-  HORIZONTAL_WIDE_RECTANGLE: { x: 2, y: 2 },
-  VERTICAL_RECTANGLE: { x: 1, y: 4 },
-  LARGE_SQUARE: { x: 2, y: 4 },
+  SMALL_SQUARE: { w: 1, h: 2 },
+  HORIZONTAL_RECTANGLE: { w: 2, h: 1 },
+  HORIZONTAL_WIDE_RECTANGLE: { w: 2, h: 2 },
+  VERTICAL_RECTANGLE: { w: 1, h: 4 },
+  LARGE_SQUARE: { w: 2, h: 4 },
 };

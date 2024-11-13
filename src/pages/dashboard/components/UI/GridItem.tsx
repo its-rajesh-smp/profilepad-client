@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import React, { MouseEvent, ReactNode, TouchEvent, useState } from "react";
+import { DashboardCardType } from "../../types/dashboard.type";
 import CardDeleteBtn from "./Toolbars/CardDeleteBtn";
 import ResizeToolbar from "./Toolbars/ResizeToolbar";
 
@@ -11,6 +12,7 @@ interface GridItemProps {
   onTouchEnd?: (e: TouchEvent) => void; // Touch end event handler (optional)
   children: ReactNode; // Children of the component
   itemId: string;
+  type: DashboardCardType;
 }
 
 const GridItem = React.forwardRef<HTMLDivElement, GridItemProps>(
@@ -23,11 +25,13 @@ const GridItem = React.forwardRef<HTMLDivElement, GridItemProps>(
       onTouchEnd,
       children,
       itemId,
+      type,
       ...props
     },
     ref,
   ) => {
     const [isHovered, setIsHovered] = useState(false);
+    const isNotNeedToShowToolbar = type === "section";
 
     return (
       <motion.div
@@ -46,7 +50,7 @@ const GridItem = React.forwardRef<HTMLDivElement, GridItemProps>(
       >
         {children}
         {isHovered && <CardDeleteBtn id={itemId} />}
-        {isHovered && <ResizeToolbar id={itemId} />}
+        {isHovered && !isNotNeedToShowToolbar && <ResizeToolbar id={itemId} />}
       </motion.div>
     );
   },

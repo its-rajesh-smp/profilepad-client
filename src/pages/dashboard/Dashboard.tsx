@@ -2,7 +2,7 @@ import { useAppDispatch } from "@/common/hooks/useAppDispatch";
 import { useEffect } from "react";
 import { getDashboardAct } from "./action-creators/dashboard.act";
 import ActionBar from "./components/ActionBar";
-import DashboardGrid from "./components/DashboardGrid";
+import DashboardGrid from "./components/dashboard-grid/DashboardGrid";
 import Profile from "./components/Profile";
 import ProfileActionBar from "./components/ProfileActionBar";
 
