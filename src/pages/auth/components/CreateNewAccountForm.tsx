@@ -8,6 +8,7 @@ import { registerAct } from "../action-creators/register.act";
 import RegistrationContext from "../context/RegistrationContext";
 import AuthErrorMassage from "./UI/AuthErrorMassage";
 import { ArrowLeft } from "lucide-react";
+import { motion } from "framer-motion";
 
 function CreateNewAccountForm() {
   const [formData, setFormData] = useState({
@@ -38,7 +39,11 @@ function CreateNewAccountForm() {
   };
 
   return (
-    <div className="flex h-full items-center lg:w-1/2">
+    <motion.div
+      initial={{ opacity: 0, x: -100 }}
+      animate={{ opacity: 1, x: 0 }}
+      className="flex h-full items-center lg:w-1/2"
+    >
       <form className="flex flex-col gap-20">
         <div className="flex flex-col gap-3">
           <Button
@@ -96,7 +101,7 @@ function CreateNewAccountForm() {
           </Link>
         </div>
       </form>
-    </div>
+    </motion.div>
   );
 }
 

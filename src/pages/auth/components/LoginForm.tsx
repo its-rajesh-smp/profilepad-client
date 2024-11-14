@@ -6,6 +6,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { loginAct } from "../action-creators/login.act";
 import AuthErrorMassage from "./UI/AuthErrorMassage";
+import { motion } from "framer-motion";
 
 function LoginForm() {
   const [formData, setFormData] = useState({
@@ -30,7 +31,11 @@ function LoginForm() {
   };
 
   return (
-    <div className="flex h-full items-center lg:w-1/2">
+    <motion.div
+      initial={{ opacity: 0, x: -100 }}
+      animate={{ opacity: 1, x: 0 }}
+      className="flex h-full items-center lg:w-1/2"
+    >
       <form className="flex flex-col gap-20">
         <div className="flex flex-col gap-3">
           <h1 className="text-4xl font-bold">Log in to your ProfilePad</h1>
@@ -82,7 +87,7 @@ function LoginForm() {
           </Link>
         </div>
       </form>
-    </div>
+    </motion.div>
   );
 }
 

@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 import RegistrationStepContext from "../context/RegistrationContext";
 import { verifySlug } from "../services/register.service";
 import AuthErrorMassage from "./UI/AuthErrorMassage";
+import { motion } from "framer-motion";
 
 function ClaimUniqueLinkForm() {
   const [loading, setLoading] = useState(false);
@@ -64,7 +65,11 @@ function ClaimUniqueLinkForm() {
   };
 
   return (
-    <div className="flex h-full items-center lg:w-1/2">
+    <motion.div
+      initial={{ opacity: 0, x: -100 }}
+      animate={{ opacity: 1, x: 0 }}
+      className="flex h-full items-center lg:w-1/2"
+    >
       <form className="flex flex-col gap-20">
         <div className="flex flex-col gap-3">
           <h1 className="text-4xl font-bold">First, claim your unique link</h1>
@@ -107,7 +112,7 @@ function ClaimUniqueLinkForm() {
           </Link>
         </div>
       </form>
-    </div>
+    </motion.div>
   );
 }
 
