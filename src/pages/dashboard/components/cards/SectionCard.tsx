@@ -8,7 +8,7 @@ function SectionCard({ id, text }: IDashboardCard) {
       <div className="flex h-full w-full resize-none items-center border-none shadow-none outline-none focus-visible:ring-0">
         <AutoSaveTextField
           onChange={updateLayoutItem}
-          className="px-2"
+          className="flex items-center px-2"
           id={id}
           fieldToUpdate="text"
         >
