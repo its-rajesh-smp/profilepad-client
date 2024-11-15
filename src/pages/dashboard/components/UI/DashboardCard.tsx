@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { IDashboardCard } from "../../types/dashboard.type";
 import EmptyCard from "../cards/EmptyCard";
+import HtmlCard from "../cards/HtmlCard";
 import ImageCard from "../cards/ImageCard";
 import LinkCard from "../cards/LinkCard";
 import SectionCard from "../cards/SectionCard";
@@ -20,7 +21,9 @@ const DashboardCard = (props: IDashboardCard) => {
         return <SectionCard {...props} />;
       case "empty":
         return <EmptyCard {...props} />;
-      default:
+      case "html":
+        return <HtmlCard {...props} />;
+      case "text":
         return <TextCard {...props} />;
     }
   };

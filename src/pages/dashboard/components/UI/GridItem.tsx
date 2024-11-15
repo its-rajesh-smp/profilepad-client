@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import React, { MouseEvent, ReactNode, TouchEvent, useState } from "react";
 import { DashboardCardType } from "../../types/dashboard.type";
+import { getToolbarVisibilityByType } from "../../utils/toolbarVisibility.util";
 import CardDeleteBtn from "./Toolbars/CardDeleteBtn";
 import ResizeToolbar from "./Toolbars/ResizeToolbar";
 
@@ -31,7 +32,6 @@ const GridItem = React.forwardRef<HTMLDivElement, GridItemProps>(
     ref,
   ) => {
     const [isHovered, setIsHovered] = useState(false);
-    const isNotNeedToShowToolbar = type === "section";
 
     return (
       <motion.div
@@ -50,7 +50,9 @@ const GridItem = React.forwardRef<HTMLDivElement, GridItemProps>(
       >
         {children}
         {isHovered && <CardDeleteBtn id={itemId} />}
-        {isHovered && !isNotNeedToShowToolbar && <ResizeToolbar id={itemId} />}
+        {isHovered && !getToolbarVisibilityByType(type) && (
+          <ResizeToolbar id={itemId} />
+        )}
       </motion.div>
     );
   },

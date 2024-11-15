@@ -1,12 +1,11 @@
 import { useAppSelector } from "@/common/hooks/useAppSelector";
 import { debounce } from "@/common/utils/debounce.util";
-
 import { useCallback } from "react";
 
 interface IAutoSaveTextFieldProps {
   children?: React.ReactNode;
   id: string;
-  fieldToUpdate: string;
+  fieldToUpdate: string; // JSON field path, e.g., "metadata.html" or simple field "primaryText"
   className?: string;
   onChange?: (id: string, data: any) => void;
   onSave?: (data: any) => void;
@@ -27,11 +26,25 @@ function AutoSaveTextField({
 }: IAutoSaveTextFieldProps) {
   const { editMode } = useAppSelector((state) => state.authSlice);
 
+  // Utility to update nested JSON field
+  const updateNestedField = (path: string, value: any) => {
+    const keys = path.split(".");
+    return keys.reduceRight((acc, key) => ({ [key]: acc }), value);
+  };
+
   const debouncedUpdateOnDb = useCallback(
     debounce((value: string) => {
-      onChange?.(id, { [fieldToUpdate]: value });
+      let updatedField;
+      if (fieldToUpdate.includes(".")) {
+        // Update nested JSON field
+        updatedField = updateNestedField(fieldToUpdate, value);
+      } else {
+        // Update simple field
+        updatedField = { [fieldToUpdate]: value };
+      }
+      onChange?.(id, updatedField);
     }, 500),
-    [id],
+    [id, fieldToUpdate],
   );
 
   const onTextChange = (e: any) => {

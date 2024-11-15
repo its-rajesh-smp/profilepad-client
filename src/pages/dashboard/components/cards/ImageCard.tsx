@@ -5,7 +5,7 @@ import { updateLayoutItem } from "../../services/layout-item.service";
 
 function ImageCard({ id, text, src }: IDashboardCard) {
   return (
-    <div className="inh relative h-full w-full overflow-hidden rounded-inherit">
+    <div className="relative h-full w-full overflow-hidden rounded-inherit">
       <img
         className="h-full w-full rounded-inherit object-cover object-center"
         src={src ?? ""}

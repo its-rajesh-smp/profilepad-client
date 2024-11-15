@@ -1,10 +1,18 @@
 import { Button } from "@/common/components/shadcn/ui/button";
 import { useAppDispatch } from "@/common/hooks/useAppDispatch";
 import { motion } from "framer-motion";
-import { BiBox, BiGrid, BiImage, BiLink, BiText } from "react-icons/bi";
+import {
+  BiBox,
+  BiGrid,
+  BiImage,
+  BiLink,
+  BiLogoHtml5,
+  BiText,
+} from "react-icons/bi";
 import { createLayoutAct } from "../action-creators/layout-item.act";
 import ActionButtonWithInput from "./UI/ActionButtonWithInput";
 import ShareButton from "./UI/ShareButton";
+import { FaBorderTopLeft } from "react-icons/fa6";
 
 function ActionBar() {
   const dispatch = useAppDispatch();
@@ -67,6 +75,15 @@ function ActionBar() {
         size="xs"
         uiType="icon"
         icon={<BiBox />}
+      />
+
+      <Button
+        tooltipText="HTML"
+        onClick={() => onCreateBtnClick({ type: "html" })}
+        variant="secondary"
+        size="xs"
+        uiType="icon"
+        icon={<BiLogoHtml5 />}
       />
     </motion.div>
   );

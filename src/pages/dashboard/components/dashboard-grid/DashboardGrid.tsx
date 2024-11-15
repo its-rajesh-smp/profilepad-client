@@ -13,7 +13,7 @@ import {
   BREAKPOINTS,
   COLS,
   MARGIN,
-  ROW_HIGHT,
+  ROW_HEIGHT,
 } from "../../constants/dashboard-grid.const";
 import { setBreakpoint } from "../../reducers/grid-layout-config.reducer";
 import DashboardCard from "../UI/DashboardCard";
@@ -52,7 +52,7 @@ function DashboardGrid() {
         breakpoints={BREAKPOINTS}
         onBreakpointChange={onBreakpointChange}
         autoSize={true}
-        rowHeight={ROW_HIGHT}
+        rowHeight={ROW_HEIGHT}
         onLayoutChange={debouncedOnLayoutChange}
         draggableCancel=".no-drag"
         isDraggable={isEditMode}

@@ -1,4 +1,10 @@
-export type DashboardCardType = "image" | "text" | "link" | "section" | "empty";
+export type DashboardCardType =
+  | "image"
+  | "text"
+  | "link"
+  | "section"
+  | "empty"
+  | "html";
 
 export interface IDashboardCard {
   id: string;
@@ -8,6 +14,11 @@ export interface IDashboardCard {
   text?: string;
   index?: number;
   style?: React.CSSProperties;
+  metadata?: IMetadata;
+}
+
+export interface IMetadata {
+  html?: string;
 }
 
 export type TCardLayoutStyle =
