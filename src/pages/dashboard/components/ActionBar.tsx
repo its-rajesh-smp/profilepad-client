@@ -12,7 +12,6 @@ import {
 import { createLayoutAct } from "../action-creators/layout-item.act";
 import ActionButtonWithInput from "./UI/ActionButtonWithInput";
 import ShareButton from "./UI/ShareButton";
-import { FaBorderTopLeft } from "react-icons/fa6";
 
 function ActionBar() {
   const dispatch = useAppDispatch();
