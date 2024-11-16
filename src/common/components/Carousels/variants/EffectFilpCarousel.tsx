@@ -9,7 +9,7 @@ import PrevButton from "../UI/PrevButton";
 
 export default function EffectFilpCarousel() {
   return (
-    <div className="relative h-full w-full">
+    <div className="relative h-full w-full overflow-hidden">
       <NextButton />
       <PrevButton />
       <Swiper

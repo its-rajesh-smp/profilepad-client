@@ -3,9 +3,9 @@ import { IDashboardCard } from "../../types/dashboard.type";
 import EmptyCard from "../cards/EmptyCard";
 import HtmlCard from "../cards/HtmlCard";
 import ImageCard from "../cards/ImageCard";
+import ImageCarouselCard from "../cards/ImageCarouselCard";
 import LinkCard from "../cards/LinkCard";
 import SectionCard from "../cards/SectionCard";
-import SpotifyCard from "../cards/SpotifyCard";
 import TextCard from "../cards/TextCard";
 
 const DashboardCard = (props: IDashboardCard) => {
@@ -27,7 +27,7 @@ const DashboardCard = (props: IDashboardCard) => {
       case "text":
         return <TextCard {...props} />;
       case "spotify":
-        return <SpotifyCard {...props} />;
+        return <ImageCarouselCard {...props} />;
     }
   };
 
