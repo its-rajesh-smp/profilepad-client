@@ -9,6 +9,7 @@ import {
   BiLogoHtml5,
   BiText,
 } from "react-icons/bi";
+import { FaSpotify } from "react-icons/fa";
 import { createLayoutAct } from "../action-creators/layout-item.act";
 import ActionButtonWithInput from "./UI/ActionButtonWithInput";
 import ShareButton from "./UI/ShareButton";
@@ -83,6 +84,15 @@ function ActionBar() {
         size="xs"
         uiType="icon"
         icon={<BiLogoHtml5 />}
+      />
+
+      <Button
+        tooltipText="Spotify"
+        onClick={() => onCreateBtnClick({ type: "spotify" })}
+        variant="secondary"
+        size="xs"
+        uiType="icon"
+        icon={<FaSpotify />}
       />
     </motion.div>
   );

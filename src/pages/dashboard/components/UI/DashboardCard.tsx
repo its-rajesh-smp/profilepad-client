@@ -5,6 +5,7 @@ import HtmlCard from "../cards/HtmlCard";
 import ImageCard from "../cards/ImageCard";
 import LinkCard from "../cards/LinkCard";
 import SectionCard from "../cards/SectionCard";
+import SpotifyCard from "../cards/SpotifyCard";
 import TextCard from "../cards/TextCard";
 
 const DashboardCard = (props: IDashboardCard) => {
@@ -25,6 +26,8 @@ const DashboardCard = (props: IDashboardCard) => {
         return <HtmlCard {...props} />;
       case "text":
         return <TextCard {...props} />;
+      case "spotify":
+        return <SpotifyCard {...props} />;
     }
   };
 

@@ -4,7 +4,8 @@ export type DashboardCardType =
   | "link"
   | "section"
   | "empty"
-  | "html";
+  | "html"
+  | "spotify";
 
 export interface IDashboardCard {
   id: string;
