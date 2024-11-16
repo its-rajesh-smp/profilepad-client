@@ -5,11 +5,21 @@ import { updateLayoutItem } from "../../services/layout-item.service";
 import { IDashboardCard, TCardLayoutStyle } from "../../types/dashboard.type";
 import VisitWebsite from "../UI/VisitWebsite";
 import WebsiteIcon from "../UI/WebsiteIcon";
+import ActionButtonWithInput from "../UI/ActionButtonWithInput";
+import { BiImage } from "react-icons/bi";
+import { useAppDispatch } from "@/common/hooks/useAppDispatch";
+import { updateALayoutItem } from "../../reducers/layout-items.reducer";
 
-function LinkCard({ url, text, id }: IDashboardCard) {
+function LinkCard({ url, text, id, src }: IDashboardCard) {
+  const dispatch = useAppDispatch();
   const domain = extractBaseUrl(url ?? "");
-
   const currentLayoutStyle: TCardLayoutStyle = useCurrentCardLayoutSize(id);
+
+  // On Save Image
+  const onSaveBtnClick = async (data: any) => {
+    const response = await updateLayoutItem(id, data);
+    dispatch(updateALayoutItem(response.data));
+  };
 
   switch (currentLayoutStyle) {
     case "SMALL_SQUARE":
@@ -69,10 +79,20 @@ function LinkCard({ url, text, id }: IDashboardCard) {
               <p className="text-xs text-zinc-500">{domain}</p>
             </div>
           </div>
-          <img
-            src="https://picsum.photos/200"
-            className="h-full w-[50%] rounded-xl object-cover"
-          />
+          <div className="relative h-full w-[50%]">
+            <img
+              src={src ?? "https://picsum.photos/200"}
+              className="h-full w-full rounded-xl object-cover"
+            />
+            <ActionButtonWithInput
+              onSubmit={onSaveBtnClick}
+              tooltipText="Update profile image"
+              fieldName="src"
+              type="link"
+              triggerClassName=" no-drag absolute bottom-2 right-2"
+              icon={<BiImage />}
+            />
+          </div>
         </div>
       );
 
@@ -97,10 +117,20 @@ function LinkCard({ url, text, id }: IDashboardCard) {
               <p className="text-xs text-zinc-500">{domain}</p>
             </div>
           </div>
-          <img
-            src="https://picsum.photos/200"
-            className="h-[30%] w-full rounded-xl object-cover"
-          />
+          <div className="relative h-[30%] w-full">
+            <img
+              src={src ?? "https://picsum.photos/200"}
+              className="h-full w-full rounded-xl object-cover"
+            />
+            <ActionButtonWithInput
+              onSubmit={onSaveBtnClick}
+              tooltipText="Update profile image"
+              fieldName="src"
+              type="link"
+              triggerClassName=" no-drag absolute bottom-2 right-2"
+              icon={<BiImage />}
+            />
+          </div>
         </div>
       );
 
@@ -125,10 +155,20 @@ function LinkCard({ url, text, id }: IDashboardCard) {
               {(text ?? domain) ? domain : "Type here..."}
             </AutoSaveTextField>
           </div>
-          <img
-            src="https://picsum.photos/200"
-            className="h-[60%] w-full rounded-xl object-cover"
-          />
+          <div className="relative h-[60%] w-full">
+            <img
+              src={src ?? "https://picsum.photos/200"}
+              className="h-full w-full rounded-xl object-cover"
+            />
+            <ActionButtonWithInput
+              onSubmit={onSaveBtnClick}
+              tooltipText="Update profile image"
+              fieldName="src"
+              type="link"
+              triggerClassName=" no-drag absolute bottom-2 right-2"
+              icon={<BiImage />}
+            />
+          </div>
         </div>
       );
   }

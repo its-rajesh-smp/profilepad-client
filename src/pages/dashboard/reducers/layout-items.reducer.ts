@@ -19,12 +19,22 @@ const layoutItemsSlice = createSlice({
       return state;
     },
 
-    updateLayoutItem: (state, action) => {
+    updateALayoutItem: (state, action) => {
+      const updatedItems = state.layoutItems.map((item) => {
+        if (item.id === action.payload.id) {
+          return {
+            ...item,
+            ...action.payload,
+          };
+        }
+        return item;
+      });
+      state.layoutItems = updatedItems;
       return state;
     },
   },
 });
 
-export const { setLayoutItems, updateLayoutItem, addNewLayoutItem } =
+export const { setLayoutItems, updateALayoutItem, addNewLayoutItem } =
   layoutItemsSlice.actions;
 export default layoutItemsSlice.reducer;
