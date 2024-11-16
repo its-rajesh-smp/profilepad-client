@@ -3,6 +3,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 
 // import required modules
 import { EffectCards } from "swiper/modules";
+import { RANDOM_IMAGE_SRC } from "@/common/constants/url.const";
 
 export default function EffectCardCarousel() {
   return (
@@ -11,22 +12,22 @@ export default function EffectCardCarousel() {
         effect={"cards"}
         grabCursor={true}
         modules={[EffectCards]}
-        className="h-[90%] w-[90%]"
+        className="h-full w-full"
       >
         <SwiperSlide>
-          <img className="h-full w-full" src="https://picsum.photos/200" />
+          <img className="h-full w-full" src={RANDOM_IMAGE_SRC} />
         </SwiperSlide>
         <SwiperSlide>
-          <img className="h-full w-full" src="https://picsum.photos/200" />
+          <img className="h-full w-full" src={RANDOM_IMAGE_SRC} />
         </SwiperSlide>
         <SwiperSlide>
-          <img className="h-full w-full" src="https://picsum.photos/200" />
+          <img className="h-full w-full" src={RANDOM_IMAGE_SRC} />
         </SwiperSlide>
         <SwiperSlide>
-          <img className="h-full w-full" src="https://picsum.photos/200" />
+          <img className="h-full w-full" src={RANDOM_IMAGE_SRC} />
         </SwiperSlide>
         <SwiperSlide>
-          <img className="h-full w-full" src="https://picsum.photos/200" />
+          <img className="h-full w-full" src={RANDOM_IMAGE_SRC} />
         </SwiperSlide>
       </Swiper>
     </>
