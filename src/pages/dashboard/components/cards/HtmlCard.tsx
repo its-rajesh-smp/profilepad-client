@@ -51,7 +51,13 @@ function HtmlCard({ metadata, id }: IDashboardCard) {
       )}
 
       {!preview && (
-        <Editor defaultLanguage="html" value={html} onChange={onTextChange} />
+        <div className="no-drag h-full w-full">
+          <Editor
+            defaultLanguage="html"
+            defaultValue={html}
+            onChange={onTextChange}
+          />
+        </div>
       )}
     </div>
   );
