@@ -1,5 +1,6 @@
 import { Button } from "@/common/components/shadcn/ui/button";
 import { useAppDispatch } from "@/common/hooks/useAppDispatch";
+import { useAppSelector } from "@/common/hooks/useAppSelector";
 import { motion } from "framer-motion";
 import {
   BiBox,
@@ -14,8 +15,11 @@ import { createLayoutAct } from "../action-creators/layout-item.act";
 import ActionButtonWithInput from "./UI/ActionButtonWithInput";
 import ShareButton from "./UI/ShareButton";
 
-function ActionBar() {
+function ActionBar({ className }: { className?: string }) {
   const dispatch = useAppDispatch();
+  const layoutItems = useAppSelector(
+    (state) => state.layoutItemsSlice.layoutItems,
+  );
 
   /**
    * Creates a new dashboard item of a given type.
@@ -26,75 +30,77 @@ function ActionBar() {
   };
 
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 1, delay: 2 }}
-      className="fixed bottom-5 left-1/2 right-0 flex w-fit translate-x-[-50%] gap-2 rounded-md border bg-white p-2 shadow-md"
-    >
-      <ShareButton />
+    layoutItems.length > 0 && (
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1, delay: 2 }}
+        className={`fixed bottom-5 left-1/2 right-0 flex w-fit translate-x-[-50%] gap-2 rounded-md border bg-white p-2 shadow-md ${className}`}
+      >
+        <ShareButton />
 
-      <ActionButtonWithInput
-        tooltipText="URL"
-        onSubmit={onCreateBtnClick}
-        fieldName="url"
-        type="link"
-        icon={<BiLink />}
-      />
+        <ActionButtonWithInput
+          tooltipText="URL"
+          onSubmit={onCreateBtnClick}
+          fieldName="url"
+          type="link"
+          icon={<BiLink />}
+        />
 
-      <ActionButtonWithInput
-        tooltipText="Image"
-        onSubmit={onCreateBtnClick}
-        fieldName="src"
-        type="image"
-        icon={<BiImage />}
-      />
+        <ActionButtonWithInput
+          tooltipText="Image"
+          onSubmit={onCreateBtnClick}
+          fieldName="src"
+          type="image"
+          icon={<BiImage />}
+        />
 
-      <Button
-        tooltipText="Text"
-        onClick={() => onCreateBtnClick({ type: "text" })}
-        variant="secondary"
-        size="xs"
-        uiType="icon"
-        icon={<BiText />}
-      />
+        <Button
+          tooltipText="Text"
+          onClick={() => onCreateBtnClick({ type: "text" })}
+          variant="secondary"
+          size="xs"
+          uiType="icon"
+          icon={<BiText />}
+        />
 
-      <Button
-        tooltipText="Section"
-        onClick={() => onCreateBtnClick({ type: "section" })}
-        variant="secondary"
-        size="xs"
-        uiType="icon"
-        icon={<BiGrid />}
-      />
+        <Button
+          tooltipText="Section"
+          onClick={() => onCreateBtnClick({ type: "section" })}
+          variant="secondary"
+          size="xs"
+          uiType="icon"
+          icon={<BiGrid />}
+        />
 
-      <Button
-        tooltipText="Empty Box"
-        onClick={() => onCreateBtnClick({ type: "empty" })}
-        variant="secondary"
-        size="xs"
-        uiType="icon"
-        icon={<BiBox />}
-      />
+        <Button
+          tooltipText="Empty Box"
+          onClick={() => onCreateBtnClick({ type: "empty" })}
+          variant="secondary"
+          size="xs"
+          uiType="icon"
+          icon={<BiBox />}
+        />
 
-      <Button
-        tooltipText="HTML"
-        onClick={() => onCreateBtnClick({ type: "html" })}
-        variant="secondary"
-        size="xs"
-        uiType="icon"
-        icon={<BiLogoHtml5 />}
-      />
+        <Button
+          tooltipText="HTML"
+          onClick={() => onCreateBtnClick({ type: "html" })}
+          variant="secondary"
+          size="xs"
+          uiType="icon"
+          icon={<BiLogoHtml5 />}
+        />
 
-      <Button
-        tooltipText="Spotify"
-        onClick={() => onCreateBtnClick({ type: "spotify" })}
-        variant="secondary"
-        size="xs"
-        uiType="icon"
-        icon={<FaSpotify />}
-      />
-    </motion.div>
+        <Button
+          tooltipText="Spotify"
+          onClick={() => onCreateBtnClick({ type: "spotify" })}
+          variant="secondary"
+          size="xs"
+          uiType="icon"
+          icon={<FaSpotify />}
+        />
+      </motion.div>
+    )
   );
 }
 

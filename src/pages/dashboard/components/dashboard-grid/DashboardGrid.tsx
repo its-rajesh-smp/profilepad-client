@@ -16,6 +16,7 @@ import {
   ROW_HEIGHT,
 } from "../../constants/dashboard-grid.const";
 import { setBreakpoint } from "../../reducers/grid-layout-config.reducer";
+import AddWidget from "../AddWidget";
 import DashboardCard from "../UI/DashboardCard";
 import GridItem from "../UI/GridItem";
 import "./dashboard-grid.css";
@@ -45,7 +46,7 @@ function DashboardGrid() {
   };
 
   return (
-    <div className="flex h-full flex-1">
+    <div className="relative flex h-full flex-1">
       <ReactGridLayout
         className="h-full w-full !p-0"
         layouts={layout}
@@ -68,6 +69,7 @@ function DashboardGrid() {
           </GridItem>
         ))}
       </ReactGridLayout>
+      {layoutItems.length === 0 && <AddWidget />}
     </div>
   );
 }

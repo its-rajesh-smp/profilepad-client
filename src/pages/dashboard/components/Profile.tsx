@@ -11,10 +11,9 @@ function Profile() {
     <motion.div
       initial={{ opacity: 0, x: -100 }}
       animate={{ opacity: 1, x: 0 }}
-      transition={{ duration: 1, delay: 1 }}
-      className="sticky left-0 top-20 flex h-full w-full flex-col gap-2 lg:w-[30%]"
+      className="relative top-10 flex w-full flex-col gap-2 lg:sticky lg:top-0 lg:w-[30%]"
     >
-      <div className="flex h-full w-full flex-col items-center justify-center gap-4 lg:items-start">
+      <div className="flex w-full flex-col items-center justify-center gap-4 lg:items-start">
         <UserAvatar />
         <h1 className="text-center text-3xl font-bold md:text-left lg:text-5xl">
           <AutoSaveTextField

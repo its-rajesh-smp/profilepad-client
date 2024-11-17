@@ -31,16 +31,7 @@ const DashboardCard = (props: IDashboardCard) => {
     }
   };
 
-  return (
-    <motion.div
-      initial={{ scale: 0.9, opacity: 0 }}
-      animate={{ scale: 1, opacity: 1 }}
-      transition={{ duration: 1, delay: Math.random() * 0.5 }}
-      className={className}
-    >
-      {getCard()}
-    </motion.div>
-  );
+  return <motion.div className={className}>{getCard()}</motion.div>;
 };
 
 export default DashboardCard;

@@ -37,7 +37,7 @@ const GridItem = React.forwardRef<HTMLDivElement, GridItemProps>(
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ duration: 1, delay: Math.random() * 0.5 }}
+        transition={{ duration: 1, delay: Math.random() * 0.1 }}
         style={{ ...style }}
         className={`${className} `}
         ref={ref}
