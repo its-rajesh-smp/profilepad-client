@@ -66,7 +66,11 @@ export default function FormattingToolbar({
           <Button
             variant={style.fontWeight === "bold" ? "default" : "ghost"}
             size="icon"
-            onClick={() => handleStyleChange({ fontWeight: "bold" })}
+            onClick={() =>
+              handleStyleChange({
+                fontWeight: style.fontWeight === "bold" ? "" : "bold",
+              })
+            }
             className="h-8 w-8"
           >
             <Bold className="h-4 w-4" />
@@ -75,7 +79,11 @@ export default function FormattingToolbar({
           <Button
             variant={style.fontStyle === "italic" ? "default" : "ghost"}
             size="icon"
-            onClick={() => handleStyleChange({ fontStyle: "italic" })}
+            onClick={() =>
+              handleStyleChange({
+                fontStyle: style.fontStyle === "italic" ? "" : "italic",
+              })
+            }
             className="h-8 w-8"
           >
             <Italic className="h-4 w-4" />
@@ -86,7 +94,7 @@ export default function FormattingToolbar({
             size="icon"
             onClick={() =>
               handleStyleChange({
-                textAlign: style.textAlign === "left" ? "center" : "left",
+                textAlign: style.textAlign === "left" ? "" : "left",
               })
             }
             className="h-8 w-8"
@@ -99,7 +107,7 @@ export default function FormattingToolbar({
             size="icon"
             onClick={() =>
               handleStyleChange({
-                textAlign: style.textAlign === "center" ? "left" : "center",
+                textAlign: style.textAlign === "center" ? "" : "center",
               })
             }
             className="h-8 w-8"
@@ -112,7 +120,7 @@ export default function FormattingToolbar({
             size="icon"
             onClick={() =>
               handleStyleChange({
-                textAlign: style.textAlign === "right" ? "left" : "right",
+                textAlign: style.textAlign === "right" ? "" : "right",
               })
             }
             className="h-8 w-8"
