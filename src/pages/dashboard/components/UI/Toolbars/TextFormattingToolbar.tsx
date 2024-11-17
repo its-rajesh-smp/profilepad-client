@@ -17,6 +17,7 @@ import {
 import { motion } from "framer-motion";
 import { updateLayoutItem } from "@/pages/dashboard/services/layout-item.service";
 import { debounce } from "@/common/utils/debounce.util";
+import { useCallback } from "react";
 
 interface FormattingToolbarProps {
   style: React.CSSProperties;
@@ -31,9 +32,9 @@ export default function FormattingToolbar({
   itemId,
 }: FormattingToolbarProps) {
   const isEdit = useAppSelector((state) => state.authSlice.editMode);
-  const debouncedUpdateOnDb = debounce(
-    (id: string, data: any) => updateLayoutItem(id, data),
-    500,
+  const debouncedUpdateOnDb = useCallback(
+    debounce((id: string, data: any) => updateLayoutItem(id, data), 500),
+    [],
   );
 
   const handleStyleChange = async (style: any) => {
