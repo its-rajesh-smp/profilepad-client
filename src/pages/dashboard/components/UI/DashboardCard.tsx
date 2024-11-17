@@ -26,7 +26,7 @@ const DashboardCard = (props: IDashboardCard) => {
         return <HtmlCard {...props} />;
       case "text":
         return <TextCard {...props} />;
-      case "spotify":
+      case "carousel":
         return <ImageCarouselCard {...props} />;
     }
   };

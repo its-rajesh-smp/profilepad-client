@@ -5,7 +5,7 @@ export type DashboardCardType =
   | "section"
   | "empty"
   | "html"
-  | "spotify";
+  | "carousel";
 
 export interface IDashboardCard {
   id: string;

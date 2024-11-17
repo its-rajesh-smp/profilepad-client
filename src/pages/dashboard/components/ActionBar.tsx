@@ -8,9 +8,9 @@ import {
   BiImage,
   BiLink,
   BiLogoHtml5,
+  BiSlider,
   BiText,
 } from "react-icons/bi";
-import { FaSpotify } from "react-icons/fa";
 import { createLayoutAct } from "../action-creators/layout-item.act";
 import ActionButtonWithInput from "./UI/ActionButtonWithInput";
 import ShareButton from "./UI/ShareButton";
@@ -92,12 +92,12 @@ function ActionBar({ className }: { className?: string }) {
         />
 
         <Button
-          tooltipText="Spotify"
-          onClick={() => onCreateBtnClick({ type: "spotify" })}
+          tooltipText="Carousel"
+          onClick={() => onCreateBtnClick({ type: "carousel" })}
           variant="secondary"
           size="xs"
           uiType="icon"
-          icon={<FaSpotify />}
+          icon={<BiSlider />}
         />
       </motion.div>
     )
