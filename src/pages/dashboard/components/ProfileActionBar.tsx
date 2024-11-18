@@ -5,7 +5,7 @@ import {
   PopoverTrigger,
 } from "@/common/components/shadcn/ui/popover";
 import { useAppDispatch } from "@/common/hooks/useAppDispatch";
-import { logout } from "@/pages/auth/reducers/auth.reducer";
+import { logoutAct } from "@/pages/auth/action-creators/logout.act";
 import { BiLogOut, BiRefresh, BiUser } from "react-icons/bi";
 import { resetDashboardAct } from "../action-creators/dashboard.act";
 
@@ -13,7 +13,7 @@ function ProfileActionBar() {
   const dispatch = useAppDispatch();
 
   function handleLogout() {
-    dispatch(logout());
+    dispatch(logoutAct());
   }
 
   async function handleReset() {

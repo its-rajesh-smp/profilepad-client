@@ -1,6 +1,6 @@
+import { setAuthTokenOnAxiosInterceptors } from "@/setup/axios.conf";
 import { createSlice } from "@reduxjs/toolkit";
 import { IAuthUser } from "../types/Auth.type";
-import { setAuthTokenOnAxiosInterceptors } from "@/setup/axios.conf";
 
 interface IAuthState {
   isAuthenticated: boolean | undefined;
@@ -28,9 +28,9 @@ const authSlice = createSlice({
     authenticate: (state, action) => {
       state.isAuthenticated = true;
       state.user = action.payload.user;
+      setAuthTokenOnAxiosInterceptors(action.payload.authToken);
       state.authToken = action.payload.authToken;
       localStorage.setItem("authToken", action.payload.authToken);
-      setAuthTokenOnAxiosInterceptors(action.payload.authToken);
       return state;
     },
     setUser: (state, action) => {

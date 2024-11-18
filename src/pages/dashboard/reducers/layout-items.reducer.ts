@@ -32,9 +32,19 @@ const layoutItemsSlice = createSlice({
       state.layoutItems = updatedItems;
       return state;
     },
+
+    resetLayoutItems: () => {
+      return {
+        layoutItems: defaultLayoutItems,
+      };
+    },
   },
 });
 
-export const { setLayoutItems, updateALayoutItem, addNewLayoutItem } =
-  layoutItemsSlice.actions;
+export const {
+  setLayoutItems,
+  updateALayoutItem,
+  addNewLayoutItem,
+  resetLayoutItems,
+} = layoutItemsSlice.actions;
 export default layoutItemsSlice.reducer;

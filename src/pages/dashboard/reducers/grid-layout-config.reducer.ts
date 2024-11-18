@@ -5,11 +5,13 @@ const defaultLayout: ReactGridLayout.Layouts = {
   xs: [],
 };
 
+const defaultBreakpoint = "lg";
+
 const gridLayoutConfigSlice = createSlice({
   name: "dashboard-grid-layout-config",
   initialState: {
     layout: defaultLayout,
-    currentBreakpoint: "lg",
+    currentBreakpoint: defaultBreakpoint,
   },
   reducers: {
     setGridLayoutConfig: (state, action) => {
@@ -20,9 +22,13 @@ const gridLayoutConfigSlice = createSlice({
       state.currentBreakpoint = action.payload;
       return state;
     },
+    resetDashboard: () => ({
+      layout: defaultLayout,
+      currentBreakpoint: defaultBreakpoint,
+    }),
   },
 });
 
 export default gridLayoutConfigSlice.reducer;
-export const { setGridLayoutConfig, setBreakpoint } =
+export const { setGridLayoutConfig, setBreakpoint, resetDashboard } =
   gridLayoutConfigSlice.actions;

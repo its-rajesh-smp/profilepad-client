@@ -9,11 +9,13 @@ import {
   createLayoutItem,
   deleteLayoutItem,
 } from "../services/layout-item.service";
+import axiosInterceptors from "@/setup/axios.conf";
 
 export const createLayoutAct = (data: any) => {
   return async (dispatch: AppDispatch, _getState: () => RootState) => {
     const layoutResponse = await createLayoutItem({ data });
     const { updatedDashboard, layoutItem } = layoutResponse?.data;
+    console.log(axiosInterceptors);
 
     // Dispatch the actions
     dispatch(setGridLayoutConfig(updatedDashboard.gridLayoutConfig));

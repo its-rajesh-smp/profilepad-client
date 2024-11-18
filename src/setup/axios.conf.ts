@@ -10,9 +10,9 @@ const axiosInterceptors = axios.create({
   },
 });
 
-export const setAuthTokenOnAxiosInterceptors = (token: string) => {
-  axiosInterceptors.defaults.headers.common["Authorization"] =
-    `Bearer ${token}`;
+export const setAuthTokenOnAxiosInterceptors = (authToken: string) => {
+  axiosInterceptors.defaults.headers["Authorization"] = `Bearer ${authToken}`;
+  axiosInterceptors.defaults.headers["Content-Type"] = `application/json`;
 };
 
 axiosInterceptors.interceptors.response.use(
