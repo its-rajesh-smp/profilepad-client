@@ -1,3 +1,4 @@
+import { useAppSelector } from "@/common/hooks/useAppSelector";
 import { debounce } from "@/common/utils/debounce.util";
 import Editor from "@monaco-editor/react";
 import { useCallback, useState } from "react";
@@ -7,6 +8,7 @@ import { IDashboardCard } from "../../types/dashboard.type";
 import HtmlToggleBtn from "../UI/Toolbars/HtmlToggleBtn";
 
 function HtmlCard({ metadata, id }: IDashboardCard) {
+  const isEditMode = useAppSelector((state) => state.authSlice.editMode);
   const [html, setHtml] = useState(metadata?.html ?? defaultHtmlCardHtmlValue);
   const [isHovered, setIsHovered] = useState(false);
   const [preview, setPreview] = useState(true);
@@ -35,7 +37,7 @@ function HtmlCard({ metadata, id }: IDashboardCard) {
       onMouseLeave={() => setIsHovered(false)} // Hide toolbar on hover exit
       className="h-full w-full"
     >
-      {isHovered && (
+      {isHovered && isEditMode && (
         <div className="absolute right-0 top-0 z-10">
           <HtmlToggleBtn setPreview={setPreview} preview={preview} />
         </div>
@@ -50,7 +52,7 @@ function HtmlCard({ metadata, id }: IDashboardCard) {
         />
       )}
 
-      {!preview && (
+      {!preview && isEditMode && (
         <div className="no-drag h-full w-full">
           <Editor
             defaultLanguage="html"

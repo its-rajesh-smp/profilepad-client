@@ -69,7 +69,7 @@ function DashboardGrid() {
           </GridItem>
         ))}
       </ReactGridLayout>
-      {layoutItems.length === 0 && <AddWidget />}
+      {!layoutItems.length && <AddWidget />}
     </div>
   );
 }

@@ -7,6 +7,7 @@ import {
 } from "@/common/components/shadcn/ui/popover";
 import { useState } from "react";
 import { DashboardCardType } from "../../types/dashboard.type";
+import { useAppSelector } from "@/common/hooks/useAppSelector";
 
 interface IActionButtonProps {
   onSubmit: (data: { [key: string]: string; type: DashboardCardType }) => void;
@@ -25,6 +26,7 @@ function ActionButtonWithInput({
   triggerClassName,
   tooltipText,
 }: IActionButtonProps) {
+  const isEditMode = useAppSelector((state) => state.authSlice.editMode);
   const [input, setInput] = useState<string>("");
 
   const handleButtonClick = () => {
@@ -36,27 +38,29 @@ function ActionButtonWithInput({
   };
 
   return (
-    <Popover>
-      <PopoverTrigger className={triggerClassName} asChild>
-        <Button
-          tooltipText={tooltipText}
-          variant="secondary"
-          size="xs"
-          uiType="icon"
-          icon={icon}
-        />
-      </PopoverTrigger>
-      <PopoverContent className="p-0" sideOffset={20}>
-        <div className="flex items-center p-1">
-          <Input
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            className="h-full w-full border-0 shadow-none outline-none focus-visible:ring-0"
+    isEditMode && (
+      <Popover>
+        <PopoverTrigger className={triggerClassName} asChild>
+          <Button
+            tooltipText={tooltipText}
+            variant="secondary"
+            size="xs"
+            uiType="icon"
+            icon={icon}
           />
-          <Button onClick={handleButtonClick}>Add</Button>
-        </div>
-      </PopoverContent>
-    </Popover>
+        </PopoverTrigger>
+        <PopoverContent className="p-0" sideOffset={20}>
+          <div className="flex items-center p-1">
+            <Input
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              className="h-full w-full border-0 shadow-none outline-none focus-visible:ring-0"
+            />
+            <Button onClick={handleButtonClick}>Add</Button>
+          </div>
+        </PopoverContent>
+      </Popover>
+    )
   );
 }
 

@@ -1,3 +1,4 @@
+import { useAppSelector } from "@/common/hooks/useAppSelector";
 import { motion } from "framer-motion";
 import React, { MouseEvent, ReactNode, TouchEvent, useState } from "react";
 import { DashboardCardType } from "../../types/dashboard.type";
@@ -31,6 +32,7 @@ const GridItem = React.forwardRef<HTMLDivElement, GridItemProps>(
     },
     ref,
   ) => {
+    const isEditMode = useAppSelector((state) => state.authSlice.editMode);
     const [isHovered, setIsHovered] = useState(false);
 
     return (
@@ -49,8 +51,8 @@ const GridItem = React.forwardRef<HTMLDivElement, GridItemProps>(
         {...props} // Spread remaining props
       >
         {children}
-        {isHovered && <CardDeleteBtn id={itemId} />}
-        {isHovered && !getToolbarVisibilityByType(type) && (
+        {isHovered && isEditMode && <CardDeleteBtn id={itemId} />}
+        {isHovered && isEditMode && !getToolbarVisibilityByType(type) && (
           <ResizeToolbar id={itemId} />
         )}
       </motion.div>
