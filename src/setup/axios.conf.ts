@@ -2,7 +2,7 @@ import axios, { AxiosError, AxiosResponse } from "axios";
 import { toast } from "sonner";
 
 const axiosInterceptors = axios.create({
-  baseURL: "http://localhost:3000", // Replace with your backend URL and port
+  baseURL: import.meta.env.VITE_BASE_URL, // Replace with your backend URL and port
   timeout: 10000, // Optional: specify request timeout in milliseconds
   headers: {
     "Content-Type": "application/json", // Optional: set default headers
