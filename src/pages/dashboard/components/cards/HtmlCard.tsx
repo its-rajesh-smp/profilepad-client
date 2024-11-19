@@ -20,7 +20,7 @@ function HtmlCard({ metadata, id }: IDashboardCard) {
 
   const debouncedUpdateOnDb = useCallback(
     debounce((value: string) => {
-      let updatedField = updateNestedField("metadata.html", value);
+      const updatedField = updateNestedField("metadata.html", value);
       updateLayoutItem?.(id, updatedField);
       setHtml(value);
     }, 500),

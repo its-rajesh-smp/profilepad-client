@@ -1,6 +1,6 @@
 import { Button } from "@/common/components/shadcn/ui/button";
 import { useAppSelector } from "@/common/hooks/useAppSelector";
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import ConfettiExplosion from "react-confetti-explosion";
 import { toast } from "sonner";
 
