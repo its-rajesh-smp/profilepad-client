@@ -1,4 +1,5 @@
 import AutoSaveTextField from "@/common/components/UI/AutoSaveTextField";
+import { RANDOM_IMAGE_SRC } from "@/common/constants/url.const";
 import { useAppDispatch } from "@/common/hooks/useAppDispatch";
 import { getURLPreview } from "@/common/utils/browser.util";
 import { extractBaseUrl } from "@/common/utils/url.util";
@@ -30,6 +31,8 @@ function LinkCard({ url, text, id, src }: IDashboardCard) {
       setUrlPreview(data?.data?.data?.image?.url);
     })();
   }, [url, currentLayoutStyle]);
+
+  const previewImageSrc = src?.length ? src : (urlPreview ?? RANDOM_IMAGE_SRC);
 
   switch (currentLayoutStyle) {
     case "SMALL_SQUARE":
@@ -91,10 +94,11 @@ function LinkCard({ url, text, id, src }: IDashboardCard) {
           </div>
           <div className="relative h-full w-[50%]">
             <img
-              src={src ?? urlPreview ?? "https://picsum.photos/200"}
+              src={previewImageSrc}
               className="h-full w-full rounded-xl object-cover"
             />
             <ActionButtonWithInput
+              isRemoveBtn={src ? true : false}
               onSubmit={onSaveBtnClick}
               tooltipText="Update profile image"
               fieldName="src"
@@ -129,10 +133,11 @@ function LinkCard({ url, text, id, src }: IDashboardCard) {
           </div>
           <div className="relative h-[30%] w-full">
             <img
-              src={src ?? urlPreview ?? "https://picsum.photos/200"}
+              src={previewImageSrc}
               className="h-full w-full rounded-xl object-cover"
             />
             <ActionButtonWithInput
+              isRemoveBtn={src ? true : false}
               onSubmit={onSaveBtnClick}
               tooltipText="Update profile image"
               fieldName="src"
@@ -167,10 +172,11 @@ function LinkCard({ url, text, id, src }: IDashboardCard) {
           </div>
           <div className="relative h-[60%] w-full">
             <img
-              src={src ?? urlPreview ?? "https://picsum.photos/200"}
+              src={previewImageSrc}
               className="h-full w-full rounded-xl object-cover"
             />
             <ActionButtonWithInput
+              isRemoveBtn={src ? true : false}
               onSubmit={onSaveBtnClick}
               tooltipText="Update profile image"
               fieldName="src"

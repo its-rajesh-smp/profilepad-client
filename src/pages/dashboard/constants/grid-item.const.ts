@@ -19,12 +19,6 @@ interface IMetadataFields {
 export const editableMetadataFields: Partial<{
   [T in DashboardCardType]: IMetadataFields;
 }> = {
-  image: {
-    showCaption: {
-      type: "checkbox",
-      label: "Show Caption ?",
-    },
-  },
   carousel: {
     showCaption: {
       type: "checkbox",
@@ -41,12 +35,6 @@ export const editableMetadataFields: Partial<{
         { name: "Effect Cards", value: "effect-cards" },
         { name: "Effect Flip", value: "effect-cards" },
       ],
-    },
-  },
-  link: {
-    fetchImageFromUrl: {
-      type: "checkbox",
-      label: "Fetch image from url ?",
     },
   },
 };
