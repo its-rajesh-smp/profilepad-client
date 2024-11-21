@@ -1,25 +1,35 @@
 import AutoSaveTextField from "@/common/components/UI/AutoSaveTextField";
+import { useAppDispatch } from "@/common/hooks/useAppDispatch";
+import { getURLPreview } from "@/common/utils/browser.util";
 import { extractBaseUrl } from "@/common/utils/url.util";
+import { useEffect, useState } from "react";
+import { BiImage } from "react-icons/bi";
 import useCurrentCardLayoutSize from "../../hooks/useCurrentCardLayoutSize";
+import { updateALayoutItem } from "../../reducers/layout-items.reducer";
 import { updateLayoutItem } from "../../services/layout-item.service";
 import { IDashboardCard, TCardLayoutStyle } from "../../types/dashboard.type";
+import ActionButtonWithInput from "../UI/ActionButtonWithInput";
 import VisitWebsite from "../UI/VisitWebsite";
 import WebsiteIcon from "../UI/WebsiteIcon";
-import ActionButtonWithInput from "../UI/ActionButtonWithInput";
-import { BiImage } from "react-icons/bi";
-import { useAppDispatch } from "@/common/hooks/useAppDispatch";
-import { updateALayoutItem } from "../../reducers/layout-items.reducer";
 
 function LinkCard({ url, text, id, src }: IDashboardCard) {
   const dispatch = useAppDispatch();
   const domain = extractBaseUrl(url ?? "");
   const currentLayoutStyle: TCardLayoutStyle = useCurrentCardLayoutSize(id);
+  const [urlPreview, setUrlPreview] = useState<string | null>(null);
 
   // On Save Image
   const onSaveBtnClick = async (data: any) => {
     const response = await updateLayoutItem(id, data);
     dispatch(updateALayoutItem(response.data));
   };
+
+  useEffect(() => {
+    (async () => {
+      const data = await getURLPreview(url);
+      setUrlPreview(data?.data?.data?.image?.url);
+    })();
+  }, [url, currentLayoutStyle]);
 
   switch (currentLayoutStyle) {
     case "SMALL_SQUARE":
@@ -81,7 +91,7 @@ function LinkCard({ url, text, id, src }: IDashboardCard) {
           </div>
           <div className="relative h-full w-[50%]">
             <img
-              src={src ?? "https://picsum.photos/200"}
+              src={src ?? urlPreview ?? "https://picsum.photos/200"}
               className="h-full w-full rounded-xl object-cover"
             />
             <ActionButtonWithInput
@@ -119,7 +129,7 @@ function LinkCard({ url, text, id, src }: IDashboardCard) {
           </div>
           <div className="relative h-[30%] w-full">
             <img
-              src={src ?? "https://picsum.photos/200"}
+              src={src ?? urlPreview ?? "https://picsum.photos/200"}
               className="h-full w-full rounded-xl object-cover"
             />
             <ActionButtonWithInput
@@ -157,7 +167,7 @@ function LinkCard({ url, text, id, src }: IDashboardCard) {
           </div>
           <div className="relative h-[60%] w-full">
             <img
-              src={src ?? "https://picsum.photos/200"}
+              src={src ?? urlPreview ?? "https://picsum.photos/200"}
               className="h-full w-full rounded-xl object-cover"
             />
             <ActionButtonWithInput
