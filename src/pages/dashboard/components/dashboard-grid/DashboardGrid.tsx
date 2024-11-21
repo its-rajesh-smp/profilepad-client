@@ -2,6 +2,7 @@ import { useAppDispatch } from "@/common/hooks/useAppDispatch";
 import { useAppSelector } from "@/common/hooks/useAppSelector";
 import { debounce } from "@/common/utils/debounce.util";
 import isEqual from "lodash.isequal";
+import { useState } from "react";
 import {
   Responsive as ResponsiveGridLayout,
   WidthProvider,
@@ -29,6 +30,7 @@ function DashboardGrid() {
   const { layout } = useAppSelector((state) => state.gridLayoutConfigSlice);
   const { layoutItems } = useAppSelector((state) => state.layoutItemsSlice);
   const isEditMode = useAppSelector((state) => state.authSlice.editMode);
+  const [sidebarOpened, setSidebarOpened] = useState(false);
   const dispatch = useAppDispatch();
 
   const debouncedOnLayoutChange = debounce(
@@ -56,7 +58,7 @@ function DashboardGrid() {
         rowHeight={ROW_HEIGHT}
         onLayoutChange={debouncedOnLayoutChange}
         draggableCancel=".no-drag"
-        isDraggable={isEditMode}
+        isDraggable={isEditMode && !sidebarOpened}
         isDroppable={isEditMode}
         isResizable={false}
         useCSSTransforms={true}
@@ -64,8 +66,13 @@ function DashboardGrid() {
         margin={MARGIN}
       >
         {layoutItems.map((item) => (
-          <GridItem type={item.type} key={item.id} itemId={item.id}>
-            <DashboardCard {...item} />
+          <GridItem
+            sidebarOpened={sidebarOpened}
+            setSidebarOpened={setSidebarOpened}
+            item={item}
+            key={item.id}
+          >
+            <DashboardCard />
           </GridItem>
         ))}
       </ReactGridLayout>

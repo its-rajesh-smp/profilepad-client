@@ -1,7 +1,8 @@
 import { useAppSelector } from "@/common/hooks/useAppSelector";
 import { motion } from "framer-motion";
 import React, { MouseEvent, ReactNode, TouchEvent, useState } from "react";
-import { DashboardCardType } from "../../types/dashboard.type";
+import { GridItemContextProvider } from "../../context/gridItemContext";
+import { IDashboardCard } from "../../types/dashboard.type";
 import { getToolbarVisibilityByType } from "../../utils/toolbarVisibility.util";
 import CardDeleteBtn from "./Toolbars/CardDeleteBtn";
 import ResizeToolbar from "./Toolbars/ResizeToolbar";
@@ -13,8 +14,9 @@ interface GridItemProps {
   onMouseUp?: (e: MouseEvent) => void; // Mouse up event handler (optional)
   onTouchEnd?: (e: TouchEvent) => void; // Touch end event handler (optional)
   children: ReactNode; // Children of the component
-  itemId: string;
-  type: DashboardCardType;
+  item: IDashboardCard;
+  sidebarOpened: boolean;
+  setSidebarOpened: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const GridItem = React.forwardRef<HTMLDivElement, GridItemProps>(
@@ -26,8 +28,9 @@ const GridItem = React.forwardRef<HTMLDivElement, GridItemProps>(
       onMouseUp,
       onTouchEnd,
       children,
-      itemId,
-      type,
+      item,
+      sidebarOpened,
+      setSidebarOpened,
       ...props
     },
     ref,
@@ -47,14 +50,22 @@ const GridItem = React.forwardRef<HTMLDivElement, GridItemProps>(
         onMouseUp={onMouseUp}
         onTouchEnd={onTouchEnd}
         onMouseEnter={() => setIsHovered(true)} // Show toolbar on hover
-        onMouseLeave={() => setIsHovered(false)} // Hide toolbar on hover exit
+        onMouseLeave={() => !sidebarOpened && setIsHovered(false)} // Hide toolbar on hover exit
         {...props} // Spread remaining props
       >
-        {children}
-        {isHovered && isEditMode && <CardDeleteBtn id={itemId} />}
-        {isHovered && isEditMode && !getToolbarVisibilityByType(type) && (
-          <ResizeToolbar id={itemId} />
-        )}
+        <GridItemContextProvider item={item}>
+          {children}
+          {isHovered && isEditMode && <CardDeleteBtn id={item.id} />}
+          {isHovered &&
+            isEditMode &&
+            !getToolbarVisibilityByType(item.type) && (
+              <ResizeToolbar
+                sidebarOpened={sidebarOpened}
+                setSidebarOpened={setSidebarOpened}
+                id={item.id}
+              />
+            )}
+        </GridItemContextProvider>
       </motion.div>
     );
   },

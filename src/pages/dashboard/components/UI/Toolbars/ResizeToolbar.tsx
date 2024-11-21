@@ -7,8 +7,17 @@ import { RectangleHorizontal } from "lucide-react";
 import { GoSquare } from "react-icons/go";
 import { LuRectangleHorizontal, LuRectangleVertical } from "react-icons/lu";
 import { PiSquare } from "react-icons/pi";
+import CardEditSidebarBtn from "../../card-edit-sidebar/UI/CardEditSidebarBtn";
 
-function ResizeToolbar({ id }: { id: string }) {
+function ResizeToolbar({
+  id,
+  sidebarOpened,
+  setSidebarOpened,
+}: {
+  id: string;
+  sidebarOpened: boolean;
+  setSidebarOpened: React.Dispatch<React.SetStateAction<boolean>>;
+}) {
   const dispatch = useAppDispatch();
 
   const onResize = ({ w, h }: { w: number; h: number }) => {
@@ -16,37 +25,43 @@ function ResizeToolbar({ id }: { id: string }) {
   };
 
   return (
-    <motion.div className="no-drag absolute -bottom-8 flex items-center justify-center rounded-md !bg-black shadow-md">
-      <Button
-        variant="default"
-        size="icon"
-        icon={<GoSquare />}
-        onClick={() => onResize(resizeConstants.SMALL_SQUARE)} // Small square
-      />
-      <Button
-        variant="default"
-        size="icon"
-        icon={<RectangleHorizontal className="!h-3 !w-5" />}
-        onClick={() => onResize(resizeConstants.HORIZONTAL_RECTANGLE)} // Horizontal rectangle
-      />
-      <Button
-        variant="default"
-        size="icon"
-        icon={<LuRectangleHorizontal />}
-        onClick={() => onResize(resizeConstants.HORIZONTAL_WIDE_RECTANGLE)} // Wider rectangle
-      />
-      <Button
-        variant="default"
-        size="icon"
-        icon={<LuRectangleVertical />}
-        onClick={() => onResize(resizeConstants.VERTICAL_RECTANGLE)} // Vertical rectangle
-      />
-      <Button
-        variant="default"
-        size="icon"
-        icon={<PiSquare />}
-        onClick={() => onResize(resizeConstants.LARGE_SQUARE)} // Large square
-      />
+    <motion.div className="no-drag absolute inset-x-0 -bottom-8 flex items-center justify-center">
+      <div className="mt-2 flex w-fit items-center justify-center rounded-md bg-zinc-900 shadow-md">
+        <Button
+          variant="default"
+          size="icon"
+          icon={<GoSquare />}
+          onClick={() => onResize(resizeConstants.SMALL_SQUARE)} // Small square
+        />
+        <Button
+          variant="default"
+          size="icon"
+          icon={<RectangleHorizontal className="!h-3 !w-5" />}
+          onClick={() => onResize(resizeConstants.HORIZONTAL_RECTANGLE)} // Horizontal rectangle
+        />
+        <Button
+          variant="default"
+          size="icon"
+          icon={<LuRectangleHorizontal />}
+          onClick={() => onResize(resizeConstants.HORIZONTAL_WIDE_RECTANGLE)} // Wider rectangle
+        />
+        <Button
+          variant="default"
+          size="icon"
+          icon={<LuRectangleVertical />}
+          onClick={() => onResize(resizeConstants.VERTICAL_RECTANGLE)} // Vertical rectangle
+        />
+        <Button
+          variant="default"
+          size="icon"
+          icon={<PiSquare />}
+          onClick={() => onResize(resizeConstants.LARGE_SQUARE)} // Large square
+        />
+        <CardEditSidebarBtn
+          sidebarOpened={sidebarOpened}
+          setSidebarOpened={setSidebarOpened}
+        />
+      </div>
     </motion.div>
   );
 }

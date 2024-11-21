@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
-import { IDashboardCard } from "../../types/dashboard.type";
+import { useContext } from "react";
+import GridItemContext from "../../context/gridItemContext";
 import EmptyCard from "../cards/EmptyCard";
 import HtmlCard from "../cards/HtmlCard";
 import ImageCard from "../cards/ImageCard";
@@ -8,7 +9,8 @@ import LinkCard from "../cards/LinkCard";
 import SectionCard from "../cards/SectionCard";
 import TextCard from "../cards/TextCard";
 
-const DashboardCard = (props: IDashboardCard) => {
+const DashboardCard = () => {
+  const props = useContext(GridItemContext).item;
   const isEmpty = props.type === "empty" || props.type === "section";
   const className = ` h-full w-full cursor-pointer overflow-y-auto rounded-2xl hover:bg-zinc-50  bg-white ${!isEmpty && "shadow-sm border"}`;
 
