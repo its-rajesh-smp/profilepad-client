@@ -5,6 +5,8 @@ const initialContextValue: {
   item: IDashboardCard;
   setItemStyle: Dispatch<React.SetStateAction<React.CSSProperties>>;
   itemStyle: React.CSSProperties;
+  htmlPreview: boolean;
+  setHtmlPreview: Dispatch<React.SetStateAction<boolean>>;
 } = {
   item: {
     id: "",
@@ -12,6 +14,8 @@ const initialContextValue: {
   },
   setItemStyle: () => {},
   itemStyle: {},
+  htmlPreview: true,
+  setHtmlPreview: () => {},
 };
 
 const GridItemContext = createContext(initialContextValue);
@@ -26,8 +30,18 @@ const GridItemContextProvider = ({
   const [itemStyle, setItemStyle] = useState<React.CSSProperties>(
     item.style || {},
   );
+  const [htmlPreview, setHtmlPreview] = useState(true);
+
   return (
-    <GridItemContext.Provider value={{ item, setItemStyle, itemStyle }}>
+    <GridItemContext.Provider
+      value={{
+        item,
+        setItemStyle,
+        itemStyle,
+        htmlPreview,
+        setHtmlPreview,
+      }}
+    >
       {children}
     </GridItemContext.Provider>
   );

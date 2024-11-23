@@ -2,15 +2,16 @@ import { Button } from "@/common/components/shadcn/ui/button";
 import { useAppDispatch } from "@/common/hooks/useAppDispatch";
 import { resizeGridLayoutItem } from "@/pages/dashboard/action-creators/layout-item.act";
 import { resizeConstants } from "@/pages/dashboard/constants/dashboard-grid.const";
+import GridItemContext from "@/pages/dashboard/context/gridItemContext";
 import { motion } from "framer-motion";
 import { RectangleHorizontal } from "lucide-react";
+import { useContext } from "react";
 import { GoSquare } from "react-icons/go";
 import { LuRectangleHorizontal, LuRectangleVertical } from "react-icons/lu";
 import { PiSquare } from "react-icons/pi";
 import CardEditSidebarBtn from "../../card-edit-sidebar/UI/CardEditSidebarBtn";
+import HtmlToggleBtn from "./HtmlToggleBtn";
 import FormattingToolbar from "./TextFormattingToolbar";
-import GridItemContext from "@/pages/dashboard/context/gridItemContext";
-import { useContext } from "react";
 
 function ResizeToolbar({
   id,
@@ -66,6 +67,7 @@ function ResizeToolbar({
           setSidebarOpened={setSidebarOpened}
         />
         {type == "text" && <FormattingToolbar />}
+        {type == "html" && <HtmlToggleBtn />}
       </div>
     </motion.div>
   );

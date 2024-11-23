@@ -1,17 +1,16 @@
 import { useAppSelector } from "@/common/hooks/useAppSelector";
 import { debounce } from "@/common/utils/debounce.util";
 import Editor from "@monaco-editor/react";
-import { useCallback, useState } from "react";
+import { useCallback, useContext, useState } from "react";
 import { defaultHtmlCardHtmlValue } from "../../constants/grid-item.const";
+import GridItemContext from "../../context/gridItemContext";
 import { updateLayoutItem } from "../../services/layout-item.service";
 import { IDashboardCard } from "../../types/dashboard.type";
-import HtmlToggleBtn from "../UI/Toolbars/HtmlToggleBtn";
 
 function HtmlCard({ metadata, id }: IDashboardCard) {
   const isEditMode = useAppSelector((state) => state.authSlice.editMode);
   const [html, setHtml] = useState(metadata?.html ?? defaultHtmlCardHtmlValue);
-  const [isHovered, setIsHovered] = useState(false);
-  const [preview, setPreview] = useState(true);
+  const { htmlPreview } = useContext(GridItemContext);
 
   const updateNestedField = (path: string, value: any) => {
     const keys = path.split(".");
@@ -32,18 +31,8 @@ function HtmlCard({ metadata, id }: IDashboardCard) {
   };
 
   return (
-    <div
-      onMouseEnter={() => setIsHovered(true)} // Show toolbar on hover
-      onMouseLeave={() => setIsHovered(false)} // Hide toolbar on hover exit
-      className="h-full w-full"
-    >
-      {isHovered && isEditMode && (
-        <div className="absolute right-0 top-0 z-10">
-          <HtmlToggleBtn setPreview={setPreview} preview={preview} />
-        </div>
-      )}
-
-      {preview && (
+    <div className="h-full w-full">
+      {htmlPreview && (
         <div
           className="h-full w-full"
           dangerouslySetInnerHTML={{
@@ -52,7 +41,7 @@ function HtmlCard({ metadata, id }: IDashboardCard) {
         />
       )}
 
-      {!preview && isEditMode && (
+      {!htmlPreview && isEditMode && (
         <div className="no-drag h-full w-full">
           <Editor
             defaultLanguage="html"
