@@ -8,6 +8,9 @@ import { GoSquare } from "react-icons/go";
 import { LuRectangleHorizontal, LuRectangleVertical } from "react-icons/lu";
 import { PiSquare } from "react-icons/pi";
 import CardEditSidebarBtn from "../../card-edit-sidebar/UI/CardEditSidebarBtn";
+import FormattingToolbar from "./TextFormattingToolbar";
+import GridItemContext from "@/pages/dashboard/context/gridItemContext";
+import { useContext } from "react";
 
 function ResizeToolbar({
   id,
@@ -18,6 +21,7 @@ function ResizeToolbar({
   sidebarOpened: boolean;
   setSidebarOpened: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
+  const { type } = useContext(GridItemContext).item;
   const dispatch = useAppDispatch();
 
   const onResize = ({ w, h }: { w: number; h: number }) => {
@@ -61,6 +65,7 @@ function ResizeToolbar({
           sidebarOpened={sidebarOpened}
           setSidebarOpened={setSidebarOpened}
         />
+        {type == "text" && <FormattingToolbar />}
       </div>
     </motion.div>
   );
