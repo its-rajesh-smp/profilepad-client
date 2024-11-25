@@ -48,7 +48,7 @@ function LinkCard({ url, text, id, src }: IDashboardCard) {
             className="h-fit"
             id={id}
           >
-            {(text ?? domain) ? domain : "Type here..."}
+            {text ? text : domain ? domain : "Type here..."}
           </AutoSaveTextField>
           <p className="text-xs text-zinc-500">{domain}</p>
         </div>
@@ -65,7 +65,7 @@ function LinkCard({ url, text, id, src }: IDashboardCard) {
             className="flex items-center"
             id={id}
           >
-            {(text ?? domain) ? domain : "Type here..."}
+            {text ? text : domain ? domain : "Type here..."}
           </AutoSaveTextField>
           <VisitWebsite url={url} />
         </div>
@@ -87,7 +87,7 @@ function LinkCard({ url, text, id, src }: IDashboardCard) {
                 className="!h-fit"
                 id={id}
               >
-                {(text ?? domain) ? domain : "Type here..."}
+                {text ? text : domain ? domain : "Type here..."}
               </AutoSaveTextField>
               <p className="text-xs text-zinc-500">{domain}</p>
             </div>
@@ -126,7 +126,7 @@ function LinkCard({ url, text, id, src }: IDashboardCard) {
                 className="!h-fit"
                 id={id}
               >
-                {(text ?? domain) ? domain : "Type here..."}
+                {text ? text : domain ? domain : "Type here..."}
               </AutoSaveTextField>
               <p className="text-xs text-zinc-500">{domain}</p>
             </div>
@@ -167,7 +167,7 @@ function LinkCard({ url, text, id, src }: IDashboardCard) {
               className="!h-fit"
               id={id}
             >
-              {(text ?? domain) ? domain : "Type here..."}
+              {text ? text : domain ? domain : "Type here..."}
             </AutoSaveTextField>
           </div>
           <div className="relative h-[60%] w-full">

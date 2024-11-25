@@ -8,7 +8,8 @@ import { useCallback } from "react";
 import UserAvatar from "./UI/UserAvatar";
 
 function Profile() {
-  const user = useAppSelector((state) => state.authSlice.user);
+  const { user, editMode } = useAppSelector((state) => state.authSlice);
+
   const onTextChange = (text: string) => {
     debouncedUpdateOnDb(text);
   };
@@ -43,7 +44,11 @@ function Profile() {
       </div>
 
       <div>
-        <Editor value={user.headline} onChange={onTextChange} />
+        <Editor
+          editable={editMode}
+          value={user.headline}
+          onChange={onTextChange}
+        />
       </div>
     </motion.div>
   );
