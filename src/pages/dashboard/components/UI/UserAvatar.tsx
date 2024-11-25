@@ -20,7 +20,7 @@ function UserAvatar() {
       <Avatar
         fallbackText={user?.name || "John Doe"}
         src={user?.profileImageSrc}
-        className="h-48 w-48"
+        className="h-28 w-28 lg:h-48 lg:w-48"
       />
       {editMode && (
         <ActionButtonWithInput
@@ -29,7 +29,7 @@ function UserAvatar() {
           tooltipText="Update profile image"
           fieldName="profileImageSrc"
           type="image"
-          triggerClassName="absolute bottom-2 right-2"
+          triggerClassName="absolute bottom-0 right-0 lg:bottom-2 lg:right-2 "
           icon={<BiImage />}
         />
       )}

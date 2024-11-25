@@ -1,0 +1,14 @@
+.ProseMirror-focused.ProseMirror.bn-editor.bn-default-styles {
+  padding: 0 !important; /* Remove all padding */
+  margin: 0 !important; /* Remove any margin */
+  box-sizing: border-box; /* Ensure padding does not affect size */
+}
+.ProseMirror.ProseMirror.bn-editor.bn-default-styles {
+  padding: 0 !important; /* Remove all padding */
+  margin: 0 !important; /* Remove any margin */
+  box-sizing: border-box; /* Ensure padding does not affect size */
+}
+
+.bn-mantine {
+  padding: 0 !important; /* Remove container-level padding */
+}
