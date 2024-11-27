@@ -10,13 +10,11 @@ export const updateGridLayoutConfigAct = ({
 }) => {
   return async (dispatch: AppDispatch, getState: () => RootState) => {
     const isEditable = getState().authSlice.editMode;
-
+    dispatch(setGridLayoutConfig(all));
     if (isEditable) {
       await updateGridLayoutConfig({
         updatedGridLayoutConfig: all,
       });
     }
-
-    dispatch(setGridLayoutConfig(all));
   };
 };

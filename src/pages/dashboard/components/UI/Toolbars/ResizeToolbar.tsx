@@ -30,7 +30,7 @@ function ResizeToolbar({
   };
 
   return (
-    <motion.div className="no-drag absolute inset-x-0 -bottom-8 flex items-center justify-center">
+    <motion.div className="no-drag absolute inset-x-0 -bottom-10 flex items-center justify-center">
       <div className="mt-2 flex w-fit items-center justify-center rounded-md bg-zinc-900 shadow-md">
         <Button
           variant="default"
@@ -41,25 +41,26 @@ function ResizeToolbar({
         <Button
           variant="default"
           size="icon"
-          icon={<RectangleHorizontal className="!h-3 !w-5" />}
+          icon={<RectangleHorizontal className="!h-3 !w-5 font-bold" />}
           onClick={() => onResize(resizeConstants.HORIZONTAL_RECTANGLE)} // Horizontal rectangle
         />
         <Button
           variant="default"
           size="icon"
-          icon={<LuRectangleHorizontal />}
+          icon={<LuRectangleHorizontal className="!h-3 !w-5 font-bold" />}
           onClick={() => onResize(resizeConstants.HORIZONTAL_WIDE_RECTANGLE)} // Wider rectangle
         />
         <Button
           variant="default"
           size="icon"
-          icon={<LuRectangleVertical />}
+          icon={<LuRectangleVertical className="!h-3 !w-5 font-bold" />}
           onClick={() => onResize(resizeConstants.VERTICAL_RECTANGLE)} // Vertical rectangle
         />
         <Button
           variant="default"
           size="icon"
-          icon={<PiSquare />}
+          className="font-bold"
+          icon={<PiSquare className="!h-3 !w-5 font-bold" />}
           onClick={() => onResize(resizeConstants.LARGE_SQUARE)} // Large square
         />
         <CardEditSidebarBtn

@@ -2,14 +2,9 @@ import { Button } from "@/common/components/shadcn/ui/button";
 import { useAppDispatch } from "@/common/hooks/useAppDispatch";
 import { useAppSelector } from "@/common/hooks/useAppSelector";
 import { motion } from "framer-motion";
-import {
-  BiBox,
-  BiGrid,
-  BiImage,
-  BiLink,
-  BiLogoHtml5,
-  BiText,
-} from "react-icons/bi";
+import { BiImage, BiLink, BiLogoHtml5, BiText } from "react-icons/bi";
+import { LuBoxSelect } from "react-icons/lu";
+import { TbSection } from "react-icons/tb";
 import { createLayoutAct } from "../action-creators/layout-item.act";
 import ActionButtonWithInput from "./UI/ActionButtonWithInput";
 import ShareButton from "./UI/ShareButton";
@@ -69,7 +64,7 @@ function ActionBar({ className }: { className?: string }) {
           variant="secondary"
           size="xs"
           uiType="icon"
-          icon={<BiGrid />}
+          icon={<TbSection />}
         />
 
         <Button
@@ -78,7 +73,7 @@ function ActionBar({ className }: { className?: string }) {
           variant="secondary"
           size="xs"
           uiType="icon"
-          icon={<BiBox />}
+          icon={<LuBoxSelect />}
         />
 
         <Button
