@@ -1,3 +1,4 @@
+import LazyImage from "../LazyImage/LazyImage";
 import {
   AvatarFallback,
   AvatarImage,
@@ -8,9 +9,19 @@ interface AvatarProps {
   src?: string;
   fallbackText?: string;
   className?: string;
+  lazy?: boolean;
 }
 
 function Avatar(props: AvatarProps) {
+  if (props.lazy && props.src && props.src !== "") {
+    return (
+      <LazyImage
+        src={props.src || ""}
+        className={`${props.className} rounded-full`}
+      />
+    );
+  }
+
   return (
     <ShadcnAvatar className={props.className}>
       <AvatarImage src={props.src} />

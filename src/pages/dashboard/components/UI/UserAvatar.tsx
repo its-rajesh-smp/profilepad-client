@@ -18,6 +18,7 @@ function UserAvatar() {
   return (
     <div className="relative">
       <Avatar
+        lazy={true}
         fallbackText={user?.name || "John Doe"}
         src={user?.profileImageSrc}
         className="h-28 w-28 lg:h-48 lg:w-48"

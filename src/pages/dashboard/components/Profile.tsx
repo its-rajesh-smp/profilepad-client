@@ -25,9 +25,9 @@ function Profile() {
 
   return (
     <motion.div
-      initial={{ opacity: 0, x: -100 }}
-      animate={{ opacity: 1, x: 0 }}
-      transition={{ duration: 0.5, delay: 0.5 }}
+      initial={{ opacity: 0, y: 10 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5, delay: 1 }}
       className="relative top-0 flex w-full flex-col gap-5 p-5 lg:sticky lg:top-0 lg:w-[30%] lg:gap-2 lg:p-0"
     >
       <div className="flex w-full items-center justify-between gap-4 lg:flex-col lg:items-start">

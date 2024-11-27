@@ -12,6 +12,7 @@ import { IDashboardCard, TCardLayoutStyle } from "../../types/dashboard.type";
 import ActionButtonWithInput from "../UI/ActionButtonWithInput";
 import VisitWebsite from "../UI/VisitWebsite";
 import WebsiteIcon from "../UI/WebsiteIcon";
+import LazyImage from "@/common/components/LazyImage/LazyImage";
 
 function LinkCard({ url, text, id, src }: IDashboardCard) {
   const dispatch = useAppDispatch();
@@ -45,7 +46,7 @@ function LinkCard({ url, text, id, src }: IDashboardCard) {
           <AutoSaveTextField
             onChange={updateLayoutItem}
             fieldToUpdate="text"
-            className="h-fit"
+            className="h-fit text-sm"
             id={id}
           >
             {text ? text : domain ? domain : "Type here..."}
@@ -62,7 +63,7 @@ function LinkCard({ url, text, id, src }: IDashboardCard) {
           <AutoSaveTextField
             onChange={updateLayoutItem}
             fieldToUpdate="text"
-            className="flex items-center"
+            className="flex items-center text-sm"
             id={id}
           >
             {text ? text : domain ? domain : "Type here..."}
@@ -84,7 +85,7 @@ function LinkCard({ url, text, id, src }: IDashboardCard) {
               <AutoSaveTextField
                 onChange={updateLayoutItem}
                 fieldToUpdate="text"
-                className="!h-fit"
+                className="!h-fit text-sm"
                 id={id}
               >
                 {text ? text : domain ? domain : "Type here..."}
@@ -93,7 +94,7 @@ function LinkCard({ url, text, id, src }: IDashboardCard) {
             </div>
           </div>
           <div className="relative h-full w-[50%]">
-            <img
+            <LazyImage
               src={previewImageSrc}
               className="h-full w-full rounded-xl object-cover"
             />
@@ -123,7 +124,7 @@ function LinkCard({ url, text, id, src }: IDashboardCard) {
               <AutoSaveTextField
                 onChange={updateLayoutItem}
                 fieldToUpdate="text"
-                className="!h-fit"
+                className="!h-fit text-sm"
                 id={id}
               >
                 {text ? text : domain ? domain : "Type here..."}
@@ -132,7 +133,7 @@ function LinkCard({ url, text, id, src }: IDashboardCard) {
             </div>
           </div>
           <div className="relative h-[30%] w-full">
-            <img
+            <LazyImage
               src={previewImageSrc}
               className="h-full w-full rounded-xl object-cover"
             />
@@ -164,14 +165,14 @@ function LinkCard({ url, text, id, src }: IDashboardCard) {
             <AutoSaveTextField
               onChange={updateLayoutItem}
               fieldToUpdate="text"
-              className="!h-fit"
+              className="!h-fit text-sm"
               id={id}
             >
               {text ? text : domain ? domain : "Type here..."}
             </AutoSaveTextField>
           </div>
           <div className="relative h-[60%] w-full">
-            <img
+            <LazyImage
               src={previewImageSrc}
               className="h-full w-full rounded-xl object-cover"
             />
