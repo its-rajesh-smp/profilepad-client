@@ -5,6 +5,7 @@ import ActionBar from "./components/ActionBar";
 import DashboardGrid from "./components/dashboard-grid/DashboardGrid";
 import Profile from "./components/Profile";
 import ProfileActionBar from "./components/ProfileActionBar";
+import GoTo2dWorld from "./components/UI/GoTo2dWorld";
 
 function Dashboard() {
   const dispatch = useAppDispatch();
@@ -20,6 +21,7 @@ function Dashboard() {
       <DashboardGrid />
       <ActionBar />
       <ProfileActionBar />
+      <GoTo2dWorld />
     </div>
   );
 }
