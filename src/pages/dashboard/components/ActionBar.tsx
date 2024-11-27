@@ -8,7 +8,6 @@ import {
   BiImage,
   BiLink,
   BiLogoHtml5,
-  BiSlider,
   BiText,
 } from "react-icons/bi";
 import { createLayoutAct } from "../action-creators/layout-item.act";
@@ -91,14 +90,14 @@ function ActionBar({ className }: { className?: string }) {
           icon={<BiLogoHtml5 />}
         />
 
-        <Button
+        {/* <Button
           tooltipText="Carousel"
           onClick={() => onCreateBtnClick({ type: "carousel" })}
           variant="secondary"
           size="xs"
           uiType="icon"
           icon={<BiSlider />}
-        />
+        /> */}
       </motion.div>
     )
   );
