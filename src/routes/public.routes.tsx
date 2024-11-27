@@ -2,8 +2,13 @@ import Login from "@/pages/auth/Login";
 import Register from "@/pages/auth/Register";
 import DashboardPreview from "@/pages/dashboard/DashboardPreview";
 import GuestGuard from "./guards/GuestGuard";
+import Landing from "@/pages/landing/Landing";
 
 const publicRoutes = [
+  {
+    path: "/",
+    element: <Landing />,
+  },
   {
     path: "/:slug",
     element: <DashboardPreview />,
