@@ -22,10 +22,6 @@ const publicRoutes = [
     element: <GuestGuard />,
     children: [
       {
-        path: "/",
-        element: <Register />,
-      },
-      {
         path: "/login",
         element: <Login />,
       },

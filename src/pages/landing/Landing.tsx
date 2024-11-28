@@ -1,15 +1,18 @@
 import { TextGenerateEffect } from "@/common/components/shadcn/ui/text-generate-effect";
 import { APP_ICON } from "@/common/constants/app.const";
 import { motion } from "framer-motion";
-import { RiScrollToBottomLine } from "react-icons/ri";
+import CardsContainer from "./components/CardsContainer";
 import { ContainerScroll } from "./components/ContainerScroll";
+import CreateProfileBtn from "./components/CreateProfileBtn";
 import { FlipWords } from "./components/FlipWords";
 import { SpotlightEffect } from "./components/SpotlightEffect";
 
 export default function Landing() {
   const words = ["pads", "cards"];
+
   return (
-    <div className="flex flex-col overflow-hidden">
+    <div className="relative flex flex-col overflow-hidden">
+      <CardsContainer />
       {/* ProfilePad */}
       <ContainerScroll
         titleComponent={
@@ -26,6 +29,7 @@ export default function Landing() {
                 className="mt-3 text-3xl font-bold"
                 words={"ProfilePad"}
               />
+              <CreateProfileBtn />
             </motion.div>
             <h1 className="text-4xl font-semibold text-black dark:text-white">
               Create your profile <br />
