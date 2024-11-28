@@ -1,6 +1,6 @@
 import { SOCKET_EVENTS } from "@/common/constants/socket-events.const";
 import useSocketListener from "@/common/hooks/useSocketListener";
-import { emitEvent } from "@/setup/socket.conf";
+import UnityContainer from "./components/UnityContainer";
 
 function Game() {
   useSocketListener(SOCKET_EVENTS.PLAYER_JOINED, (data) => {
@@ -8,8 +8,8 @@ function Game() {
   });
 
   return (
-    <div>
-      <button onClick={() => emitEvent("playerJoined", "hello")}>Join</button>
+    <div className="flex h-screen w-full flex-col">
+      <UnityContainer />
     </div>
   );
 }
