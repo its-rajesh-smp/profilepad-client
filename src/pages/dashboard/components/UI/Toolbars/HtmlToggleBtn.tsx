@@ -1,5 +1,5 @@
 import { Button } from "@/common/components/shadcn/ui/button";
-import GridItemContext from "@/pages/dashboard/context/gridItemContext";
+import GridItemContext from "@/pages/dashboard/context/GridItemContext";
 import { useContext } from "react";
 import { FaCode, FaEye } from "react-icons/fa";
 

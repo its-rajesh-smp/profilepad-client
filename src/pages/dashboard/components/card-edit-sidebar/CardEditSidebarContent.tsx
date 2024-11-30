@@ -6,7 +6,7 @@ import {
 } from "@/common/components/shadcn/ui/drawer";
 import { useContext } from "react";
 import { editableMetadataFields } from "../../constants/grid-item.const";
-import GridItemContext from "../../context/gridItemContext";
+import GridItemContext from "../../context/GridItemContext";
 import CardEditSidebarInput from "./UI/CardEditSidebarInput";
 import { Button } from "@/common/components/shadcn/ui/button";
 

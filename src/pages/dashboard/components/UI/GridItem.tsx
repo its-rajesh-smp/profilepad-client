@@ -1,7 +1,7 @@
 import { useAppSelector } from "@/common/hooks/useAppSelector";
 import { motion } from "framer-motion";
 import React, { MouseEvent, ReactNode, TouchEvent, useState } from "react";
-import { GridItemContextProvider } from "../../context/gridItemContext";
+import { GridItemContextProvider } from "../../context/GridItemContext";
 import { IDashboardCard } from "../../types/dashboard.type";
 import { getToolbarVisibilityByType } from "../../utils/toolbarVisibility.util";
 import CardDeleteBtn from "./Toolbars/CardDeleteBtn";

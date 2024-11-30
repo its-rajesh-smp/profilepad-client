@@ -1,6 +1,6 @@
 import AutoSaveTextField from "@/common/components/UI/AutoSaveTextField";
 import { useContext } from "react";
-import GridItemContext from "../../context/gridItemContext";
+import GridItemContext from "../../context/GridItemContext";
 import { updateLayoutItem } from "../../services/layout-item.service";
 import { IDashboardCard } from "../../types/dashboard.type";
 
