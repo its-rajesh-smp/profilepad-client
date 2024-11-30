@@ -2,7 +2,7 @@ import { Button } from "@/common/components/shadcn/ui/button";
 import { useAppDispatch } from "@/common/hooks/useAppDispatch";
 import { resizeGridLayoutItem } from "@/pages/dashboard/action-creators/layout-item.act";
 import { resizeConstants } from "@/pages/dashboard/constants/dashboard-grid.const";
-import GridItemContext from "@/pages/dashboard/context/gridItemContext";
+import GridItemContext from "@/pages/dashboard/context/GridItemContext";
 import { motion } from "framer-motion";
 import { RectangleHorizontal } from "lucide-react";
 import { useContext } from "react";

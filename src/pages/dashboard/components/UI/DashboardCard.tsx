@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { useContext } from "react";
-import GridItemContext from "../../context/gridItemContext";
+import GridItemContext from "../../context/GridItemContext";
 import EmptyCard from "../cards/EmptyCard";
 import HtmlCard from "../cards/HtmlCard";
 import ImageCard from "../cards/ImageCard";

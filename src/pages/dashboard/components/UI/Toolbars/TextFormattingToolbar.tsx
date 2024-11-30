@@ -6,7 +6,7 @@ import {
 } from "@/common/components/shadcn/ui/popover";
 import { useAppSelector } from "@/common/hooks/useAppSelector";
 import { debounce } from "@/common/utils/debounce.util";
-import GridItemContext from "@/pages/dashboard/context/gridItemContext";
+import GridItemContext from "@/pages/dashboard/context/GridItemContext";
 import { updateLayoutItem } from "@/pages/dashboard/services/layout-item.service";
 import {
   AlignCenter,

@@ -3,7 +3,7 @@ import { debounce } from "@/common/utils/debounce.util";
 import Editor from "@monaco-editor/react";
 import { useCallback, useContext, useState } from "react";
 import { defaultHtmlCardHtmlValue } from "../../constants/grid-item.const";
-import GridItemContext from "../../context/gridItemContext";
+import GridItemContext from "../../context/GridItemContext";
 import { updateLayoutItem } from "../../services/layout-item.service";
 import { IDashboardCard } from "../../types/dashboard.type";
 
