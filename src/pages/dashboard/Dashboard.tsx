@@ -5,7 +5,6 @@ import ActionBar from "./components/ActionBar";
 import DashboardGrid from "./components/dashboard-grid/DashboardGrid";
 import Profile from "./components/Profile";
 import ProfileActionBar from "./components/ProfileActionBar";
-
 function Dashboard() {
   const dispatch = useAppDispatch();
 

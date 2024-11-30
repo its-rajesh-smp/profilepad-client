@@ -10,6 +10,7 @@ import {
   deleteLayoutItem,
 } from "../services/layout-item.service";
 import axiosInterceptors from "@/setup/axios.conf";
+import { updateGridLayoutConfig } from "../services/dashboard.service";
 
 export const createLayoutAct = (data: any) => {
   return async (dispatch: AppDispatch, _getState: () => RootState) => {
@@ -27,7 +28,6 @@ export const deleteLayoutItemAct = (id: string) => {
   return async (dispatch: AppDispatch, _getState: () => RootState) => {
     const response = await deleteLayoutItem(id);
     const { gridLayoutConfig, layoutItems } = response.data;
-    console.log(gridLayoutConfig, layoutItems);
 
     // Dispatch the actions
     dispatch(setGridLayoutConfig(gridLayoutConfig));
@@ -50,5 +50,8 @@ export const resizeGridLayoutItem = (id: string, w: number, h: number) => {
     };
 
     dispatch(setGridLayoutConfig(updatedLayout));
+    await updateGridLayoutConfig({
+      updatedGridLayoutConfig: updatedLayout,
+    });
   };
 };

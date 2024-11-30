@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { MoveDiagonal } from "lucide-react";
+import { RiDragMove2Line } from "react-icons/ri";
 
 function MoveBtn() {
   return (
@@ -10,7 +10,7 @@ function MoveBtn() {
       transition={{ duration: 0.5 }}
       className="absolute -right-2 -top-2 z-10 flex h-8 w-8 items-center justify-center rounded-full !bg-white shadow-md"
     >
-      <MoveDiagonal className="h-4 w-4" />
+      <RiDragMove2Line className="h-4 w-4" />
     </motion.button>
   );
 }

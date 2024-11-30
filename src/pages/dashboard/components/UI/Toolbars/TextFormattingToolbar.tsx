@@ -5,6 +5,9 @@ import {
   PopoverTrigger,
 } from "@/common/components/shadcn/ui/popover";
 import { useAppSelector } from "@/common/hooks/useAppSelector";
+import { debounce } from "@/common/utils/debounce.util";
+import GridItemContext from "@/pages/dashboard/context/gridItemContext";
+import { updateLayoutItem } from "@/pages/dashboard/services/layout-item.service";
 import {
   AlignCenter,
   AlignLeft,
@@ -14,23 +17,11 @@ import {
   Palette,
   Type,
 } from "lucide-react";
-import { motion } from "framer-motion";
-import { updateLayoutItem } from "@/pages/dashboard/services/layout-item.service";
-import { debounce } from "@/common/utils/debounce.util";
-import { useCallback } from "react";
+import { useCallback, useContext } from "react";
 
-interface FormattingToolbarProps {
-  style: React.CSSProperties;
-  setStyle: React.Dispatch<React.SetStateAction<React.CSSProperties>>;
-  itemId: string;
-}
+export default function FormattingToolbar() {
+  const { itemStyle, setItemStyle, item } = useContext(GridItemContext);
 
-// FIXME: Need to fix the debounced update
-export default function FormattingToolbar({
-  style,
-  setStyle,
-  itemId,
-}: FormattingToolbarProps) {
   const isEdit = useAppSelector((state) => state.authSlice.editMode);
   const debouncedUpdateOnDb = useCallback(
     debounce((id: string, data: any) => updateLayoutItem(id, data), 500),
@@ -38,9 +29,9 @@ export default function FormattingToolbar({
   );
 
   const handleStyleChange = async (style: any) => {
-    setStyle((prevStyle: React.CSSProperties) => {
+    setItemStyle((prevStyle: React.CSSProperties) => {
       const updatedStyle = { ...prevStyle, ...style };
-      debouncedUpdateOnDb(itemId, { style: updatedStyle });
+      debouncedUpdateOnDb(item?.id, { style: updatedStyle });
       return updatedStyle;
     });
   };
@@ -48,27 +39,16 @@ export default function FormattingToolbar({
   return (
     isEdit && (
       <Popover>
-        <PopoverTrigger
-          asChild
-          className="no-drag absolute -right-2 -top-2 opacity-15 transition-all hover:cursor-pointer hover:opacity-100"
-        >
-          <motion.button
-            initial={{ opacity: 0 }}
-            whileTap={{ scale: 0.7 }}
-            whileInView={{ opacity: 1 }}
-            transition={{ duration: 0.5 }}
-            className="flex h-8 w-8 items-center justify-center rounded-full !bg-white shadow-md"
-          >
-            <Type className="h-4 w-4" />
-          </motion.button>
+        <PopoverTrigger asChild>
+          <Button variant="default" size="icon" icon={<Type />} />
         </PopoverTrigger>
-        <PopoverContent className="no-drag flex gap-2">
+        <PopoverContent sideOffset={0} className="no-drag flex gap-2">
           <Button
-            variant={style.fontWeight === "bold" ? "default" : "ghost"}
+            variant={itemStyle.fontWeight === "bold" ? "default" : "ghost"}
             size="icon"
             onClick={() =>
               handleStyleChange({
-                fontWeight: style.fontWeight === "bold" ? "" : "bold",
+                fontWeight: itemStyle.fontWeight === "bold" ? "" : "bold",
               })
             }
             className="h-8 w-8"
@@ -77,11 +57,11 @@ export default function FormattingToolbar({
           </Button>
 
           <Button
-            variant={style.fontStyle === "italic" ? "default" : "ghost"}
+            variant={itemStyle.fontStyle === "italic" ? "default" : "ghost"}
             size="icon"
             onClick={() =>
               handleStyleChange({
-                fontStyle: style.fontStyle === "italic" ? "" : "italic",
+                fontStyle: itemStyle.fontStyle === "italic" ? "" : "italic",
               })
             }
             className="h-8 w-8"
@@ -90,11 +70,11 @@ export default function FormattingToolbar({
           </Button>
 
           <Button
-            variant={style.textAlign === "left" ? "default" : "ghost"}
+            variant={itemStyle.textAlign === "left" ? "default" : "ghost"}
             size="icon"
             onClick={() =>
               handleStyleChange({
-                textAlign: style.textAlign === "left" ? "" : "left",
+                textAlign: itemStyle.textAlign === "left" ? "" : "left",
               })
             }
             className="h-8 w-8"
@@ -103,11 +83,11 @@ export default function FormattingToolbar({
           </Button>
 
           <Button
-            variant={style.textAlign === "center" ? "default" : "ghost"}
+            variant={itemStyle.textAlign === "center" ? "default" : "ghost"}
             size="icon"
             onClick={() =>
               handleStyleChange({
-                textAlign: style.textAlign === "center" ? "" : "center",
+                textAlign: itemStyle.textAlign === "center" ? "" : "center",
               })
             }
             className="h-8 w-8"
@@ -116,11 +96,11 @@ export default function FormattingToolbar({
           </Button>
 
           <Button
-            variant={style.textAlign === "right" ? "default" : "ghost"}
+            variant={itemStyle.textAlign === "right" ? "default" : "ghost"}
             size="icon"
             onClick={() =>
               handleStyleChange({
-                textAlign: style.textAlign === "right" ? "" : "right",
+                textAlign: itemStyle.textAlign === "right" ? "" : "right",
               })
             }
             className="h-8 w-8"
@@ -137,7 +117,7 @@ export default function FormattingToolbar({
             <PopoverContent className="w-32 p-2">
               <input
                 type="color"
-                value={style.color}
+                value={itemStyle.color}
                 onChange={(e) => handleStyleChange({ color: e.target.value })}
                 className="h-8 w-full"
               />
@@ -155,7 +135,7 @@ export default function FormattingToolbar({
                 type="range"
                 min="12"
                 max="24"
-                value={style.fontSize || 16}
+                value={itemStyle.fontSize || 16}
                 onChange={(e) =>
                   handleStyleChange({ fontSize: Number(e.target.value) })
                 }

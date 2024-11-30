@@ -1,25 +1,39 @@
 import AutoSaveTextField from "@/common/components/UI/AutoSaveTextField";
+import { RANDOM_IMAGE_SRC } from "@/common/constants/url.const";
+import { useAppDispatch } from "@/common/hooks/useAppDispatch";
+import { getURLPreview } from "@/common/utils/browser.util";
 import { extractBaseUrl } from "@/common/utils/url.util";
+import { useEffect, useState } from "react";
+import { BiImage } from "react-icons/bi";
 import useCurrentCardLayoutSize from "../../hooks/useCurrentCardLayoutSize";
+import { updateALayoutItem } from "../../reducers/layout-items.reducer";
 import { updateLayoutItem } from "../../services/layout-item.service";
 import { IDashboardCard, TCardLayoutStyle } from "../../types/dashboard.type";
+import ActionButtonWithInput from "../UI/ActionButtonWithInput";
 import VisitWebsite from "../UI/VisitWebsite";
 import WebsiteIcon from "../UI/WebsiteIcon";
-import ActionButtonWithInput from "../UI/ActionButtonWithInput";
-import { BiImage } from "react-icons/bi";
-import { useAppDispatch } from "@/common/hooks/useAppDispatch";
-import { updateALayoutItem } from "../../reducers/layout-items.reducer";
+import LazyImage from "@/common/components/LazyImage/LazyImage";
 
 function LinkCard({ url, text, id, src }: IDashboardCard) {
   const dispatch = useAppDispatch();
   const domain = extractBaseUrl(url ?? "");
   const currentLayoutStyle: TCardLayoutStyle = useCurrentCardLayoutSize(id);
+  const [urlPreview, setUrlPreview] = useState<string | null>(null);
 
   // On Save Image
   const onSaveBtnClick = async (data: any) => {
     const response = await updateLayoutItem(id, data);
     dispatch(updateALayoutItem(response.data));
   };
+
+  useEffect(() => {
+    (async () => {
+      const data = await getURLPreview(url);
+      setUrlPreview(data?.data?.data?.image?.url);
+    })();
+  }, [url, currentLayoutStyle]);
+
+  const previewImageSrc = src?.length ? src : (urlPreview ?? RANDOM_IMAGE_SRC);
 
   switch (currentLayoutStyle) {
     case "SMALL_SQUARE":
@@ -32,10 +46,10 @@ function LinkCard({ url, text, id, src }: IDashboardCard) {
           <AutoSaveTextField
             onChange={updateLayoutItem}
             fieldToUpdate="text"
-            className="h-fit"
+            className="h-fit text-sm"
             id={id}
           >
-            {(text ?? domain) ? domain : "Type here..."}
+            {text ? text : domain ? domain : "Type here..."}
           </AutoSaveTextField>
           <p className="text-xs text-zinc-500">{domain}</p>
         </div>
@@ -49,10 +63,10 @@ function LinkCard({ url, text, id, src }: IDashboardCard) {
           <AutoSaveTextField
             onChange={updateLayoutItem}
             fieldToUpdate="text"
-            className="flex items-center"
+            className="flex items-center text-sm"
             id={id}
           >
-            {(text ?? domain) ? domain : "Type here..."}
+            {text ? text : domain ? domain : "Type here..."}
           </AutoSaveTextField>
           <VisitWebsite url={url} />
         </div>
@@ -71,20 +85,21 @@ function LinkCard({ url, text, id, src }: IDashboardCard) {
               <AutoSaveTextField
                 onChange={updateLayoutItem}
                 fieldToUpdate="text"
-                className="!h-fit"
+                className="!h-fit text-sm"
                 id={id}
               >
-                {(text ?? domain) ? domain : "Type here..."}
+                {text ? text : domain ? domain : "Type here..."}
               </AutoSaveTextField>
               <p className="text-xs text-zinc-500">{domain}</p>
             </div>
           </div>
           <div className="relative h-full w-[50%]">
-            <img
-              src={src ?? "https://picsum.photos/200"}
+            <LazyImage
+              src={previewImageSrc}
               className="h-full w-full rounded-xl object-cover"
             />
             <ActionButtonWithInput
+              isRemoveBtn={src ? true : false}
               onSubmit={onSaveBtnClick}
               tooltipText="Update profile image"
               fieldName="src"
@@ -109,20 +124,21 @@ function LinkCard({ url, text, id, src }: IDashboardCard) {
               <AutoSaveTextField
                 onChange={updateLayoutItem}
                 fieldToUpdate="text"
-                className="!h-fit"
+                className="!h-fit text-sm"
                 id={id}
               >
-                {(text ?? domain) ? domain : "Type here..."}
+                {text ? text : domain ? domain : "Type here..."}
               </AutoSaveTextField>
               <p className="text-xs text-zinc-500">{domain}</p>
             </div>
           </div>
           <div className="relative h-[30%] w-full">
-            <img
-              src={src ?? "https://picsum.photos/200"}
+            <LazyImage
+              src={previewImageSrc}
               className="h-full w-full rounded-xl object-cover"
             />
             <ActionButtonWithInput
+              isRemoveBtn={src ? true : false}
               onSubmit={onSaveBtnClick}
               tooltipText="Update profile image"
               fieldName="src"
@@ -149,18 +165,19 @@ function LinkCard({ url, text, id, src }: IDashboardCard) {
             <AutoSaveTextField
               onChange={updateLayoutItem}
               fieldToUpdate="text"
-              className="!h-fit"
+              className="!h-fit text-sm"
               id={id}
             >
-              {(text ?? domain) ? domain : "Type here..."}
+              {text ? text : domain ? domain : "Type here..."}
             </AutoSaveTextField>
           </div>
           <div className="relative h-[60%] w-full">
-            <img
-              src={src ?? "https://picsum.photos/200"}
+            <LazyImage
+              src={previewImageSrc}
               className="h-full w-full rounded-xl object-cover"
             />
             <ActionButtonWithInput
+              isRemoveBtn={src ? true : false}
               onSubmit={onSaveBtnClick}
               tooltipText="Update profile image"
               fieldName="src"

@@ -1,3 +1,4 @@
+import LazyImage from "@/common/components/LazyImage/LazyImage";
 import { Badge } from "@/common/components/shadcn/ui/badge";
 import AutoSaveTextField from "@/common/components/UI/AutoSaveTextField";
 import { useAppDispatch } from "@/common/hooks/useAppDispatch";
@@ -18,7 +19,7 @@ function ImageCard({ id, text, src }: IDashboardCard) {
 
   return (
     <div className="relative h-full w-full overflow-hidden rounded-inherit">
-      <img
+      <LazyImage
         className="h-full w-full rounded-inherit object-cover object-center"
         src={src ?? ""}
       />
