@@ -4,6 +4,6 @@ export const APP_ICON =
 export const APP_ENV: string = "Production";
 export const API_URL =
   APP_ENV == "Production"
-    ? "profilepad-server.vercel.app"
+    ? "https://profilepad-server.vercel.app"
     : "http://localhost:3000";
 export const SOCKET = false;
