@@ -1,11 +1,9 @@
-import { Button } from "@/common/components/shadcn/ui/button";
 import { SOCKET_EVENTS } from "@/common/constants/socket-events.const";
 import useSocketListener from "@/common/hooks/useSocketListener";
 import { emitEvent } from "@/setup/socket.conf";
 import { useRef } from "react";
-import { BsPlus } from "react-icons/bs";
 import { v4 } from "uuid";
-import UnityContainer from "./components/UnityContainer";
+import Connect from "./components/Connect";
 
 function Game() {
   const unityProviderRef: any = useRef(null);
@@ -81,15 +79,17 @@ function Game() {
 
   return (
     <div className="relative flex h-screen w-full flex-col">
-      <UnityContainer
+      <Connect />
+      <div style={{ width: "100%", height: "100%" }}></div>
+      {/*<UnityContainer
         playerMoveListener={playerMoveListener}
         unityProviderRef={unityProviderRef}
-      />
-      <Button
+      />*/}
+      {/* <Button
         onClick={joinGame}
         className="absolute bottom-5 right-5 z-10 flex h-8 w-8 items-center justify-center rounded-full !bg-white shadow-md"
         icon={<BsPlus className="text-black" />}
-      />
+      /> */}
     </div>
   );
 }

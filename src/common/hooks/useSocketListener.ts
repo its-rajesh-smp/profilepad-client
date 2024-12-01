@@ -15,7 +15,7 @@ function useSocketListener(eventName: string, callback: (data: any) => void) {
       if (!socket) return;
       socket.off(eventName, callback);
     };
-  }, [eventName, callback]);
+  }, [eventName]);
 }
 
 export default useSocketListener;
