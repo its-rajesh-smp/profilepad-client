@@ -1,8 +1,8 @@
 import { Button } from "@/common/components/shadcn/ui/button";
 import { SOCKET_EVENTS } from "@/common/constants/socket-events.const";
 import { useAppSelector } from "@/common/hooks/useAppSelector";
-import useSocketListener from "@/common/hooks/useSocketListener";
-import { emitEvent } from "@/setup/socket.conf";
+import useSupabaseListener from "@/common/hooks/useSupabaseListener";
+import { emitSupabaseEvent } from "@/setup/supabase.conf";
 import { useRef } from "react";
 import { BsCameraVideo } from "react-icons/bs";
 import useWebRtc from "../hooks/useWebRtc";
@@ -16,14 +16,11 @@ function Connect() {
   const { remoteStream, myStream, createOffer, createAnswer, setRemoteAnswer } =
     useWebRtc();
 
-  // Listener for other player join event
-  useSocketListener(SOCKET_EVENTS.RECEIVE_INCOMING_CALL, (data: any) => {
-    handleReceiveIncomingCall(data);
-  });
-
-  // Listener for other player join event
-  useSocketListener(SOCKET_EVENTS.CALL_RECEIVED, (data: any) => {
-    handelCallReceived(data);
+  // Opened a subscription to receive incoming calls
+  // Opened a subscription to call received
+  useSupabaseListener({
+    [`${SOCKET_EVENTS.INCOMING_CALL}:${email}`]: handleReceiveIncomingCall,
+    [`${SOCKET_EVENTS.CALL_RECEIVED}:${email}`]: handelCallReceived,
   });
 
   /**
@@ -36,7 +33,12 @@ function Connect() {
       senderEmail: email,
       senderCreatedOffer: offer,
     };
-    emitEvent(SOCKET_EVENTS.CREATE_CALL, data);
+
+    // Send the offer to the receiver
+    emitSupabaseEvent(
+      `${SOCKET_EVENTS.INCOMING_CALL}:${data.receiverEmail}`,
+      data,
+    );
   };
 
   /**
@@ -47,7 +49,12 @@ function Connect() {
   async function handleReceiveIncomingCall(data: any) {
     const { senderCreatedOffer } = data;
     const answer = await createAnswer(senderCreatedOffer);
-    emitEvent(SOCKET_EVENTS.CALL_RECEIVED, { answer });
+
+    // Send the answer to the sender
+    emitSupabaseEvent(
+      `${SOCKET_EVENTS.CALL_RECEIVED}:${data.senderEmail}`,
+      answer,
+    );
   }
 
   /**
@@ -55,7 +62,7 @@ function Connect() {
    * @param data
    */
   async function handelCallReceived(data: any) {
-    await setRemoteAnswer(data.answer);
+    await setRemoteAnswer(data);
     // Once answer is received
     // For negotiationNeeded we are processing once again
     if (negotiationCount.current === 0) {

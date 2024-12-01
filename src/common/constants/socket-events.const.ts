@@ -4,6 +4,6 @@ export const SOCKET_EVENTS = {
 
   // Room
   CREATE_CALL: "createCall",
-  RECEIVE_INCOMING_CALL: "receiveIncomingCall",
+  INCOMING_CALL: "incomingCall",
   CALL_RECEIVED: "callReceived",
 };
