@@ -3,12 +3,18 @@ import { SOCKET_EVENTS } from "@/common/constants/socket-events.const";
 import { useAppSelector } from "@/common/hooks/useAppSelector";
 import useSocketListener from "@/common/hooks/useSocketListener";
 import { emitEvent } from "@/setup/socket.conf";
+import { useRef } from "react";
 import { BsCameraVideo } from "react-icons/bs";
 import useWebRtc from "../hooks/useWebRtc";
 import VideoContainer from "./UI/VideoContainer";
 
 function Connect() {
   const { email } = useAppSelector((state) => state.authSlice.user);
+  const negotiationCount = useRef(0);
+
+  // WebRTC hook
+  const { remoteStream, myStream, createOffer, createAnswer, setRemoteAnswer } =
+    useWebRtc();
 
   // Listener for other player join event
   useSocketListener(SOCKET_EVENTS.RECEIVE_INCOMING_CALL, (data: any) => {
@@ -19,9 +25,6 @@ function Connect() {
   useSocketListener(SOCKET_EVENTS.CALL_RECEIVED, (data: any) => {
     handelCallReceived(data);
   });
-
-  const { remoteStream, myStream, createOffer, createAnswer, setRemoteAnswer } =
-    useWebRtc();
 
   /**
    * Function to join call
@@ -47,8 +50,18 @@ function Connect() {
     emitEvent(SOCKET_EVENTS.CALL_RECEIVED, { answer });
   }
 
+  /**
+   * Function to handle call received
+   * @param data
+   */
   async function handelCallReceived(data: any) {
     await setRemoteAnswer(data.answer);
+    // Once answer is received
+    // For negotiationNeeded we are processing once again
+    if (negotiationCount.current === 0) {
+      createCall();
+      negotiationCount.current++;
+    }
   }
 
   return (
