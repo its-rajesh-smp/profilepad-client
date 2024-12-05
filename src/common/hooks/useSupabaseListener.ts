@@ -1,11 +1,14 @@
 import supabase, { currentSessionToken } from "@/setup/supabase.conf";
 import { useEffect } from "react";
 
-function useSupabaseListener(eventMap: Record<string, (data: any) => void>) {
+function useSupabaseListener(
+  eventMap: Record<string, (data: any) => void>,
+  channelName: string = "realtime",
+) {
   useEffect(() => {
     // Subscribe to a channel for real-time updates
     const channel = supabase
-      .channel("realtime")
+      .channel(channelName)
       .on("broadcast", { event: "*" }, (data: any) => {
         const { event, payload } = data;
         if (eventMap[event]) {
@@ -19,7 +22,7 @@ function useSupabaseListener(eventMap: Record<string, (data: any) => void>) {
     return () => {
       channel.unsubscribe();
     };
-  }, [eventMap]);
+  }, [eventMap, channelName]);
 }
 
 export default useSupabaseListener;

@@ -1,29 +1,45 @@
+import { Button } from "@/common/components/shadcn/ui/button";
 import { SOCKET_EVENTS } from "@/common/constants/socket-events.const";
-import useSocketListener from "@/common/hooks/useSocketListener";
-import { emitEvent } from "@/setup/socket.conf";
-import { useRef } from "react";
-import { v4 } from "uuid";
+import { useAppSelector } from "@/common/hooks/useAppSelector";
+import useSupabaseListener from "@/common/hooks/useSupabaseListener";
+import { emitSupabaseEvent } from "@/setup/supabase.conf";
+import { throttle } from "lodash";
+import { useRef, useState } from "react";
+import { BsPlus } from "react-icons/bs";
+import UnityContainer from "./components/UnityContainer";
 import Connect from "./components/Connect";
 
 function Game() {
+  const { email } = useAppSelector((state) => state.authSlice.user);
+  const [videoCallers, setVideoCallers] = useState(null);
   const unityProviderRef: any = useRef(null);
 
-  // Listener for other player join event
-  useSocketListener(SOCKET_EVENTS.PLAYER_JOINED, (playerData) => {
-    SpawnOtherPlayer(playerData);
-  });
+  // Opened a subscription to receive incoming calls
+  // Opened a subscription to call received
+  useSupabaseListener(
+    {
+      [`${SOCKET_EVENTS.PLAYER_MOVED}`]: MoveAPlayer,
+      [`${SOCKET_EVENTS.PLAYER_JOINED}`]: handelSpawnOtherPlayer,
+    },
+    "game",
+  );
 
-  // Listener for other player move event
-  useSocketListener(SOCKET_EVENTS.PLAYER_MOVED, (playerData) => {
-    MoveAPlayer(playerData);
-  });
+  const throttledEmitPlayerMoved = throttle((player: any) => {
+    emitSupabaseEvent(SOCKET_EVENTS.PLAYER_MOVED, JSON.parse(player), "game");
+  }, 500);
 
   /**
    * Function to handle player movement
    */
   const playerMoveListener = (player: any) => {
     // Emit current player moved event to other players
-    emitEvent(SOCKET_EVENTS.PLAYER_MOVED, JSON.parse(player));
+    // emitEvent(SOCKET_EVENTS.PLAYER_MOVED, JSON.parse(player));
+    throttledEmitPlayerMoved(player);
+  };
+
+  const playerInteractListener = (playersJSON: any) => {
+    const players = JSON.parse(playersJSON);
+    setVideoCallers(players);
   };
 
   /**
@@ -31,10 +47,10 @@ function Game() {
    */
   function SpawnCurrentPlayer() {
     const player = {
-      playerId: v4(),
+      playerId: email,
       posX: 0,
       posY: 0,
-      playerName: "Rajesh",
+      playerName: email,
     };
     unityProviderRef?.current(
       "WebEventController",
@@ -42,15 +58,15 @@ function Game() {
       JSON.stringify(player),
     );
 
-    // Emit current player joined event to other players
-    emitEvent(SOCKET_EVENTS.PLAYER_JOINED, player);
+    emitSupabaseEvent(SOCKET_EVENTS.PLAYER_JOINED, player, "game");
   }
 
   /**
    * Function to spawn other player on Unity
    * @param playerData player data
    */
-  function SpawnOtherPlayer(playerData: any) {
+  function handelSpawnOtherPlayer(playerData: any) {
+    console.log(playerData);
     unityProviderRef?.current(
       "WebEventController",
       "PlayerJoinListener",
@@ -79,17 +95,18 @@ function Game() {
 
   return (
     <div className="relative flex h-screen w-full flex-col">
-      <Connect />
+      {<Connect videoCallers={videoCallers} />}
       <div style={{ width: "100%", height: "100%" }}></div>
-      {/*<UnityContainer
+      <UnityContainer
         playerMoveListener={playerMoveListener}
         unityProviderRef={unityProviderRef}
-      />*/}
-      {/* <Button
+        playerInteractListener={playerInteractListener}
+      />
+      <Button
         onClick={joinGame}
         className="absolute bottom-5 right-5 z-10 flex h-8 w-8 items-center justify-center rounded-full !bg-white shadow-md"
         icon={<BsPlus className="text-black" />}
-      /> */}
+      />
     </div>
   );
 }

@@ -6,18 +6,20 @@ import { Unity, useUnityContext } from "react-unity-webgl";
 interface IUnityContainerProps {
   unityProviderRef: any;
   playerMoveListener: any;
+  playerInteractListener: any;
 }
 
 function UnityContainer({
   unityProviderRef,
   playerMoveListener,
+  playerInteractListener,
 }: IUnityContainerProps) {
   const { unityProvider, addEventListener, sendMessage, isLoaded } =
     useUnityContext({
-      loaderUrl: "GameBuild/Build/_padland.loader.js",
-      dataUrl: "GameBuild/Build/_padland.data.unityweb",
-      frameworkUrl: "GameBuild/Build/_padland.framework.js.unityweb",
-      codeUrl: "GameBuild/Build/_padland.wasm.unityweb",
+      loaderUrl: "GameBuild/Build/padland.loader.js",
+      dataUrl: "GameBuild/Build/padland.data.unityweb",
+      frameworkUrl: "GameBuild/Build/padland.framework.js.unityweb",
+      codeUrl: "GameBuild/Build/padland.wasm.unityweb",
     });
 
   // Listener for unity events
@@ -27,10 +29,18 @@ function UnityContainer({
     }
     unityProviderRef.current = sendMessage;
     window.playerMoveListener = playerMoveListener;
+    window.playerInteractListener = playerInteractListener;
+
     addEventListener("playerMoveListener", window.playerMoveListener);
+    addEventListener("playerInteractListener", window.playerInteractListener);
     return () => {
       removeEventListener("playerMoveListener", window.playerMoveListener);
+      removeEventListener(
+        "playerInteractListener",
+        window.playerInteractListener,
+      );
       delete window.playerMoveListener;
+      delete window.playerInteractListener;
     };
   }, [isLoaded]);
 
