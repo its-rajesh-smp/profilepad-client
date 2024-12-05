@@ -7,12 +7,16 @@ interface IUnityContainerProps {
   unityProviderRef: any;
   playerMoveListener: any;
   playerInteractListener: any;
+  onUnityLoad: any;
+  setIsUnityLoaded: any;
 }
 
 function UnityContainer({
   unityProviderRef,
   playerMoveListener,
   playerInteractListener,
+  onUnityLoad,
+  setIsUnityLoaded,
 }: IUnityContainerProps) {
   const { unityProvider, addEventListener, sendMessage, isLoaded } =
     useUnityContext({
@@ -33,6 +37,8 @@ function UnityContainer({
 
     addEventListener("playerMoveListener", window.playerMoveListener);
     addEventListener("playerInteractListener", window.playerInteractListener);
+    onUnityLoad();
+    setIsUnityLoaded(true);
     return () => {
       removeEventListener("playerMoveListener", window.playerMoveListener);
       removeEventListener(

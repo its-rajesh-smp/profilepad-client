@@ -1,17 +1,18 @@
-import { Button } from "@/common/components/shadcn/ui/button";
 import { SOCKET_EVENTS } from "@/common/constants/socket-events.const";
 import { useAppSelector } from "@/common/hooks/useAppSelector";
+import useScreenSize from "@/common/hooks/useScreenSize";
 import useSupabaseListener from "@/common/hooks/useSupabaseListener";
 import { emitSupabaseEvent } from "@/setup/supabase.conf";
 import { throttle } from "lodash";
 import { useRef, useState } from "react";
-import { BsPlus } from "react-icons/bs";
-import UnityContainer from "./components/UnityContainer";
 import Connect from "./components/Connect";
+import RotatePhone from "./components/UI/RotatePhone";
+import UnityContainer from "./components/UnityContainer";
 
 function Game() {
   const { email } = useAppSelector((state) => state.authSlice.user);
   const [videoCallers, setVideoCallers] = useState(null);
+  const [isUnityLoaded, setIsUnityLoaded] = useState(false);
   const unityProviderRef: any = useRef(null);
 
   // Opened a subscription to receive incoming calls
@@ -23,6 +24,8 @@ function Game() {
     },
     "game",
   );
+
+  const { orientation } = useScreenSize();
 
   const throttledEmitPlayerMoved = throttle((player: any) => {
     emitSupabaseEvent(SOCKET_EVENTS.PLAYER_MOVED, JSON.parse(player), "game");
@@ -93,20 +96,27 @@ function Game() {
     SpawnCurrentPlayer();
   };
 
+  // Check if the device is in a vertical orientation
+  // If it is, return the RotatePhone component
+  if (orientation == "v") {
+    return <RotatePhone />;
+  }
+
   return (
     <div className="relative flex h-screen w-full flex-col">
-      {<Connect videoCallers={videoCallers} />}
-      <div style={{ width: "100%", height: "100%" }}></div>
+      {isUnityLoaded && <Connect videoCallers={videoCallers} />}
       <UnityContainer
         playerMoveListener={playerMoveListener}
         unityProviderRef={unityProviderRef}
         playerInteractListener={playerInteractListener}
+        onUnityLoad={joinGame}
+        setIsUnityLoaded={setIsUnityLoaded}
       />
-      <Button
+      {/* <Button
         onClick={joinGame}
         className="absolute bottom-5 right-5 z-10 flex h-8 w-8 items-center justify-center rounded-full !bg-white shadow-md"
         icon={<BsPlus className="text-black" />}
-      />
+      /> */}
     </div>
   );
 }

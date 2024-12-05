@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 
 function useWebRtc() {
-  const [remoteStream, setRemoteStream] = useState(null);
-  const [myStream, setMyStream] = useState(null);
+  const [remoteStream, setRemoteStream] = useState<MediaStream | null>(null);
+  const [myStream, setMyStream] = useState<MediaStream | null>(null);
   const peerRef = useRef<RTCPeerConnection | null>(null);
 
   useEffect(() => {
@@ -12,21 +12,32 @@ function useWebRtc() {
       "negotiationneeded",
       handleNegotiationNeeded,
     );
-    (async () => {
-      const mediaStream: any = await navigator.mediaDevices.getUserMedia({
-        video: true,
-      });
-      setMyStream(mediaStream);
-      await sendStream(mediaStream);
-    })();
+    peerRef.current?.addEventListener(
+      "iceconnectionstatechange",
+      handleConnectionStateChange,
+    );
+    startMyStream();
     return () => {
       peerRef.current?.removeEventListener("track", handleGetTrack);
       peerRef.current?.removeEventListener(
         "negotiationneeded",
         handleNegotiationNeeded,
       );
+      peerRef.current?.removeEventListener(
+        "iceconnectionstatechange",
+        handleConnectionStateChange,
+      );
+      closeConnection();
     };
   }, []);
+
+  async function startMyStream() {
+    const mediaStream: any = await navigator.mediaDevices.getUserMedia({
+      video: true,
+    });
+    setMyStream(mediaStream);
+    await sendStream(mediaStream);
+  }
 
   function createPeer() {
     const peer = new RTCPeerConnection({
@@ -77,6 +88,26 @@ function useWebRtc() {
     console.log("negotiation needed");
   }
 
+  function closeConnection() {
+    // Stop remote stream tracks
+    remoteStream?.getTracks().forEach((track) => track.stop());
+    setRemoteStream(null);
+
+    // Close the peer connection
+    if (peerRef.current) {
+      peerRef.current.close();
+      peerRef.current = null;
+    }
+  }
+
+  function handleConnectionStateChange() {
+    if (!peerRef.current) return;
+    const state = peerRef.current.iceConnectionState;
+    if (state === "disconnected" || state === "failed" || state === "closed") {
+      closeConnection();
+    }
+  }
+
   return {
     peerRef,
     myStream,
@@ -84,6 +115,7 @@ function useWebRtc() {
     createOffer,
     createAnswer,
     setRemoteAnswer,
+    closeConnection,
   };
 }
 

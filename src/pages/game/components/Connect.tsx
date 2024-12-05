@@ -1,10 +1,8 @@
-import { Button } from "@/common/components/shadcn/ui/button";
 import { SOCKET_EVENTS } from "@/common/constants/socket-events.const";
 import { useAppSelector } from "@/common/hooks/useAppSelector";
 import useSupabaseListener from "@/common/hooks/useSupabaseListener";
 import { emitSupabaseEvent } from "@/setup/supabase.conf";
 import { useEffect, useRef } from "react";
-import { BsCameraVideo } from "react-icons/bs";
 import useWebRtc from "../hooks/useWebRtc";
 import VideoContainer from "./UI/VideoContainer";
 
@@ -13,8 +11,14 @@ function Connect({ videoCallers }: any) {
   const negotiationCount = useRef(0);
 
   // WebRTC hook
-  const { remoteStream, myStream, createOffer, createAnswer, setRemoteAnswer } =
-    useWebRtc();
+  const {
+    remoteStream,
+    closeConnection,
+    myStream,
+    createOffer,
+    createAnswer,
+    setRemoteAnswer,
+  } = useWebRtc();
 
   // Opened a subscription to receive incoming calls
   // Opened a subscription to call received
@@ -56,9 +60,6 @@ function Connect({ videoCallers }: any) {
   async function handleReceiveIncomingCall(data: any) {
     const { senderCreatedOffer } = data;
     const answer = await createAnswer(senderCreatedOffer);
-
-    console.log(` Answer created for --> ${data.senderEmail}`);
-
     // Send the answer to the sender
     emitSupabaseEvent(
       `${SOCKET_EVENTS.CALL_RECEIVED}:${data.senderEmail}`,
@@ -75,7 +76,6 @@ function Connect({ videoCallers }: any) {
     // Once answer is received
     // For negotiationNeeded we are processing once again
     if (negotiationCount.current === 0) {
-      console.log("negotiating");
       createCall();
       negotiationCount.current++;
     }
@@ -83,12 +83,15 @@ function Connect({ videoCallers }: any) {
 
   return (
     <>
-      <VideoContainer streams={[myStream, remoteStream]} />
-      <Button
+      <VideoContainer
+        streams={[myStream, remoteStream]}
+        closeConnection={closeConnection}
+      />
+      {/* <Button
         onClick={createCall}
         className="absolute bottom-28 right-5 z-10 flex h-8 w-8 items-center justify-center rounded-full !bg-white shadow-md"
         icon={<BsCameraVideo className="text-black" />}
-      />
+      /> */}
     </>
   );
 }

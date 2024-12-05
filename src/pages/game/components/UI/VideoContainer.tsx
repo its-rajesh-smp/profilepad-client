@@ -1,10 +1,12 @@
 import VidePlayer from "./VidePlayer";
 
-function VideoContainer({ streams }: any) {
+function VideoContainer({ streams, closeConnection }: any) {
   return (
-    <div className="flex h-full w-full justify-center gap-5">
-      <VidePlayer stream={streams[0]} />
-      <VidePlayer stream={streams[1]} />
+    <div className="absolute right-2 top-2 flex flex-col gap-5">
+      {streams[0] && <VidePlayer stream={streams[0]} />}
+      {streams[1] && (
+        <VidePlayer closeConnection={closeConnection} stream={streams[1]} />
+      )}
     </div>
   );
 }
