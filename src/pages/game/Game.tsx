@@ -1,8 +1,8 @@
 import { SOCKET_EVENTS } from "@/common/constants/socket-events.const";
 import { useAppSelector } from "@/common/hooks/useAppSelector";
 import useScreenSize from "@/common/hooks/useScreenSize";
-import useSupabaseListener from "@/common/hooks/useSupabaseListener";
-import { emitSupabaseEvent } from "@/setup/supabase.conf";
+import useSocketListener from "@/common/hooks/useSocketListener";
+import { emitEvent } from "@/setup/socket.conf";
 import { throttle } from "lodash";
 import { useRef, useState } from "react";
 import Connect from "./components/Connect";
@@ -15,28 +15,24 @@ function Game() {
   const [isUnityLoaded, setIsUnityLoaded] = useState(false);
   const unityProviderRef: any = useRef(null);
 
-  // Opened a subscription to receive incoming calls
-  // Opened a subscription to call received
-  useSupabaseListener(
-    {
-      [`${SOCKET_EVENTS.PLAYER_MOVED}`]: MoveAPlayer,
-      [`${SOCKET_EVENTS.PLAYER_JOINED}`]: handelSpawnOtherPlayer,
-    },
-    "game",
-  );
+  useSocketListener(`${SOCKET_EVENTS.PRE_SPAWN_EXISTING_PLAYERS}`, (data) => {
+    data.forEach((a: any) => {
+      handelSpawnOtherPlayer(a);
+    });
+  });
+  useSocketListener(`${SOCKET_EVENTS.PLAYER_MOVED}`, handelMovePlayer);
+  useSocketListener(`${SOCKET_EVENTS.PLAYER_JOINED}`, handelSpawnOtherPlayer);
 
   const { orientation } = useScreenSize();
 
   const throttledEmitPlayerMoved = throttle((player: any) => {
-    emitSupabaseEvent(SOCKET_EVENTS.PLAYER_MOVED, JSON.parse(player), "game");
+    emitEvent(SOCKET_EVENTS.PLAYER_MOVED, JSON.parse(player));
   }, 500);
 
   /**
    * Function to handle player movement
    */
   const playerMoveListener = (player: any) => {
-    // Emit current player moved event to other players
-    // emitEvent(SOCKET_EVENTS.PLAYER_MOVED, JSON.parse(player));
     throttledEmitPlayerMoved(player);
   };
 
@@ -48,7 +44,7 @@ function Game() {
   /**
    * Function to spawn current player on Unity
    */
-  function SpawnCurrentPlayer() {
+  function handelSpawnCurrentPlayer() {
     const player = {
       playerId: email,
       posX: 0,
@@ -61,7 +57,7 @@ function Game() {
       JSON.stringify(player),
     );
 
-    emitSupabaseEvent(SOCKET_EVENTS.PLAYER_JOINED, player, "game");
+    emitEvent(SOCKET_EVENTS.PLAYER_JOINED, player);
   }
 
   /**
@@ -69,7 +65,6 @@ function Game() {
    * @param playerData player data
    */
   function handelSpawnOtherPlayer(playerData: any) {
-    console.log(playerData);
     unityProviderRef?.current(
       "WebEventController",
       "PlayerJoinListener",
@@ -81,7 +76,7 @@ function Game() {
    * Function to move a player on Unity
    * @param playerData
    */
-  function MoveAPlayer(playerData: any) {
+  function handelMovePlayer(playerData: any) {
     unityProviderRef?.current(
       "WebEventController",
       "PlayerMovementListener",
@@ -93,7 +88,7 @@ function Game() {
    * Function to join game
    */
   const joinGame = () => {
-    SpawnCurrentPlayer();
+    handelSpawnCurrentPlayer();
   };
 
   // Check if the device is in a vertical orientation
