@@ -1,5 +1,6 @@
+import { API_URL } from "@/common/constants/app.const";
 import { io } from "socket.io-client";
-const socket = io("http://localhost:3000");
+const socket = io(API_URL);
 
 export const emitEvent = (event: string, data: any) => {
   socket.emit(event, data);
