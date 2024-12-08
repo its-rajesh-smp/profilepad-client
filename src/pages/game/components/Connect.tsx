@@ -1,7 +1,7 @@
 import { SOCKET_EVENTS } from "@/common/constants/socket-events.const";
 import { useAppSelector } from "@/common/hooks/useAppSelector";
-import useSupabaseListener from "@/common/hooks/useSupabaseListener";
-import { emitSupabaseEvent } from "@/setup/supabase.conf";
+import useSocketListener from "@/common/hooks/useSocketListener";
+import { emitEvent } from "@/setup/socket.conf";
 import { useEffect, useRef } from "react";
 import useWebRtc from "../hooks/useWebRtc";
 import VideoContainer from "./UI/VideoContainer";
@@ -22,10 +22,12 @@ function Connect({ videoCallers }: any) {
 
   // Opened a subscription to receive incoming calls
   // Opened a subscription to call received
-  useSupabaseListener({
-    [`${SOCKET_EVENTS.INCOMING_CALL}:${email}`]: handleReceiveIncomingCall,
-    [`${SOCKET_EVENTS.CALL_RECEIVED}:${email}`]: handelCallReceived,
-  });
+  useSocketListener(
+    SOCKET_EVENTS.RECEIVE_INCOMING_CALL,
+    handleReceiveIncomingCall,
+  );
+
+  useSocketListener(SOCKET_EVENTS.CALL_RECEIVED, handelCallReceived);
 
   useEffect(() => {
     if (videoCallers) {
@@ -44,12 +46,7 @@ function Connect({ videoCallers }: any) {
       senderEmail: email,
       senderCreatedOffer: offer,
     };
-
-    // Send the offer to the receiver
-    emitSupabaseEvent(
-      `${SOCKET_EVENTS.INCOMING_CALL}:${data.receiverEmail}`,
-      data,
-    );
+    emitEvent(SOCKET_EVENTS.CREATE_CALL, data);
   };
 
   /**
@@ -61,10 +58,7 @@ function Connect({ videoCallers }: any) {
     const { senderCreatedOffer } = data;
     const answer = await createAnswer(senderCreatedOffer);
     // Send the answer to the sender
-    emitSupabaseEvent(
-      `${SOCKET_EVENTS.CALL_RECEIVED}:${data.senderEmail}`,
-      answer,
-    );
+    emitEvent(SOCKET_EVENTS.CALL_RECEIVED, answer);
   }
 
   /**
