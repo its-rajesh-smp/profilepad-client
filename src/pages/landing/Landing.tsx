@@ -1,11 +1,11 @@
 import { TextGenerateEffect } from "@/common/components/shadcn/ui/text-generate-effect";
 import { APP_ICON } from "@/common/constants/app.const";
 import { motion } from "framer-motion";
+import { BackgroundLines } from "./components/BackgroundLines";
 import CardsContainer from "./components/CardsContainer";
 import { ContainerScroll } from "./components/ContainerScroll";
 import CreateProfileBtn from "./components/CreateProfileBtn";
 import { FlipWords } from "./components/FlipWords";
-import { SpotlightEffect } from "./components/SpotlightEffect";
 
 export default function Landing() {
   const words = ["pads", "cards"];
@@ -13,6 +13,8 @@ export default function Landing() {
   return (
     <div className="relative flex flex-col overflow-hidden">
       <CardsContainer />
+      <BackgroundLines />
+
       {/* ProfilePad */}
       <ContainerScroll
         titleComponent={
@@ -48,12 +50,11 @@ export default function Landing() {
       </ContainerScroll>
 
       {/* PadLand */}
-      <section className="flex h-screen flex-col gap-6 p-6 pt-0">
+      {/* <section className="flex h-screen flex-col gap-6 p-6 pt-0">
         <div className="mb-4 flex justify-center p-5">
           <p className="text-4xl font-bold">padLand</p>
         </div>
         <div className="flex h-full w-full flex-col gap-5 lg:flex-row">
-          {/* Left side */}
           <div
             style={{
               backgroundImage: `url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32' width='32' height='32' fill='none' stroke='rgb(255 255 255 / 0.02)'%3e%3cpath d='M0 .5H31.5V32'/%3e%3c/svg%3e")`,
@@ -69,12 +70,12 @@ export default function Landing() {
               A 2D <span className="font-bold text-blue-500">Metaverse</span>
             </h1>
           </div>
-          {/* Right side */}
+
           <div className="h-full w-full rounded-3xl bg-blue-500">
             sdfsdfsdfsdfsf
           </div>
         </div>
-      </section>
+      </section> */}
     </div>
   );
 }
