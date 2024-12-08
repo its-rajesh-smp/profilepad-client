@@ -11,12 +11,16 @@ function Profile() {
   const { user, editMode } = useAppSelector((state) => state.authSlice);
 
   const onTextChange = (text: string) => {
+    // If not in edit mode, return
+    if (!editMode) return;
     debouncedUpdateOnDb(text);
   };
 
+  /**
+   * Debounced update on DB
+   */
   const debouncedUpdateOnDb = useCallback(
     debounce((value: string) => {
-      // Update simple field
       const updatedField = { headline: value };
       updateProfile(user?.id, updatedField);
     }, 500),
