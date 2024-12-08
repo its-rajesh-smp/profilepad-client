@@ -7,7 +7,8 @@ export type DashboardCardType =
   | "section"
   | "empty"
   | "html"
-  | "carousel";
+  | "carousel"
+  | "icon";
 
 export interface IDashboardCard {
   id: string;
@@ -32,7 +33,8 @@ export type TCardLayoutStyle =
   | "HORIZONTAL_RECTANGLE"
   | "HORIZONTAL_WIDE_RECTANGLE"
   | "VERTICAL_RECTANGLE"
-  | "LARGE_SQUARE";
+  | "LARGE_SQUARE"
+  | "MINI";
 
 export type TEditableMetadataInputType =
   | "checkbox"

@@ -2,7 +2,7 @@ import { Button } from "@/common/components/shadcn/ui/button";
 import { useAppDispatch } from "@/common/hooks/useAppDispatch";
 import { useAppSelector } from "@/common/hooks/useAppSelector";
 import { motion } from "framer-motion";
-import { BiImage, BiLink, BiLogoHtml5, BiText } from "react-icons/bi";
+import { BiImage, BiLink, BiText } from "react-icons/bi";
 import { LuBoxSelect } from "react-icons/lu";
 import { TbSection } from "react-icons/tb";
 import { createLayoutAct } from "../action-creators/layout-item.act";
@@ -76,14 +76,23 @@ function ActionBar({ className }: { className?: string }) {
           icon={<LuBoxSelect />}
         />
 
-        <Button
+        {/* <Button
           tooltipText="HTML"
           onClick={() => onCreateBtnClick({ type: "html" })}
           variant="secondary"
           size="xs"
           uiType="icon"
           icon={<BiLogoHtml5 />}
-        />
+        /> */}
+
+        {/* <Button
+          tooltipText="Icon"
+          onClick={() => onCreateBtnClick({ type: "icon" })}
+          variant="secondary"
+          size="xs"
+          uiType="icon"
+          icon={<IoConstruct />}
+        /> */}
 
         {/* <Button
           tooltipText="Carousel"
