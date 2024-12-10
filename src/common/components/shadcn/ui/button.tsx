@@ -1,6 +1,3 @@
-import * as React from "react";
-import { Slot } from "@radix-ui/react-slot";
-import { cva, type VariantProps } from "class-variance-authority";
 import {
   Tooltip,
   TooltipContent,
@@ -8,6 +5,9 @@ import {
   TooltipTrigger,
 } from "@/common/components/shadcn/ui/tooltip";
 import { cn } from "@/common/lib/utils";
+import { Slot } from "@radix-ui/react-slot";
+import { cva, type VariantProps } from "class-variance-authority";
+import * as React from "react";
 
 const buttonVariants = cva(
   "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-zinc-950 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 dark:focus-visible:ring-zinc-300",
@@ -49,6 +49,8 @@ export interface ButtonProps
   icon?: React.ReactNode;
   tooltipText?: string; // Add tooltipText prop
   loading?: boolean; // Add loading prop
+  selected?: boolean;
+  selectedStyle?: string;
 }
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
@@ -62,6 +64,8 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       icon,
       tooltipText,
       loading = false, // Destructure and set default to false
+      selected = false,
+      selectedStyle = "bg-white text-dark dark:bg-zinc-950 dark:text-white",
       ...props
     },
     ref,
@@ -72,6 +76,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       <Comp
         className={cn(buttonVariants({ variant, size, className }), {
           "cursor-not-allowed opacity-50": loading, // Style for loading state
+          [selectedStyle]: selected, // Add selected class name
         })}
         ref={ref}
         disabled={loading || props.disabled} // Disable button when loading

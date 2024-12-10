@@ -1,42 +1,55 @@
-import { Button } from "@/common/components/shadcn/ui/button";
 import { SOCKET_EVENTS } from "@/common/constants/socket-events.const";
+import { useAppSelector } from "@/common/hooks/useAppSelector";
+import useScreenSize from "@/common/hooks/useScreenSize";
 import useSocketListener from "@/common/hooks/useSocketListener";
 import { emitEvent } from "@/setup/socket.conf";
-import { useRef } from "react";
-import { BsPlus } from "react-icons/bs";
-import { v4 } from "uuid";
+import { throttle } from "lodash";
+import { useRef, useState } from "react";
+import Connect from "./components/Connect";
+import RotatePhone from "./components/UI/RotatePhone";
 import UnityContainer from "./components/UnityContainer";
 
 function Game() {
+  const { email } = useAppSelector((state) => state.authSlice.user);
+  const [videoCallers, setVideoCallers] = useState(null);
+  const [isUnityLoaded, setIsUnityLoaded] = useState(false);
   const unityProviderRef: any = useRef(null);
 
-  // Listener for other player join event
-  useSocketListener(SOCKET_EVENTS.PLAYER_JOINED, (playerData) => {
-    SpawnOtherPlayer(playerData);
+  useSocketListener(`${SOCKET_EVENTS.PRE_SPAWN_EXISTING_PLAYERS}`, (data) => {
+    data.forEach((a: any) => {
+      handelSpawnOtherPlayer(a);
+    });
   });
+  useSocketListener(`${SOCKET_EVENTS.PLAYER_MOVED}`, handelMovePlayer);
+  useSocketListener(`${SOCKET_EVENTS.PLAYER_JOINED}`, handelSpawnOtherPlayer);
 
-  // Listener for other player move event
-  useSocketListener(SOCKET_EVENTS.PLAYER_MOVED, (playerData) => {
-    MoveAPlayer(playerData);
-  });
+  const { orientation } = useScreenSize();
+
+  const throttledEmitPlayerMoved = throttle((player: any) => {
+    emitEvent(SOCKET_EVENTS.PLAYER_MOVED, JSON.parse(player));
+  }, 500);
 
   /**
    * Function to handle player movement
    */
   const playerMoveListener = (player: any) => {
-    // Emit current player moved event to other players
-    emitEvent(SOCKET_EVENTS.PLAYER_MOVED, JSON.parse(player));
+    throttledEmitPlayerMoved(player);
+  };
+
+  const playerInteractListener = (playersJSON: any) => {
+    const players = JSON.parse(playersJSON);
+    setVideoCallers(players);
   };
 
   /**
    * Function to spawn current player on Unity
    */
-  function SpawnCurrentPlayer() {
+  function handelSpawnCurrentPlayer() {
     const player = {
-      playerId: v4(),
+      playerId: email,
       posX: 0,
       posY: 0,
-      playerName: "Rajesh",
+      playerName: email,
     };
     unityProviderRef?.current(
       "WebEventController",
@@ -44,7 +57,6 @@ function Game() {
       JSON.stringify(player),
     );
 
-    // Emit current player joined event to other players
     emitEvent(SOCKET_EVENTS.PLAYER_JOINED, player);
   }
 
@@ -52,7 +64,7 @@ function Game() {
    * Function to spawn other player on Unity
    * @param playerData player data
    */
-  function SpawnOtherPlayer(playerData: any) {
+  function handelSpawnOtherPlayer(playerData: any) {
     unityProviderRef?.current(
       "WebEventController",
       "PlayerJoinListener",
@@ -64,7 +76,7 @@ function Game() {
    * Function to move a player on Unity
    * @param playerData
    */
-  function MoveAPlayer(playerData: any) {
+  function handelMovePlayer(playerData: any) {
     unityProviderRef?.current(
       "WebEventController",
       "PlayerMovementListener",
@@ -76,20 +88,30 @@ function Game() {
    * Function to join game
    */
   const joinGame = () => {
-    SpawnCurrentPlayer();
+    handelSpawnCurrentPlayer();
   };
+
+  // Check if the device is in a vertical orientation
+  // If it is, return the RotatePhone component
+  if (orientation == "v") {
+    return <RotatePhone />;
+  }
 
   return (
     <div className="relative flex h-screen w-full flex-col">
+      {isUnityLoaded && <Connect videoCallers={videoCallers} />}
       <UnityContainer
         playerMoveListener={playerMoveListener}
         unityProviderRef={unityProviderRef}
+        playerInteractListener={playerInteractListener}
+        onUnityLoad={joinGame}
+        setIsUnityLoaded={setIsUnityLoaded}
       />
-      <Button
+      {/* <Button
         onClick={joinGame}
         className="absolute bottom-5 right-5 z-10 flex h-8 w-8 items-center justify-center rounded-full !bg-white shadow-md"
         icon={<BsPlus className="text-black" />}
-      />
+      /> */}
     </div>
   );
 }

@@ -77,20 +77,22 @@ function ClaimUniqueLinkForm() {
             The good ones are still available!
           </h1>
         </div>
-        <div>
-          <div className="flex items-center rounded-md bg-gray-100 px-3">
+        <div className="w-full">
+          <div className="flex w-full items-center rounded-md bg-gray-100 px-3">
             <label className="text-sm text-gray-500">profilepad.in/</label>
             <Input
               value={slugText}
               onChange={onTextChange}
-              className="h-12 border-0 p-0 outline-none focus-visible:ring-0"
+              className="h-12 w-full border-0 p-0 !shadow-none outline-none focus-visible:ring-0"
               placeholder="your-name"
+              containerClassName="w-full  border-0 focus-visible:ring-0"
             />
+
             {loading && (
-              <BiLoader className="h-6 w-6 animate-spin text-gray-500" />
+              <BiLoader className="h-6 w-6 animate-spin justify-end text-gray-500" />
             )}
             {isSlugAvailable && slugText.length > 0 && (
-              <IoMdCheckmark className="h-6 w-6 text-gray-500" />
+              <IoMdCheckmark className="h-6 w-6 justify-end text-gray-500" />
             )}
           </div>
           <Button

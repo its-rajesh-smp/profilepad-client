@@ -15,6 +15,7 @@ function UserAvatar() {
     const response = await updateProfile(user?.id, data);
     dispatch(setUser(response.data.user));
   };
+
   return (
     <div className="relative">
       <Avatar

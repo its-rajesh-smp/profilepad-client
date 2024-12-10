@@ -25,4 +25,5 @@ export const resizeConstants: { [key: string]: { w: number; h: number } } = {
   HORIZONTAL_WIDE_RECTANGLE: { w: 4, h: 2 }, // Adjusted width to fit new columns
   VERTICAL_RECTANGLE: { w: 2, h: 4 },
   LARGE_SQUARE: { w: 4, h: 4 }, // Adjusted for new column layout
+  MINI: { w: 1, h: 1 },
 };

@@ -3,6 +3,7 @@ import { useContext } from "react";
 import GridItemContext from "../../context/GridItemContext";
 import EmptyCard from "../cards/EmptyCard";
 import HtmlCard from "../cards/HtmlCard";
+import IconCard from "../cards/IconCard";
 import ImageCard from "../cards/ImageCard";
 import ImageCarouselCard from "../cards/ImageCarouselCard";
 import LinkCard from "../cards/LinkCard";
@@ -30,6 +31,8 @@ const DashboardCard = () => {
         return <TextCard {...props} />;
       case "carousel":
         return <ImageCarouselCard {...props} />;
+      case "icon":
+        return <IconCard {...props} />;
     }
   };
 

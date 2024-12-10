@@ -15,7 +15,7 @@ function CardsContainer() {
       initial={{ opacity: 0, scale: 3 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={{ duration: 1, delay: 0.8 }}
-      className="absolute hidden h-screen w-screen overflow-hidden lg:block"
+      className="fixed hidden h-screen w-screen overflow-hidden lg:block"
     >
       <div className="absolute left-[5%] top-[5%] rotate-6 transform rounded-3xl border">
         <img className="h-44 w-44" src={authPageFloatingItems[0]} />
