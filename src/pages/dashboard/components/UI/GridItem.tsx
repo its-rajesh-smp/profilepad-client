@@ -36,6 +36,7 @@ const GridItem = React.forwardRef<HTMLDivElement, GridItemProps>(
     ref,
   ) => {
     const isEditMode = useAppSelector((state) => state.authSlice.editMode);
+    const isInitial = item.variant === "initial";
     const [isHovered, setIsHovered] = useState(false);
 
     return (
@@ -55,9 +56,12 @@ const GridItem = React.forwardRef<HTMLDivElement, GridItemProps>(
       >
         <GridItemContextProvider item={item}>
           {children}
-          {isHovered && isEditMode && <CardDeleteBtn id={item.id} />}
+          {isHovered && !isInitial && isEditMode && (
+            <CardDeleteBtn id={item.id} />
+          )}
           {isHovered &&
             isEditMode &&
+            !isInitial &&
             !getToolbarVisibilityByType(item.type) && (
               <ResizeToolbar
                 sidebarOpened={sidebarOpened}

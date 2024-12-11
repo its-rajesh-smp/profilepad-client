@@ -19,6 +19,7 @@ export interface IDashboardCard {
   index?: number;
   style?: React.CSSProperties;
   metadata?: IMetadata;
+  variant?: "initial" | "default";
 }
 
 export interface IMetadata {

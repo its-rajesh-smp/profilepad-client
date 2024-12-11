@@ -18,6 +18,7 @@ interface IActionButtonProps {
   triggerClassName?: string;
   tooltipText?: string;
   isRemoveBtn?: boolean | number | string | undefined;
+  buttonVariant?: "default" | "destructive" | "outline" | "secondary" | "ghost";
 }
 
 function ActionButtonWithInput({
@@ -28,6 +29,7 @@ function ActionButtonWithInput({
   triggerClassName,
   tooltipText,
   isRemoveBtn,
+  buttonVariant = "secondary",
 }: IActionButtonProps) {
   const isEditMode = useAppSelector((state) => state.authSlice.editMode);
   const [input, setInput] = useState<string>("");
@@ -63,7 +65,7 @@ function ActionButtonWithInput({
       <PopoverTrigger className={triggerClassName} asChild>
         <Button
           tooltipText={tooltipText}
-          variant="secondary"
+          variant={buttonVariant}
           size="xs"
           uiType="icon"
           icon={icon}

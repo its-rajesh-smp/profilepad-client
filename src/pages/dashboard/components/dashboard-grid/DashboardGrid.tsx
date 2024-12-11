@@ -16,8 +16,8 @@ import {
   MARGIN,
   ROW_HEIGHT,
 } from "../../constants/dashboard-grid.const";
+import { defaultGridData } from "../../constants/default-grid.const";
 import { setBreakpoint } from "../../reducers/grid-layout-config.reducer";
-import AddWidget from "../AddWidget";
 import DashboardCard from "../UI/DashboardCard";
 import GridItem from "../UI/GridItem";
 import "./dashboard-grid.css";
@@ -47,11 +47,15 @@ function DashboardGrid() {
     dispatch(setBreakpoint(breakpoint));
   };
 
+  console.log(layout);
+
   return (
     <div className="relative flex h-full flex-1">
       <ReactGridLayout
         className="h-full w-full !p-0"
-        layouts={layout}
+        layouts={
+          layout["lg"].length > 0 ? layout : defaultGridData.gridLayoutConfig
+        }
         breakpoints={BREAKPOINTS}
         onBreakpointChange={onBreakpointChange}
         autoSize={true}
@@ -65,18 +69,22 @@ function DashboardGrid() {
         cols={COLS}
         margin={MARGIN}
       >
-        {layoutItems.map((item) => (
-          <GridItem
-            sidebarOpened={sidebarOpened}
-            setSidebarOpened={setSidebarOpened}
-            item={item}
-            key={item.id}
-          >
-            <DashboardCard />
-          </GridItem>
-        ))}
+        {(layoutItems.length > 0
+          ? layoutItems
+          : defaultGridData.layoutItems
+        ).map((item) => {
+          return (
+            <GridItem
+              sidebarOpened={sidebarOpened}
+              setSidebarOpened={setSidebarOpened}
+              item={item}
+              key={item.id}
+            >
+              <DashboardCard />
+            </GridItem>
+          );
+        })}
       </ReactGridLayout>
-      {!layoutItems.length && <AddWidget />}
     </div>
   );
 }

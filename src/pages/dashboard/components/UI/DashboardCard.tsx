@@ -6,6 +6,7 @@ import HtmlCard from "../cards/HtmlCard";
 import IconCard from "../cards/IconCard";
 import ImageCard from "../cards/ImageCard";
 import ImageCarouselCard from "../cards/ImageCarouselCard";
+import InitialCard from "../cards/InitialCard";
 import LinkCard from "../cards/LinkCard";
 import SectionCard from "../cards/SectionCard";
 import TextCard from "../cards/TextCard";
@@ -13,9 +14,19 @@ import TextCard from "../cards/TextCard";
 const DashboardCard = () => {
   const props = useContext(GridItemContext).item;
   const isEmpty = props.type === "empty" || props.type === "section";
+  const isInitial = props.variant === "initial";
   const className = ` h-full w-full cursor-pointer overflow-y-auto rounded-2xl hover:bg-zinc-50  bg-white ${!isEmpty && "shadow-sm border"}`;
 
-  const getCard = () => {
+  if (isInitial)
+    return (
+      <div
+        className={`${className} border-2 border-dashed border-zinc-200 shadow-sm`}
+      >
+        <InitialCard {...props} />
+      </div>
+    );
+
+  const renderCard = () => {
     switch (props.type) {
       case "image":
         return <ImageCard {...props} />;
@@ -36,7 +47,7 @@ const DashboardCard = () => {
     }
   };
 
-  return <motion.div className={className}>{getCard()}</motion.div>;
+  return <motion.div className={className}>{renderCard()}</motion.div>;
 };
 
 export default DashboardCard;
