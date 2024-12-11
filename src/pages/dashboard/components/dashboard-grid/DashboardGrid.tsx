@@ -1,3 +1,4 @@
+import MessageDisplay from "@/common/components/UI/MessageDisplay";
 import { useAppDispatch } from "@/common/hooks/useAppDispatch";
 import { useAppSelector } from "@/common/hooks/useAppSelector";
 import { debounce } from "@/common/utils/debounce.util";
@@ -47,14 +48,14 @@ function DashboardGrid() {
     dispatch(setBreakpoint(breakpoint));
   };
 
-  console.log(layout);
-
   return (
     <div className="relative flex h-full flex-1">
       <ReactGridLayout
         className="h-full w-full !p-0"
         layouts={
-          layout["lg"].length > 0 ? layout : defaultGridData.gridLayoutConfig
+          layout["lg"].length > 0 || !isEditMode
+            ? layout
+            : defaultGridData.gridLayoutConfig
         }
         breakpoints={BREAKPOINTS}
         onBreakpointChange={onBreakpointChange}
@@ -69,7 +70,7 @@ function DashboardGrid() {
         cols={COLS}
         margin={MARGIN}
       >
-        {(layoutItems.length > 0
+        {(layoutItems.length > 0 || !isEditMode
           ? layoutItems
           : defaultGridData.layoutItems
         ).map((item) => {
@@ -85,6 +86,14 @@ function DashboardGrid() {
           );
         })}
       </ReactGridLayout>
+
+      {!isEditMode && (
+        <MessageDisplay
+          message="Nothing is added"
+          imgClassName=" w-80 h-80"
+          imgSrc="https://cdn-icons-png.flaticon.com/512/14005/14005478.png"
+        />
+      )}
     </div>
   );
 }

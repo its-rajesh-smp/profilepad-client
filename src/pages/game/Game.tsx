@@ -1,3 +1,4 @@
+import MessageDisplay from "@/common/components/UI/MessageDisplay";
 import { SOCKET_EVENTS } from "@/common/constants/socket-events.const";
 import { useAppSelector } from "@/common/hooks/useAppSelector";
 import useScreenSize from "@/common/hooks/useScreenSize";
@@ -6,7 +7,6 @@ import { emitEvent } from "@/setup/socket.conf";
 import { throttle } from "lodash";
 import { useRef, useState } from "react";
 import Connect from "./components/Connect";
-import RotatePhone from "./components/UI/RotatePhone";
 import UnityContainer from "./components/UnityContainer";
 
 function Game() {
@@ -94,7 +94,12 @@ function Game() {
   // Check if the device is in a vertical orientation
   // If it is, return the RotatePhone component
   if (orientation == "v") {
-    return <RotatePhone />;
+    return (
+      <MessageDisplay
+        message="Please rotate your phone"
+        imgSrc="https://cdn-icons-png.flaticon.com/512/1302/1302088.png"
+      />
+    );
   }
 
   return (

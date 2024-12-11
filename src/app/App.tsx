@@ -9,6 +9,7 @@ import Loading from "@/pages/loading/Loading";
 function App() {
   const dispatch = useAppDispatch();
   const [isLoading, setIsLoading] = useState(true);
+
   useEffect(() => {
     (async () => {
       await dispatch(verifyUserAct());
