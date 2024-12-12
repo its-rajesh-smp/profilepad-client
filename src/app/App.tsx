@@ -1,10 +1,10 @@
 import { useAppDispatch } from "@/common/hooks/useAppDispatch";
 import { verifyUserAct } from "@/pages/auth/action-creators/register.act";
+import LoadingPage from "@/pages/loading-page/LoadingPage";
 import appRouter from "@/routes/app.router";
 import { useEffect, useState } from "react";
 import { RouterProvider } from "react-router-dom";
 import "./App.css";
-import Loading from "@/pages/loading/Loading";
 
 function App() {
   const dispatch = useAppDispatch();
@@ -18,7 +18,7 @@ function App() {
   }, []);
 
   if (isLoading) {
-    return <Loading />;
+    return <LoadingPage />;
   }
 
   return (

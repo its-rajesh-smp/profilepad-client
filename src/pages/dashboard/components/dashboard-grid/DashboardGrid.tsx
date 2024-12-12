@@ -25,8 +25,6 @@ import "./dashboard-grid.css";
 
 const ReactGridLayout = WidthProvider(ResponsiveGridLayout);
 
-// Define breakpoints
-
 function DashboardGrid() {
   const { layout } = useAppSelector((state) => state.gridLayoutConfigSlice);
   const { layoutItems } = useAppSelector((state) => state.layoutItemsSlice);
@@ -87,7 +85,7 @@ function DashboardGrid() {
         })}
       </ReactGridLayout>
 
-      {!isEditMode && (
+      {!isEditMode && layoutItems.length == 0 && (
         <MessageDisplay
           message="Nothing is added"
           imgClassName=" w-80 h-80"

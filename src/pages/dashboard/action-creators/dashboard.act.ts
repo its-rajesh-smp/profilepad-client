@@ -23,14 +23,24 @@ export const getDashboardAct = () => {
 
 export const getDashboardPreviewAct = (slug: string | undefined) => {
   return async (dispatch: AppDispatch) => {
-    const { data } = await getDashboardPreview(slug);
+    try {
+      const { data } = await getDashboardPreview(slug);
+      const { gridLayoutConfig, layoutItems, user } = data;
+      console.log(data);
+      if (!user) {
+        return false;
+      }
 
-    const { gridLayoutConfig, layoutItems, user } = data;
-    setAppMetadataBasedOnUser(user);
-    dispatch(setGridLayoutConfig(gridLayoutConfig));
-    dispatch(setLayoutItems(layoutItems));
-    dispatch(setUser(user));
-    dispatch(setEditMode(false));
+      setAppMetadataBasedOnUser(user);
+      dispatch(setGridLayoutConfig(gridLayoutConfig));
+      dispatch(setLayoutItems(layoutItems));
+      dispatch(setUser(user));
+      dispatch(setEditMode(false));
+
+      return true;
+    } catch (error) {
+      return false;
+    }
   };
 };
 
