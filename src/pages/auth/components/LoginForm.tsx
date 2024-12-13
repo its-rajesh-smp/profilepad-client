@@ -2,11 +2,12 @@ import { Button } from "@/common/components/shadcn/ui/button";
 import { Input } from "@/common/components/shadcn/ui/input";
 import { useAppDispatch } from "@/common/hooks/useAppDispatch";
 import { getErrorMessage } from "@/common/utils/error.util";
+import { motion } from "framer-motion";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { loginAct } from "../action-creators/login.act";
 import AuthErrorMassage from "./UI/AuthErrorMassage";
-import { motion } from "framer-motion";
+import LoginWithGoogle from "./UI/LoginWithGoogle";
 
 function LoginForm() {
   const [formData, setFormData] = useState({
@@ -64,17 +65,24 @@ function LoginForm() {
             />
           </div>
           <p className="text-xs font-extrabold text-gray-500 opacity-0">OR</p>
-          <Button
-            loading={loader}
-            onClick={onClickLogin}
-            className="visible h-12 w-full"
-          >
-            Login
-          </Button>
-          {/* <Button className="visible h-12 w-full">
-            <BiLogoGoogle />
-            Sign in with Google
-          </Button> */}
+
+          {formData.email.length > 0 && (
+            <Button
+              loading={loader}
+              onClick={onClickLogin}
+              className="visible h-12 w-full"
+            >
+              <motion.p
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.5 }}
+              >
+                Login
+              </motion.p>
+            </Button>
+          )}
+
+          {formData.email.length === 0 && <LoginWithGoogle />}
 
           <AuthErrorMassage
             message={errorMessage}

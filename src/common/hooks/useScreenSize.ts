@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
 type Orientation = "h" | "v";
-type Size = "xs" | "sm" | "md" | "lg";
+export type TScreenSize = "xs" | "sm" | "md" | "lg";
 
 function useScreenSize() {
   // Define breakpoints for screen sizes
@@ -20,7 +20,7 @@ function useScreenSize() {
     const orientation: Orientation = height > width ? "v" : "h"; // 'v' for vertical, 'h' for horizontal
 
     // Determine the screen size
-    let size: Size;
+    let size: TScreenSize;
     if (width < breakpoints.xs) {
       size = "xs";
     } else if (width < breakpoints.sm) {
@@ -45,7 +45,7 @@ function useScreenSize() {
 
   const screenSizeArray = screenSize.split("-");
   return {
-    size: screenSizeArray[0] as Size,
+    size: screenSizeArray[0] as TScreenSize,
     orientation: screenSizeArray[1] as Orientation,
   };
 }

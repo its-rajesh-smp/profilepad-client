@@ -2,13 +2,14 @@ import { Button } from "@/common/components/shadcn/ui/button";
 import { Input } from "@/common/components/shadcn/ui/input";
 import { useAppDispatch } from "@/common/hooks/useAppDispatch";
 import { getErrorMessage } from "@/common/utils/error.util";
+import { motion } from "framer-motion";
+import { ArrowLeft } from "lucide-react";
 import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import { registerAct } from "../action-creators/register.act";
 import RegistrationContext from "../context/RegistrationContext";
 import AuthErrorMassage from "./UI/AuthErrorMassage";
-import { ArrowLeft } from "lucide-react";
-import { motion } from "framer-motion";
+import LoginWithGoogle from "./UI/LoginWithGoogle";
 
 function CreateNewAccountForm() {
   const [formData, setFormData] = useState({
@@ -79,17 +80,27 @@ function CreateNewAccountForm() {
             />
           </div>
           <p className="text-xs font-extrabold text-gray-500 opacity-0">OR</p>
-          <Button
-            loading={loader}
-            onClick={onClickCreateAccount}
-            className="visible h-12 w-full"
-          >
-            Create Account
-          </Button>
-          {/* <Button className="visible h-12 w-full">
-            <BiLogoGoogle />
-            Sign in with Google
-          </Button> */}
+
+          {formData.email.length > 0 && (
+            <Button
+              loading={loader}
+              onClick={onClickCreateAccount}
+              className="visible h-12 w-full"
+            >
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.5 }}
+              >
+                Create Account
+              </motion.div>
+            </Button>
+          )}
+
+          {formData.email.length === 0 && (
+            <LoginWithGoogle slug={slugText} btnText="Sign up with Google" />
+          )}
+
           <AuthErrorMassage
             show={errorMessage.length > 0}
             message={errorMessage}
