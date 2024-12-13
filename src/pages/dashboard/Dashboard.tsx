@@ -13,13 +13,12 @@ function Dashboard() {
   // Fetch the layout
   useEffect(() => {
     (async () => {
-      await new Promise((resolve) => setTimeout(resolve, 3000));
       await dispatch(getDashboardAct());
       setLoader(false);
     })();
   }, []);
 
-  if (loader) return <LoadingPage />;
+  if (loader) return <LoadingPage loadingText="Loading Dashboard..." />;
 
   return (
     <div className="flex h-screen flex-col gap-20 overflow-x-hidden p-0 lg:flex-row lg:p-16">
