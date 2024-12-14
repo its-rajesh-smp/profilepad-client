@@ -1,12 +1,15 @@
 import { Button } from "@/common/components/shadcn/ui/button";
+import ColorInput from "@/common/components/UI/ColorInput";
 import { useAppDispatch } from "@/common/hooks/useAppDispatch";
 import { resizeGridLayoutItem } from "@/pages/dashboard/action-creators/layout-item.act";
 import { resizeConstants } from "@/pages/dashboard/constants/dashboard-grid.const";
 import GridItemContext from "@/pages/dashboard/context/GridItemContext";
 import useCurrentCardLayoutSize from "@/pages/dashboard/hooks/useCurrentCardLayoutSize";
+import { updateLayoutItem } from "@/pages/dashboard/services/layout-item.service";
 import { motion } from "framer-motion";
+import { debounce } from "lodash";
 import { RectangleHorizontal } from "lucide-react";
-import { useContext } from "react";
+import { useCallback, useContext } from "react";
 import { GoSquare } from "react-icons/go";
 import { LuRectangleHorizontal, LuRectangleVertical } from "react-icons/lu";
 import { PiDotOutlineLight, PiSquare } from "react-icons/pi";
@@ -23,9 +26,27 @@ function ResizeToolbar({
   sidebarOpened: boolean;
   setSidebarOpened: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
-  const { type } = useContext(GridItemContext).item;
-  const dispatch = useAppDispatch();
+  const {
+    item: { type },
+    itemStyle,
+    setItemStyle,
+  } = useContext(GridItemContext);
+
   const layoutStyle = useCurrentCardLayoutSize(id);
+  const dispatch = useAppDispatch();
+
+  const debouncedUpdateOnDb = useCallback(
+    debounce((id: string, data: any) => updateLayoutItem(id, data), 500),
+    [],
+  );
+
+  const handleStyleChange = async (style: any) => {
+    setItemStyle((prevStyle: React.CSSProperties) => {
+      const updatedStyle = { ...prevStyle, ...style };
+      debouncedUpdateOnDb(id, { style: updatedStyle });
+      return updatedStyle;
+    });
+  };
 
   const onResize = ({ w, h }: { w: number; h: number }) => {
     dispatch(resizeGridLayoutItem(id, w, h));
@@ -85,6 +106,16 @@ function ResizeToolbar({
         />
         {type == "text" && <FormattingToolbar />}
         {type == "html" && <HtmlToggleBtn />}
+
+        {type == "text" && (
+          <ColorInput
+            triggerClassName="text-white"
+            color={itemStyle.backgroundColor}
+            handelChange={(color) =>
+              handleStyleChange({ backgroundColor: color })
+            }
+          />
+        )}
       </div>
     </motion.div>
   );

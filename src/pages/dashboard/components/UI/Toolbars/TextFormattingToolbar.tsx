@@ -4,6 +4,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/common/components/shadcn/ui/popover";
+import ColorInput from "@/common/components/UI/ColorInput";
 import { useAppSelector } from "@/common/hooks/useAppSelector";
 import { debounce } from "@/common/utils/debounce.util";
 import GridItemContext from "@/pages/dashboard/context/GridItemContext";
@@ -14,7 +15,6 @@ import {
   AlignRight,
   Bold,
   Italic,
-  Palette,
   Type,
 } from "lucide-react";
 import { useCallback, useContext } from "react";
@@ -108,21 +108,10 @@ export default function FormattingToolbar() {
             <AlignRight className="h-4 w-4" />
           </Button>
 
-          <Popover>
-            <PopoverTrigger asChild>
-              <Button variant="ghost" size="icon" className="h-8 w-8">
-                <Palette className="h-4 w-4" />
-              </Button>
-            </PopoverTrigger>
-            <PopoverContent className="w-32 p-2">
-              <input
-                type="color"
-                value={itemStyle.color}
-                onChange={(e) => handleStyleChange({ color: e.target.value })}
-                className="h-8 w-full"
-              />
-            </PopoverContent>
-          </Popover>
+          <ColorInput
+            color={itemStyle.color}
+            handelChange={(color) => handleStyleChange({ color: color })}
+          />
 
           <Popover>
             <PopoverTrigger asChild>

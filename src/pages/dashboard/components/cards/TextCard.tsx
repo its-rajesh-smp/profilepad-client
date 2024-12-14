@@ -7,7 +7,10 @@ import { IDashboardCard } from "../../types/dashboard.type";
 function TextCard({ id, text }: IDashboardCard) {
   const textStyle = useContext(GridItemContext).itemStyle;
   return (
-    <div className="flex h-full w-full items-center p-3 hover:bg-zinc-50">
+    <div
+      style={textStyle}
+      className="flex h-full w-full items-center p-3 hover:bg-zinc-50"
+    >
       <div
         className={`flex h-full w-full resize-none items-center border-none shadow-none outline-none focus-visible:ring-0`}
       >
