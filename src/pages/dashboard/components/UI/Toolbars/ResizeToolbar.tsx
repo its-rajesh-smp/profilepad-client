@@ -12,7 +12,7 @@ import { RectangleHorizontal } from "lucide-react";
 import { useCallback, useContext } from "react";
 import { GoSquare } from "react-icons/go";
 import { LuRectangleHorizontal, LuRectangleVertical } from "react-icons/lu";
-import { PiDotOutlineLight, PiSquare } from "react-icons/pi";
+import { PiSquare } from "react-icons/pi";
 import CardEditSidebarBtn from "../../card-edit-sidebar/UI/CardEditSidebarBtn";
 import HtmlToggleBtn from "./HtmlToggleBtn";
 import FormattingToolbar from "./TextFormattingToolbar";
@@ -55,7 +55,7 @@ function ResizeToolbar({
   return (
     <motion.div className="no-drag absolute inset-x-0 -bottom-10 !z-[200] flex items-center justify-center">
       <div className="mt-2 flex w-fit items-center justify-center rounded-md bg-zinc-900 shadow-md">
-        {type == "image" && (
+        {/* {type == "image" && (
           <Button
             variant="default"
             size="icon"
@@ -63,7 +63,7 @@ function ResizeToolbar({
             icon={<PiDotOutlineLight />}
             onClick={() => onResize(resizeConstants.MINI)} // Mini square
           />
-        )}
+        )} */}
         <Button
           variant="default"
           size="icon"
