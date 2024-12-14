@@ -11,7 +11,11 @@ const publicRoutes = [
     element: <Landing />,
   },
   {
-    path: "/blog/:slug",
+    path: "/blogs",
+    element: <Blog />,
+  },
+  {
+    path: "/blogs/:blogId",
     element: <Blog />,
   },
   {

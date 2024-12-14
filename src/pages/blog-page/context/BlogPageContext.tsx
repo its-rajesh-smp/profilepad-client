@@ -1,20 +1,22 @@
 import { createContext, Dispatch, useState } from "react";
+import { useParams } from "react-router-dom";
 
 interface IBlogPageContext {
-  currentBlog: any;
-  setCurrentBlog: Dispatch<React.SetStateAction<any>>;
+  currentBlogId: string;
+  setCurrentBlogId: Dispatch<React.SetStateAction<string>>;
 }
 
 const BlogPageContext = createContext<IBlogPageContext>({
-  currentBlog: {},
-  setCurrentBlog: () => {},
+  currentBlogId: "",
+  setCurrentBlogId: () => {},
 });
 
 export const BlogPageProvider = ({ children }: any) => {
-  const [currentBlog, setCurrentBlog] = useState({});
+  const params = useParams();
+  const [currentBlogId, setCurrentBlogId] = useState(params?.blogId || "");
 
   return (
-    <BlogPageContext.Provider value={{ setCurrentBlog, currentBlog }}>
+    <BlogPageContext.Provider value={{ setCurrentBlogId, currentBlogId }}>
       {children}
     </BlogPageContext.Provider>
   );

@@ -1,33 +1,56 @@
 import { Button } from "@/common/components/shadcn/ui/button";
 import { Sidebar, SidebarHeader } from "@/common/components/shadcn/ui/sidebar";
+import LoadingPage from "@/pages/loading-page/LoadingPage";
 import { Plus, Trash } from "lucide-react";
 import { useContext, useEffect, useState } from "react";
 import { FaPaperclip } from "react-icons/fa";
 import BlogPageContext from "../context/BlogPageContext";
 import { createBlog, deleteBlog, getBlogs } from "../services/blog.service";
+import { useNavigate } from "react-router-dom";
 
 function AllBlogs() {
-  const { setCurrentBlog, currentBlog } = useContext(BlogPageContext);
+  const { setCurrentBlogId, currentBlogId } = useContext(BlogPageContext);
+  const [loader, setLoader] = useState(true);
   const [blogs, setBlogs] = useState<any>([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     getAllBlogs();
   }, []);
 
   const getAllBlogs = async () => {
-    const res = await getBlogs();
-    setBlogs(res?.data);
+    try {
+      setLoader(true);
+      const res = await getBlogs();
+      setBlogs(res?.data);
+      setCurrentBlogId((prev) => prev || res?.data[0]?.id);
+    } catch (error) {
+    } finally {
+      setLoader(false);
+    }
   };
 
   const createABlog = async () => {
     const res = await createBlog({});
     setBlogs((prev: any) => [...prev, res?.data]);
+    setCurrentBlogId(res?.data.id);
+    navigate(`/blogs/${res?.data.id}`);
   };
 
   const deleteABlog = async (id: string) => {
     await deleteBlog(id);
+    if (currentBlogId === id) {
+      setCurrentBlogId("");
+      navigate("/blogs");
+    }
+
     setBlogs((prev: any) => prev.filter((blog: any) => blog?.id !== id));
   };
+
+  // if loading show loading page
+  if (loader) {
+    return <LoadingPage fullScreen={true} loadingText="Loading Blogs..." />;
+  }
 
   return (
     <Sidebar>
@@ -40,12 +63,15 @@ function AllBlogs() {
           return (
             <div
               key={blog?.id}
-              className={`flex w-full flex-row items-center justify-between ${currentBlog?.id === blog?.id && "bg-zinc-100 text-zinc-900"}`}
+              className={`flex w-full flex-row items-center justify-between ${currentBlogId === blog?.id && "bg-zinc-100 text-zinc-900"}`}
             >
               <Button
                 size="xs"
                 variant="ghost"
-                onClick={() => setCurrentBlog(blog)}
+                onClick={() => {
+                  setCurrentBlogId(blog.id);
+                  navigate(`/blogs/${blog?.id}`);
+                }}
                 icon={<FaPaperclip />}
                 className="flex w-full flex-row items-center justify-start px-2"
               >
