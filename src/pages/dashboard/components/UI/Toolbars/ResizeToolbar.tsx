@@ -32,7 +32,7 @@ function ResizeToolbar({
   };
 
   return (
-    <motion.div className="no-drag absolute inset-x-0 -bottom-10 flex items-center justify-center">
+    <motion.div className="no-drag absolute inset-x-0 -bottom-10 !z-[200] flex items-center justify-center">
       <div className="mt-2 flex w-fit items-center justify-center rounded-md bg-zinc-900 shadow-md">
         {type == "image" && (
           <Button

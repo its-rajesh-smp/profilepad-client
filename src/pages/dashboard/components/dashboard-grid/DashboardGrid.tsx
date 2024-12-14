@@ -47,9 +47,9 @@ function DashboardGrid() {
   };
 
   return (
-    <div className="relative flex h-full flex-1">
+    <div className="relative flex flex-1">
       <ReactGridLayout
-        className="h-full w-full !p-0"
+        className="min-h-[calc(100vh+100px)] w-full !p-0"
         layouts={
           layout["lg"].length > 0 || !isEditMode
             ? layout

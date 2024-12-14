@@ -34,7 +34,7 @@ function Profile() {
       transition={{ duration: 0.5, delay: 1 }}
       className="relative top-0 flex w-full flex-col gap-5 p-5 lg:sticky lg:top-0 lg:w-[30%] lg:gap-2 lg:p-0"
     >
-      <div className="flex w-full items-center justify-between gap-4 lg:flex-col lg:items-start">
+      <div className="flex w-full items-center justify-between gap-4 p-0 !pb-1 lg:flex-col lg:items-start lg:p-10">
         <UserAvatar />
         <h1 className="text-left text-3xl font-bold lg:text-5xl">
           <AutoSaveTextField
@@ -47,7 +47,7 @@ function Profile() {
         </h1>
       </div>
 
-      <div>
+      <div className="px-2 lg:px-10">
         <Editor
           editable={editMode}
           value={user.headline}

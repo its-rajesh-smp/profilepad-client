@@ -21,7 +21,7 @@ function Dashboard() {
   if (loader) return <LoadingPage loadingText="Loading Dashboard..." />;
 
   return (
-    <div className="flex h-screen flex-col gap-20 overflow-x-hidden p-0 lg:flex-row lg:p-16">
+    <div className="flex h-screen flex-col gap-2 overflow-x-hidden p-0 lg:flex-row lg:gap-20">
       <Profile />
       <DashboardGrid />
       <ActionBar />
