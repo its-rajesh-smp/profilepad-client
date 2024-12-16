@@ -55,7 +55,7 @@ function BlogEditor() {
           imgClassName="!w-60 !h-60"
           fitToParent={true}
           message="No blog selected"
-          imgSrc="https://cdn-icons-png.flaticon.com/512/13745/13745705.png"
+          imgSrc="	https://cdn-icons-png.flaticon.com/512/7486/7486766.png"
         />
       </div>
     );
