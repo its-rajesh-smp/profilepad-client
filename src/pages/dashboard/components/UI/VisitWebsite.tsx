@@ -1,5 +1,8 @@
 import { Button } from "@/common/components/shadcn/ui/button";
+import { useContext } from "react";
 import { BiLink } from "react-icons/bi";
+import { toast } from "sonner";
+import AnimatedModalContext from "../../context/AnimatedModalContext";
 
 function VisitWebsite({
   url,
@@ -8,11 +11,29 @@ function VisitWebsite({
   type?: "link" | "button";
   url: string | undefined;
 }) {
+  const { setUrl } = useContext(AnimatedModalContext);
+
   /**
    * Opens the specified URL in a new browser tab.
    */
+  const isOurBlogUrl = (url: string | undefined) => {
+    if (!url) return false;
+    return url.includes(window.location.origin + "/blogs/");
+  };
+
+  /**
+   * Opens the specified URL in a new browser tab.
+   * Or opens the blog in the modal
+   */
   const onBtnClick = () => {
-    window.open(url, "_blank");
+    if (!url) {
+      return toast.error("Oops! No URL found");
+    }
+    if (isOurBlogUrl(url)) {
+      setUrl(url);
+    } else {
+      window.open(url, "_blank");
+    }
   };
 
   switch (type) {

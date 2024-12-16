@@ -1,3 +1,4 @@
+import LazyImage from "@/common/components/LazyImage/LazyImage";
 import AutoSaveTextField from "@/common/components/UI/AutoSaveTextField";
 import { RANDOM_IMAGE_SRC } from "@/common/constants/url.const";
 import { useAppDispatch } from "@/common/hooks/useAppDispatch";
@@ -12,7 +13,6 @@ import { IDashboardCard, TCardLayoutStyle } from "../../types/dashboard.type";
 import ActionButtonWithInput from "../UI/ActionButtonWithInput";
 import VisitWebsite from "../UI/VisitWebsite";
 import WebsiteIcon from "../UI/WebsiteIcon";
-import LazyImage from "@/common/components/LazyImage/LazyImage";
 
 function LinkCard({ url, text, id, src }: IDashboardCard) {
   const dispatch = useAppDispatch();

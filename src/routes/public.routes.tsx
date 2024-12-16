@@ -1,6 +1,6 @@
 import Login from "@/pages/auth/Login";
 import Register from "@/pages/auth/Register";
-import Blog from "@/pages/blog-page/Blog";
+import BlogPreviewPage from "@/pages/blog-page/BlogPreviewPage";
 import DashboardPreview from "@/pages/dashboard/DashboardPreview";
 import Landing from "@/pages/landing/Landing";
 import GuestGuard from "./guards/GuestGuard";
@@ -11,12 +11,8 @@ const publicRoutes = [
     element: <Landing />,
   },
   {
-    path: "/blogs",
-    element: <Blog />,
-  },
-  {
-    path: "/blogs/:blogId",
-    element: <Blog />,
+    path: "/blog/:blogId",
+    element: <BlogPreviewPage />,
   },
   {
     path: "/:slug",

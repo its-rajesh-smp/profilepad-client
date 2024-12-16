@@ -4,9 +4,9 @@ import LoadingPage from "@/pages/loading-page/LoadingPage";
 import { Plus, Trash } from "lucide-react";
 import { useContext, useEffect, useState } from "react";
 import { FaPaperclip } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 import BlogPageContext from "../context/BlogPageContext";
 import { createBlog, deleteBlog, getBlogs } from "../services/blog.service";
-import { useNavigate } from "react-router-dom";
 
 function AllBlogs() {
   const { setCurrentBlogId, currentBlogId } = useContext(BlogPageContext);
@@ -23,7 +23,6 @@ function AllBlogs() {
       setLoader(true);
       const res = await getBlogs();
       setBlogs(res?.data);
-      setCurrentBlogId((prev) => prev || res?.data[0]?.id);
     } catch (error) {
     } finally {
       setLoader(false);
@@ -73,9 +72,11 @@ function AllBlogs() {
                   navigate(`/blogs/${blog?.id}`);
                 }}
                 icon={<FaPaperclip />}
-                className="flex w-full flex-row items-center justify-start px-2"
+                className="flex w-[80%] max-w-[80%] flex-row items-center justify-start px-2"
               >
-                <p className="text-sm">{blog?.title}</p>
+                <p className="w-fit overflow-hidden text-ellipsis text-sm">
+                  {blog?.title}
+                </p>
               </Button>
               <Button
                 onClick={() => deleteABlog(blog?.id)}

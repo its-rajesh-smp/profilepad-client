@@ -6,6 +6,8 @@ import ActionBar from "./components/ActionBar";
 import DashboardGrid from "./components/dashboard-grid/DashboardGrid";
 import Profile from "./components/Profile";
 import ProfileActionBar from "./components/ProfileActionBar";
+import AnimatedModal from "./components/UI/AnimatedModal";
+import { AnimatedModalProvider } from "./context/AnimatedModalContext";
 function Dashboard() {
   const dispatch = useAppDispatch();
   const [loader, setLoader] = useState(true);
@@ -21,12 +23,15 @@ function Dashboard() {
   if (loader) return <LoadingPage loadingText="Loading Dashboard..." />;
 
   return (
-    <div className="flex h-screen flex-col gap-2 overflow-x-hidden p-0 lg:flex-row lg:gap-20">
-      <Profile />
-      <DashboardGrid />
-      <ActionBar />
-      <ProfileActionBar />
-    </div>
+    <AnimatedModalProvider>
+      <div className="flex h-screen flex-col gap-2 overflow-x-hidden p-0 lg:flex-row lg:gap-20">
+        <Profile />
+        <DashboardGrid />
+        <ActionBar />
+        <ProfileActionBar />
+      </div>
+      <AnimatedModal />
+    </AnimatedModalProvider>
   );
 }
 
