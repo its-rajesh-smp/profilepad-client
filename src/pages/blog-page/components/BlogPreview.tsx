@@ -1,5 +1,7 @@
 import Editor from "@/common/components/Editor/Editor";
+import { Button } from "@/common/components/shadcn/ui/button";
 import Loader from "@/common/components/UI/Loader";
+import { APP_ICON } from "@/common/constants/app.const";
 import { useEffect, useState } from "react";
 import { PiNewspaperClippingThin } from "react-icons/pi";
 import { getABlog } from "../services/blog.service";
@@ -10,12 +12,14 @@ function BlogPreview({
   titleContainerClassName = "",
   loadingContainerClassName = "",
   editorClassName = "",
+  showAppIcon = false,
 }: {
   blogId?: string;
   containerClassName?: string;
   titleContainerClassName?: string;
   loadingContainerClassName?: string;
   editorClassName?: string;
+  showAppIcon?: boolean;
 }) {
   const [blog, setBlog] = useState<any>(null);
   const [loading, setLoading] = useState(true);
@@ -51,21 +55,33 @@ function BlogPreview({
   }
 
   return (
-    <div className={`flex flex-col gap-10 p-10 ${containerClassName}`}>
-      {blog?.title && (
-        <div
-          className={`flex gap-2 text-3xl font-bold ${titleContainerClassName}`}
+    <>
+      {showAppIcon && (
+        <Button
+          tooltipText="Visit Profile"
+          className="fixed right-5 top-5 z-[100] !p-0 !px-2"
+          variant={"secondary"}
+          icon={<img src={APP_ICON} alt="app-icon" className="h-8 w-8" />}
         >
-          <PiNewspaperClippingThin />
-          <h1>{blog?.title}</h1>
-        </div>
+          its.rajeshsmp@gmail.com
+        </Button>
       )}
-      <Editor
-        className={`w-full ${editorClassName}`}
-        value={blog?.content}
-        editable={false}
-      />
-    </div>
+      <div className={`flex flex-col gap-10 p-10 ${containerClassName}`}>
+        {blog?.title && (
+          <div
+            className={`flex gap-2 text-3xl font-bold ${titleContainerClassName}`}
+          >
+            <PiNewspaperClippingThin />
+            <h1>{blog?.title}</h1>
+          </div>
+        )}
+        <Editor
+          className={`w-full ${editorClassName}`}
+          value={blog?.content}
+          editable={false}
+        />
+      </div>
+    </>
   );
 }
 

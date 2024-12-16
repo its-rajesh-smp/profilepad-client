@@ -4,7 +4,11 @@ export const setAppMetadataBasedOnUser = (user: any) => {
 
   // Checking if the element exists before accessing its innerHTML
   if (websiteTitleElement && websiteFaviconElement) {
-    websiteTitleElement.innerHTML = user.name;
-    websiteFaviconElement.setAttribute("href", user.profileImageSrc);
+    if (user?.name) {
+      websiteTitleElement.innerHTML = user.name;
+    }
+    if (user?.profileImageSrc) {
+      websiteFaviconElement.setAttribute("href", user.profileImageSrc);
+    }
   }
 };

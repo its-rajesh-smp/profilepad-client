@@ -1,5 +1,4 @@
 import { AppDispatch } from "@/common/hooks/useAppDispatch";
-import { setAppMetadataBasedOnUser } from "@/common/utils/app_metadata.util";
 import { authenticate } from "../reducers/auth.reducer";
 import { createAccount, verifyUser } from "../services/register.service";
 
@@ -25,7 +24,6 @@ export const verifyUserAct = () => {
     if (!authToken) return false;
     const response = await verifyUser();
     const { user } = response.data;
-    setAppMetadataBasedOnUser(user);
     dispatch(authenticate({ user, authToken }));
   };
 };
