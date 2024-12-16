@@ -12,3 +12,10 @@
 .bn-mantine {
   padding: 0 !important; /* Remove container-level padding */
 }
+
+/* .bn-block-content {
+  overflow: hidden;
+} */
+.bn-file-block-content-wrapper {
+  overflow: hidden;
+}

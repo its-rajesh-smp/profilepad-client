@@ -51,6 +51,7 @@ function BlogEditor() {
   if (!currentBlog && !currentBlogId)
     return (
       <div className="flex h-screen w-full flex-col gap-5 p-5">
+        <SidebarTrigger iconClassName="!w-8 !h-8 " />
         <MessageDisplay
           imgClassName="!w-60 !h-60"
           fitToParent={true}

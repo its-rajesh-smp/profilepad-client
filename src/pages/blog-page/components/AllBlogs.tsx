@@ -1,5 +1,9 @@
 import { Button } from "@/common/components/shadcn/ui/button";
-import { Sidebar, SidebarHeader } from "@/common/components/shadcn/ui/sidebar";
+import {
+  Sidebar,
+  SidebarFooter,
+  SidebarHeader,
+} from "@/common/components/shadcn/ui/sidebar";
 import LoadingPage from "@/pages/loading-page/LoadingPage";
 import { Plus, Trash } from "lucide-react";
 import { useContext, useEffect, useState } from "react";
@@ -7,6 +11,7 @@ import { FaPaperclip } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import BlogPageContext from "../context/BlogPageContext";
 import { createBlog, deleteBlog, getBlogs } from "../services/blog.service";
+import BlogActionBar from "./BlogActionBar";
 
 function AllBlogs() {
   const { setCurrentBlogId, currentBlogId } = useContext(BlogPageContext);
@@ -89,6 +94,9 @@ function AllBlogs() {
           );
         })}
       </div>
+      <SidebarFooter>
+        <BlogActionBar />
+      </SidebarFooter>
     </Sidebar>
   );
 }
