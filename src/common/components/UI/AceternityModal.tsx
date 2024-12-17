@@ -58,7 +58,6 @@ export const useModal = () => {
 export function Modal({
   children,
   modalOpen,
-  setModalOpen,
   onModalClose,
 }: {
   children: ReactNode;
