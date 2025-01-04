@@ -53,7 +53,7 @@ function ActionBar({ className }: { className?: string }) {
           onSubmit={onCreateBtnClick}
           fieldName="url"
           type="link"
-          icon={<RxText />}
+          icon={<FcLink />}
         />
 
         <ActionButtonWithInput
@@ -70,7 +70,7 @@ function ActionBar({ className }: { className?: string }) {
           variant="secondary"
           size="xs"
           uiType="icon"
-          icon={<FcLink />}
+          icon={<RxText />}
         />
 
         <Button

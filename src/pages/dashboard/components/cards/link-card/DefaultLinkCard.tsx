@@ -6,15 +6,18 @@ import { getURLPreview } from "@/common/utils/browser.util";
 import { extractBaseUrl } from "@/common/utils/url.util";
 import { useEffect, useState } from "react";
 import { BiImage } from "react-icons/bi";
-import useCurrentCardLayoutSize from "../../hooks/useCurrentCardLayoutSize";
-import { updateALayoutItem } from "../../reducers/layout-items.reducer";
-import { updateLayoutItem } from "../../services/layout-item.service";
-import { IDashboardCard, TCardLayoutStyle } from "../../types/dashboard.type";
-import ActionButtonWithInput from "../UI/ActionButtonWithInput";
-import VisitWebsite from "../UI/VisitWebsite";
-import WebsiteIcon from "../UI/WebsiteIcon";
+import useCurrentCardLayoutSize from "../../../hooks/useCurrentCardLayoutSize";
+import { updateALayoutItem } from "../../../reducers/layout-items.reducer";
+import { updateLayoutItem } from "../../../services/layout-item.service";
+import {
+  IDashboardCard,
+  TCardLayoutStyle,
+} from "../../../types/dashboard.type";
+import ActionButtonWithInput from "../../UI/ActionButtonWithInput";
+import VisitWebsite from "../../UI/VisitWebsite";
+import WebsiteIcon from "../../UI/WebsiteIcon";
 
-function LinkCard({ url, text, id, src }: IDashboardCard) {
+function DefaultLinkCard({ url, text, id, src }: IDashboardCard) {
   const dispatch = useAppDispatch();
   const domain = extractBaseUrl(url ?? "");
   const currentLayoutStyle: TCardLayoutStyle = useCurrentCardLayoutSize(id);
@@ -33,6 +36,7 @@ function LinkCard({ url, text, id, src }: IDashboardCard) {
     })();
   }, [url, currentLayoutStyle]);
 
+  // Link Preview
   const previewImageSrc = src?.length ? src : (urlPreview ?? RANDOM_IMAGE_SRC);
 
   switch (currentLayoutStyle) {
@@ -75,23 +79,25 @@ function LinkCard({ url, text, id, src }: IDashboardCard) {
     case "HORIZONTAL_WIDE_RECTANGLE":
       return (
         <div className="flex h-full w-full justify-between gap-3 p-3">
-          <div className={`flex w-[50%] flex-col`}>
-            <div className="flex justify-between gap-5">
-              <WebsiteIcon domain={domain} />
-              <VisitWebsite type="button" url={url} />
-            </div>
+          <div className={`flex w-[50%] flex-col justify-between`}>
+            <div className="flex flex-col gap-2">
+              <div className="flex items-center gap-3">
+                <WebsiteIcon domain={domain} />
+                <p className="text-xs text-zinc-500">{domain}</p>
+              </div>
 
-            <div>
-              <AutoSaveTextField
-                onChange={updateLayoutItem}
-                fieldToUpdate="text"
-                className="!h-fit text-sm"
-                id={id}
-              >
-                {text ? text : domain ? domain : "Type here..."}
-              </AutoSaveTextField>
-              <p className="text-xs text-zinc-500">{domain}</p>
+              <div>
+                <AutoSaveTextField
+                  onChange={updateLayoutItem}
+                  fieldToUpdate="text"
+                  className="!h-fit text-sm"
+                  id={id}
+                >
+                  {text ? text : domain ? domain : "Type here..."}
+                </AutoSaveTextField>
+              </div>
             </div>
+            <VisitWebsite type="button" url={url} />
           </div>
           <div className="relative h-full w-[50%]">
             <LazyImage
@@ -117,7 +123,7 @@ function LinkCard({ url, text, id, src }: IDashboardCard) {
           <div className={`flex flex-col gap-3`}>
             <div className="flex items-center justify-between gap-5">
               <WebsiteIcon domain={domain} />
-              <VisitWebsite type="button" url={url} />
+              <VisitWebsite url={url} />
             </div>
 
             <div>
@@ -191,4 +197,4 @@ function LinkCard({ url, text, id, src }: IDashboardCard) {
   }
 }
 
-export default LinkCard;
+export default DefaultLinkCard;

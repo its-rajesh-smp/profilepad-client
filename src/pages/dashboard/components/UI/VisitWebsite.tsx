@@ -1,13 +1,17 @@
 import { Button } from "@/common/components/shadcn/ui/button";
-import { BiLink } from "react-icons/bi";
+import { IoOpenOutline } from "react-icons/io5";
 import { toast } from "sonner";
 
 function VisitWebsite({
   url,
   type = "link",
+  icon = <IoOpenOutline />,
+  text = "Visit",
 }: {
   type?: "link" | "button";
   url: string | undefined;
+  text?: string;
+  icon?: React.ReactNode;
 }) {
   /**
    * Opens the specified URL in a new browser tab.
@@ -28,7 +32,7 @@ function VisitWebsite({
           variant="ghost"
           className="no-drag w-fit px-3 text-sm"
           type="button"
-          icon={<BiLink />}
+          icon={icon}
         />
       );
 
@@ -40,7 +44,7 @@ function VisitWebsite({
           className="no-drag w-fit px-3 text-xs"
           type="button"
         >
-          Visit
+          {text}
         </Button>
       );
   }

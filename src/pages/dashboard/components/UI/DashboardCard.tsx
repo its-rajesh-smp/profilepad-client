@@ -7,7 +7,7 @@ import IconCard from "../cards/IconCard";
 import ImageCard from "../cards/ImageCard";
 import ImageCarouselCard from "../cards/ImageCarouselCard";
 import InitialCard from "../cards/InitialCard";
-import LinkCard from "../cards/LinkCard";
+import LinkCardBase from "../cards/link-card/LinkCardBase";
 import SectionCard from "../cards/SectionCard";
 import TextCard from "../cards/TextCard";
 
@@ -31,7 +31,7 @@ const DashboardCard = () => {
       case "image":
         return <ImageCard {...props} />;
       case "link":
-        return <LinkCard {...props} />;
+        return <LinkCardBase {...props} />;
       case "section":
         return <SectionCard {...props} />;
       case "empty":

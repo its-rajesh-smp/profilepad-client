@@ -11,7 +11,13 @@ function WebsiteIcon({ domain }: { domain: string | null }) {
     : "";
   return (
     <Avatar className="rounded-md">
-      <AvatarImage className="rounded-inherit" src={faviconUrl} />
+      <div className="rounded-md border p-2">
+        <AvatarImage
+          className="rounded-inherit"
+          src={faviconUrl}
+          style={{ mixBlendMode: "multiply" }}
+        />
+      </div>
       <AvatarFallback className="rounded-inherit">
         <BiWorld />
       </AvatarFallback>
