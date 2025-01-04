@@ -9,7 +9,6 @@ import { useContext } from "react";
 import { AiOutlineFullscreen } from "react-icons/ai";
 import AnimatedModalContext from "../../context/AnimatedModalContext";
 import AnimatedModalContent from "./AnimatedModalContent";
-import { getBlogIdFromUrl } from "@/common/utils/blog.util";
 
 function AnimatedModal() {
   const { url, setUrl } = useContext(AnimatedModalContext);
@@ -18,8 +17,7 @@ function AnimatedModal() {
    * Opens the specified URL in a new browser tab.
    */
   const openInAnotherPage = () => {
-    const blogId = getBlogIdFromUrl(url);
-    window.open(`/blog/${blogId}`, "_blank");
+    // window.open(`/blog/${blogId}`, "_blank");
   };
 
   return (

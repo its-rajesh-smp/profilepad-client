@@ -26,7 +26,7 @@ function DashboardPreview() {
   if (!isProfileFound) return <ProfileNotFound />;
 
   return (
-    <div className="flex h-screen flex-col gap-2 overflow-x-hidden p-0 lg:flex-row lg:gap-20">
+    <div className="flex h-screen flex-col justify-between gap-2 overflow-x-hidden p-0 lg:flex-row lg:gap-20">
       <Profile />
       <DashboardGrid />
     </div>

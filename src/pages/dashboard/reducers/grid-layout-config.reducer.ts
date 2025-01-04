@@ -12,6 +12,7 @@ const gridLayoutConfigSlice = createSlice({
   initialState: {
     layout: defaultLayout,
     currentBreakpoint: defaultBreakpoint,
+    isMobileView: false,
   },
   reducers: {
     setGridLayoutConfig: (state, action) => {
@@ -22,13 +23,23 @@ const gridLayoutConfigSlice = createSlice({
       state.currentBreakpoint = action.payload;
       return state;
     },
+    setIsMobileView: (state, action) => {
+      console.log(action.payload);
+      state.isMobileView = action.payload;
+      return state;
+    },
     resetDashboard: () => ({
       layout: defaultLayout,
       currentBreakpoint: defaultBreakpoint,
+      isMobileView: false,
     }),
   },
 });
 
 export default gridLayoutConfigSlice.reducer;
-export const { setGridLayoutConfig, setBreakpoint, resetDashboard } =
-  gridLayoutConfigSlice.actions;
+export const {
+  setGridLayoutConfig,
+  setBreakpoint,
+  setIsMobileView,
+  resetDashboard,
+} = gridLayoutConfigSlice.actions;

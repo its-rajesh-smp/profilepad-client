@@ -1,6 +1,7 @@
 import MessageDisplay from "@/common/components/UI/MessageDisplay";
 import { useAppDispatch } from "@/common/hooks/useAppDispatch";
 import { useAppSelector } from "@/common/hooks/useAppSelector";
+import useScreenSize from "@/common/hooks/useScreenSize";
 import { debounce } from "@/common/utils/debounce.util";
 import isEqual from "lodash.isequal";
 import { useState } from "react";
@@ -26,11 +27,15 @@ import "./dashboard-grid.css";
 const ReactGridLayout = WidthProvider(ResponsiveGridLayout);
 
 function DashboardGrid() {
-  const { layout } = useAppSelector((state) => state.gridLayoutConfigSlice);
+  const { layout, isMobileView } = useAppSelector(
+    (state) => state.gridLayoutConfigSlice,
+  );
   const { layoutItems } = useAppSelector((state) => state.layoutItemsSlice);
   const isEditMode = useAppSelector((state) => state.authSlice.editMode);
   const [sidebarOpened, setSidebarOpened] = useState(false);
   const dispatch = useAppDispatch();
+
+  const { size } = useScreenSize();
 
   const debouncedOnLayoutChange = debounce(
     (_: any, all: ReactGridLayout.Layouts) => {
@@ -47,9 +52,11 @@ function DashboardGrid() {
   };
 
   return (
-    <div className="relative flex flex-1">
+    <div
+      className={`relative flex ${isMobileView || size !== "lg" ? "justify-center" : "justify-end"} w-full`}
+    >
       <ReactGridLayout
-        className="min-h-[calc(100vh+100px)] w-full !p-0"
+        className={`min-h-[calc(100vh+100px)] !p-0 ${isMobileView || size !== "lg" ? "w-[400px]" : "w-[900px]"} `}
         layouts={
           layout["lg"].length > 0 || !isEditMode
             ? layout

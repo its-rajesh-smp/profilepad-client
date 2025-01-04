@@ -1,11 +1,16 @@
 import { Button } from "@/common/components/shadcn/ui/button";
+import { Separator } from "@/common/components/shadcn/ui/separator";
 import { useAppDispatch } from "@/common/hooks/useAppDispatch";
 import { useAppSelector } from "@/common/hooks/useAppSelector";
 import { motion } from "framer-motion";
-import { BiImage, BiLink, BiText } from "react-icons/bi";
+import { CiLaptop, CiMobile3 } from "react-icons/ci";
+import { FcGallery, FcLink } from "react-icons/fc";
 import { LuBoxSelect } from "react-icons/lu";
+import { RxText } from "react-icons/rx";
 import { TbSection } from "react-icons/tb";
 import { createLayoutAct } from "../action-creators/layout-item.act";
+import { setIsMobileView } from "../reducers/grid-layout-config.reducer";
+import ProfileActionBar from "./ProfileActionBar";
 import ActionButtonWithInput from "./UI/ActionButtonWithInput";
 import ShareButton from "./UI/ShareButton";
 
@@ -13,6 +18,9 @@ function ActionBar({ className }: { className?: string }) {
   const dispatch = useAppDispatch();
   const layoutItems = useAppSelector(
     (state) => state.layoutItemsSlice.layoutItems,
+  );
+  const isMobileView = useAppSelector(
+    (state) => state.gridLayoutConfigSlice.isMobileView,
   );
 
   /**
@@ -23,6 +31,10 @@ function ActionBar({ className }: { className?: string }) {
     dispatch(createLayoutAct(data));
   };
 
+  const setGridView = () => {
+    dispatch(setIsMobileView(!isMobileView));
+  };
+
   return (
     layoutItems.length > 0 && (
       <motion.div
@@ -31,14 +43,17 @@ function ActionBar({ className }: { className?: string }) {
         transition={{ duration: 1, delay: 2 }}
         className={`fixed bottom-5 left-1/2 right-0 flex w-fit translate-x-[-50%] gap-2 rounded-md border bg-white p-2 shadow-md ${className}`}
       >
+        <ProfileActionBar />
         <ShareButton />
+
+        <Separator orientation="vertical" className="h-100 w-px bg-zinc-200" />
 
         <ActionButtonWithInput
           tooltipText="URL"
           onSubmit={onCreateBtnClick}
           fieldName="url"
           type="link"
-          icon={<BiLink />}
+          icon={<RxText />}
         />
 
         <ActionButtonWithInput
@@ -46,7 +61,7 @@ function ActionBar({ className }: { className?: string }) {
           onSubmit={onCreateBtnClick}
           fieldName="src"
           type="image"
-          icon={<BiImage />}
+          icon={<FcGallery />}
         />
 
         <Button
@@ -55,7 +70,7 @@ function ActionBar({ className }: { className?: string }) {
           variant="secondary"
           size="xs"
           uiType="icon"
-          icon={<BiText />}
+          icon={<FcLink />}
         />
 
         <Button
@@ -74,6 +89,18 @@ function ActionBar({ className }: { className?: string }) {
           size="xs"
           uiType="icon"
           icon={<LuBoxSelect />}
+        />
+
+        <Separator orientation="vertical" className="h-100 w-px bg-zinc-200" />
+
+        <Button
+          tooltipText={isMobileView ? "Desktop View" : "Mobile View"}
+          onClick={setGridView}
+          variant="secondary"
+          size="xs"
+          className="hidden bg-blue-400 text-white hover:bg-blue-500 lg:block"
+          uiType="icon"
+          icon={isMobileView ? <CiMobile3 /> : <CiLaptop />}
         />
 
         {/* <Button

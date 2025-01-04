@@ -38,6 +38,7 @@ function ShareButton() {
         onClick={onClickShareBtn}
         variant="default"
         size="xs"
+        className="bg-green-400 hover:bg-green-300"
       >
         Share
       </Button>

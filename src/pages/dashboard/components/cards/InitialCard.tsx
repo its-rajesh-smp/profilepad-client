@@ -1,6 +1,7 @@
 import { Button } from "@/common/components/shadcn/ui/button";
 import { useAppDispatch } from "@/common/hooks/useAppDispatch";
-import { BiImage, BiLink, BiText } from "react-icons/bi";
+import { FcGallery, FcLink } from "react-icons/fc";
+import { RxText } from "react-icons/rx";
 import { createLayoutAct } from "../../action-creators/layout-item.act";
 import { IDashboardCard } from "../../types/dashboard.type";
 import ActionButtonWithInput from "../UI/ActionButtonWithInput";
@@ -18,41 +19,39 @@ function InitialCard({ type }: IDashboardCard) {
 
   const renderCardInput = () => {
     const triggerClassName =
-      "border-none shadow-none outline-none focus-visible:ring-0";
+      "border-none shadow-none outline-none bg-gray-50  focus-visible:ring-0 w-full h-full";
+
     switch (type) {
       case "link":
         return (
           <ActionButtonWithInput
             triggerClassName={triggerClassName}
-            tooltipText="URL"
             onSubmit={onCreateBtnClick}
             fieldName="url"
             type="link"
-            icon={<BiLink />}
+            icon={<InitialCardIcon icon={<FcLink />} text="Link" />}
           />
         );
       case "image":
         return (
           <ActionButtonWithInput
             triggerClassName={triggerClassName}
-            tooltipText="Image URL"
             onSubmit={onCreateBtnClick}
             fieldName="src"
             type="image"
             buttonVariant="outline"
-            icon={<BiImage />}
+            icon={<InitialCardIcon icon={<FcGallery />} text="Image" />}
           />
         );
       case "text":
         return (
           <Button
-            tooltipText="Text"
             className={triggerClassName}
             onClick={() => onCreateBtnClick({ type: "text" })}
             variant="outline"
             size="xs"
             uiType="icon"
-            icon={<BiText />}
+            icon={<InitialCardIcon icon={<RxText />} text="Text" />}
           />
         );
     }
@@ -65,3 +64,18 @@ function InitialCard({ type }: IDashboardCard) {
 }
 
 export default InitialCard;
+
+function InitialCardIcon({
+  icon,
+  text,
+}: {
+  icon: React.ReactNode;
+  text?: string;
+}) {
+  return (
+    <div className="flex flex-col items-center gap-1 font-semibold text-gray-500">
+      {icon}
+      <p>{text}</p>
+    </div>
+  );
+}

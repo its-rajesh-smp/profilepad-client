@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 type Orientation = "h" | "v";
 export type TScreenSize = "xs" | "sm" | "md" | "lg";
 
-function useScreenSize() {
+function useScreenSize(callback?: (size: TScreenSize) => void) {
   // Define breakpoints for screen sizes
   const breakpoints = {
     xs: 576, // Extra small screens (e.g., phones)
@@ -30,6 +30,8 @@ function useScreenSize() {
     } else {
       size = "lg";
     }
+
+    callback?.(size);
 
     return `${size}-${orientation}`;
   };
