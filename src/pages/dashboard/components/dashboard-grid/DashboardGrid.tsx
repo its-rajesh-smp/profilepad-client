@@ -51,9 +51,10 @@ function DashboardGrid() {
     dispatch(setBreakpoint(breakpoint));
   };
 
+  const showProfile = false;
   return (
     <div
-      className={`relative flex ${isMobileView || size !== "lg" ? "justify-center" : "justify-end"} w-full`}
+      className={`relative flex ${isMobileView || size !== "lg" || !showProfile ? "justify-center" : "justify-end"} w-full`}
     >
       <ReactGridLayout
         className={`min-h-[calc(100vh+100px)] !p-0 ${isMobileView || size !== "lg" ? "w-[400px]" : "w-[900px]"} `}

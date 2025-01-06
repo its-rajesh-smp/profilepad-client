@@ -21,10 +21,27 @@ function Dashboard() {
 
   if (loader) return <LoadingPage loadingText="Loading Dashboard..." />;
 
+  const showProfile = true;
+  type TProfilePosition = "left" | "right" | "top";
+
+  const getProfilePositionClassName = (pos: TProfilePosition) => {
+    switch (pos) {
+      case "left":
+        return "lg:flex-row";
+      case "right":
+        return "lg:flex-row-reverse";
+      case "top":
+        return "lg:flex-col items-center ";
+    }
+  };
+
+  const profilePosition: TProfilePosition = "left";
+
+  const containerClassName = `flex h-screen flex-col justify-between overflow-x-hidden p-0 ${getProfilePositionClassName(profilePosition)} `;
   return (
     <AnimatedModalProvider>
-      <div className="flex h-screen flex-col justify-between overflow-x-hidden p-0 lg:flex-row">
-        <Profile />
+      <div className={containerClassName}>
+        {showProfile && <Profile />}
         <DashboardGrid />
         <ActionBar />
       </div>
