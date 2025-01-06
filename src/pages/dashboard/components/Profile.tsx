@@ -36,7 +36,7 @@ function Profile() {
     >
       <div className="flex w-full items-center justify-between gap-4 p-0 !pb-1 lg:flex-col lg:items-start lg:p-10">
         <UserAvatar />
-        <h1 className="text-left text-3xl font-bold lg:text-5xl">
+        <h1 className="flex-1 text-left text-3xl font-bold lg:text-5xl">
           <AutoSaveTextField
             onChange={updateProfile}
             fieldToUpdate="name"

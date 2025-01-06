@@ -5,6 +5,7 @@ import { GridItemContextProvider } from "../../context/GridItemContext";
 import { IDashboardCard } from "../../types/dashboard.type";
 import { getToolbarVisibilityByType } from "../../utils/toolbarVisibility.util";
 import CardDeleteBtn from "./Toolbars/CardDeleteBtn";
+import MoveBtn from "./Toolbars/MoveBtn";
 import ResizeToolbar from "./Toolbars/ResizeToolbar";
 
 interface GridItemProps {
@@ -54,11 +55,18 @@ const GridItem = React.forwardRef<HTMLDivElement, GridItemProps>(
         onMouseLeave={() => !sidebarOpened && setIsHovered(false)} // Hide toolbar on hover exit
         {...props} // Spread remaining props
       >
-        <GridItemContextProvider item={item}>
+        <GridItemContextProvider
+          sidebarOpened={sidebarOpened}
+          setSidebarOpened={setSidebarOpened}
+          item={item}
+        >
           {children}
           {isHovered && !isInitial && isEditMode && (
             <CardDeleteBtn id={item.id} />
           )}
+
+          {isEditMode && isHovered && item.type === "carousel" && <MoveBtn />}
+
           {isHovered &&
             isEditMode &&
             !isInitial &&

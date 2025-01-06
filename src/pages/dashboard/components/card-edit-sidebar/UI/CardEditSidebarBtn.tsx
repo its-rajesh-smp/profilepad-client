@@ -1,6 +1,6 @@
 import { Button } from "@/common/components/shadcn/ui/button";
 import { Drawer, DrawerTrigger } from "@/common/components/shadcn/ui/drawer";
-import { editableMetadataFields } from "@/pages/dashboard/constants/grid-item.const";
+import { editableMetadataFields } from "@/pages/dashboard/constants/grid-item.const.tsx";
 import GridItemContext from "@/pages/dashboard/context/GridItemContext";
 import { useContext } from "react";
 import { BsThreeDotsVertical } from "react-icons/bs";

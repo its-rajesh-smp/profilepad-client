@@ -12,14 +12,16 @@ import EffectFilpCarousel from "./variants/EffectFilpCarousel";
 export type TSwiperCarouselVariants = "effect-cards" | "effect-flip";
 export interface ISwiperCarouselProps {
   variant: TSwiperCarouselVariants;
+  images?: string[];
 }
 
-function SwiperCarousel({ variant }: ISwiperCarouselProps) {
+function SwiperCarousel(props: ISwiperCarouselProps) {
+  const { variant } = props;
   switch (variant) {
     case "effect-cards":
-      return <EffectCardCarousel />;
+      return <EffectCardCarousel {...props} />;
     case "effect-flip":
-      return <EffectFilpCarousel />;
+      return <EffectFilpCarousel {...props} />;
     default:
       return <div>SwiperCarousel</div>;
   }

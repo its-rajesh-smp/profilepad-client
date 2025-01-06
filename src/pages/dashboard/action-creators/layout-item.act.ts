@@ -4,19 +4,19 @@ import { setGridLayoutConfig } from "../reducers/grid-layout-config.reducer";
 import {
   addNewLayoutItem,
   setLayoutItems,
+  updateALayoutItem,
 } from "../reducers/layout-items.reducer";
+import { updateGridLayoutConfig } from "../services/dashboard.service";
 import {
   createLayoutItem,
   deleteLayoutItem,
+  updateLayoutItem,
 } from "../services/layout-item.service";
-import axiosInterceptors from "@/setup/axios.conf";
-import { updateGridLayoutConfig } from "../services/dashboard.service";
 
 export const createLayoutAct = (data: any) => {
   return async (dispatch: AppDispatch, _getState: () => RootState) => {
     const layoutResponse = await createLayoutItem({ data });
     const { updatedDashboard, layoutItem } = layoutResponse?.data;
-    console.log(axiosInterceptors);
 
     // Dispatch the actions
     dispatch(setGridLayoutConfig(updatedDashboard.gridLayoutConfig));
@@ -53,5 +53,12 @@ export const resizeGridLayoutItem = (id: string, w: number, h: number) => {
     await updateGridLayoutConfig({
       updatedGridLayoutConfig: updatedLayout,
     });
+  };
+};
+
+export const updateLayoutItemAct = (id: string, data: any) => {
+  return async (dispatch: AppDispatch, _getState: () => RootState) => {
+    const response = await updateLayoutItem(id, data);
+    dispatch(updateALayoutItem(response.data));
   };
 };

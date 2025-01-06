@@ -3,6 +3,7 @@ import { Separator } from "@/common/components/shadcn/ui/separator";
 import { useAppDispatch } from "@/common/hooks/useAppDispatch";
 import { useAppSelector } from "@/common/hooks/useAppSelector";
 import { motion } from "framer-motion";
+import { BiCarousel } from "react-icons/bi";
 import { CiLaptop, CiMobile3 } from "react-icons/ci";
 import { FcGallery, FcLink } from "react-icons/fc";
 import { LuBoxSelect } from "react-icons/lu";
@@ -91,6 +92,14 @@ function ActionBar({ className }: { className?: string }) {
           icon={<LuBoxSelect />}
         />
 
+        <Button
+          tooltipText="Carousel"
+          onClick={() => onCreateBtnClick({ type: "carousel" })}
+          variant="secondary"
+          size="xs"
+          uiType="icon"
+          icon={<BiCarousel />}
+        />
         <Separator orientation="vertical" className="h-100 w-px bg-zinc-200" />
 
         <Button
@@ -119,15 +128,6 @@ function ActionBar({ className }: { className?: string }) {
           size="xs"
           uiType="icon"
           icon={<IoConstruct />}
-        /> */}
-
-        {/* <Button
-          tooltipText="Carousel"
-          onClick={() => onCreateBtnClick({ type: "carousel" })}
-          variant="secondary"
-          size="xs"
-          uiType="icon"
-          icon={<BiSlider />}
         /> */}
       </motion.div>
     )

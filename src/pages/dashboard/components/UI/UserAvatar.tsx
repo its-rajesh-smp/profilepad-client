@@ -17,7 +17,7 @@ function UserAvatar() {
   };
 
   return (
-    <div className="relative">
+    <div className="flex-0 relative">
       <Avatar
         lazy={true}
         fallbackText={user?.name || "John Doe"}

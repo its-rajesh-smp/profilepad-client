@@ -27,6 +27,7 @@ export interface IMetadata {
   showCaption?: boolean;
   fetchImageFromUrl?: boolean;
   carouselVariant?: TSwiperCarouselVariants;
+  images?: string[];
 }
 
 export type TCardLayoutStyle =
@@ -47,4 +48,6 @@ export interface IEditableMetadataEdit {
   type: TEditableMetadataInputType;
   label: string;
   selectOptions?: { value: string; name: string }[];
+  field: keyof IMetadata;
+  icon?: React.ReactNode;
 }
