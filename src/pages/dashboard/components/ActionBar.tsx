@@ -10,7 +10,8 @@ import { LuBoxSelect } from "react-icons/lu";
 import { RxText } from "react-icons/rx";
 import { TbSection } from "react-icons/tb";
 import { createLayoutAct } from "../action-creators/layout-item.act";
-import { setIsMobileView } from "../reducers/grid-layout-config.reducer";
+import { setDashboardSetting } from "../reducers/grid-layout-config.reducer";
+import DashboardSetting from "./DashboardSetting";
 import ProfileActionBar from "./ProfileActionBar";
 import ActionButtonWithInput from "./UI/ActionButtonWithInput";
 import ShareButton from "./UI/ShareButton";
@@ -21,7 +22,7 @@ function ActionBar({ className }: { className?: string }) {
     (state) => state.layoutItemsSlice.layoutItems,
   );
   const isMobileView = useAppSelector(
-    (state) => state.gridLayoutConfigSlice.isMobileView,
+    (state) => state.gridLayoutConfigSlice.dashboardSetting.isMobileView,
   );
 
   /**
@@ -33,7 +34,7 @@ function ActionBar({ className }: { className?: string }) {
   };
 
   const setGridView = () => {
-    dispatch(setIsMobileView(!isMobileView));
+    dispatch(setDashboardSetting({ isMobileView: !isMobileView }));
   };
 
   return (
@@ -111,6 +112,8 @@ function ActionBar({ className }: { className?: string }) {
           uiType="icon"
           icon={isMobileView ? <CiMobile3 /> : <CiLaptop />}
         />
+
+        <DashboardSetting />
 
         {/* <Button
           tooltipText="HTML"

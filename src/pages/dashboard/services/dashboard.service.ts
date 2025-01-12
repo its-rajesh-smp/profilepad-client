@@ -9,3 +9,8 @@ export const updateGridLayoutConfig = (data: any) =>
   axiosInterceptors.patch("/dashboard/grid-layout-config/update", data);
 
 export const resetDashboard = () => axiosInterceptors.patch("/dashboard/reset");
+
+export const updateDashboardSetting = (data: any) =>
+  axiosInterceptors.patch("/dashboard/setting/update", {
+    dashboardSetting: data,
+  });

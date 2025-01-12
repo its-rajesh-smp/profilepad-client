@@ -9,6 +9,9 @@ import UserAvatar from "./UI/UserAvatar";
 
 function Profile() {
   const { user, editMode } = useAppSelector((state) => state.authSlice);
+  const { dashboardSetting } = useAppSelector(
+    (state) => state.gridLayoutConfigSlice,
+  );
 
   const onTextChange = (text: string) => {
     // If not in edit mode, return
@@ -27,14 +30,12 @@ function Profile() {
     [],
   );
 
-  const isProfileOnTop = false;
-
   return (
     <motion.div
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, delay: 1 }}
-      className={`relative top-0 flex max-w-[500px] flex-col gap-5 p-5 lg:max-w-full ${isProfileOnTop ? "lg:w-[900px]" : "lg:sticky lg:top-0 lg:w-[40%]"} lg:gap-2 lg:p-0`}
+      className={`relative top-0 flex max-w-[500px] flex-col gap-5 p-5 lg:max-w-full ${dashboardSetting.profileAlignment === "top" ? "lg:w-[900px]" : "lg:sticky lg:top-0 lg:w-[40%]"} lg:gap-2 lg:p-0`}
     >
       <div className="flex w-full items-center justify-between gap-4 p-0 !pb-1 lg:flex-col lg:items-start lg:p-10">
         <UserAvatar />

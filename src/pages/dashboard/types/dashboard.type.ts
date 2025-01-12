@@ -51,3 +51,9 @@ export interface IEditableMetadataEdit {
   field: keyof IMetadata;
   icon?: React.ReactNode;
 }
+
+export interface IDashboardSetting {
+  profileAlignment: "left" | "top" | "right";
+  isMobileView?: boolean;
+  showProfile?: boolean;
+}

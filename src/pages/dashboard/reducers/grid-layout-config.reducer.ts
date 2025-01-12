@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { IDashboardSetting } from "../types/dashboard.type";
 
 const defaultLayout: ReactGridLayout.Layouts = {
   lg: [],
@@ -6,13 +7,18 @@ const defaultLayout: ReactGridLayout.Layouts = {
 };
 
 const defaultBreakpoint = "lg";
+const defaultDashboardSetting: IDashboardSetting = {
+  profileAlignment: "top",
+  showProfile: true,
+  isMobileView: false,
+};
 
 const gridLayoutConfigSlice = createSlice({
   name: "dashboard-grid-layout-config",
   initialState: {
     layout: defaultLayout,
     currentBreakpoint: defaultBreakpoint,
-    isMobileView: false,
+    dashboardSetting: defaultDashboardSetting,
   },
   reducers: {
     setGridLayoutConfig: (state, action) => {
@@ -23,14 +29,14 @@ const gridLayoutConfigSlice = createSlice({
       state.currentBreakpoint = action.payload;
       return state;
     },
-    setIsMobileView: (state, action) => {
-      console.log(action.payload);
-      state.isMobileView = action.payload;
+    setDashboardSetting: (state, action) => {
+      state.dashboardSetting = { ...state.dashboardSetting, ...action.payload };
       return state;
     },
     resetDashboard: () => ({
       layout: defaultLayout,
       currentBreakpoint: defaultBreakpoint,
+      dashboardSetting: defaultDashboardSetting,
       isMobileView: false,
     }),
   },
@@ -40,6 +46,6 @@ export default gridLayoutConfigSlice.reducer;
 export const {
   setGridLayoutConfig,
   setBreakpoint,
-  setIsMobileView,
+  setDashboardSetting,
   resetDashboard,
 } = gridLayoutConfigSlice.actions;

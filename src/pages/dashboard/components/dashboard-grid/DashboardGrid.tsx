@@ -27,7 +27,7 @@ import "./dashboard-grid.css";
 const ReactGridLayout = WidthProvider(ResponsiveGridLayout);
 
 function DashboardGrid() {
-  const { layout, isMobileView } = useAppSelector(
+  const { layout, dashboardSetting } = useAppSelector(
     (state) => state.gridLayoutConfigSlice,
   );
   const { layoutItems } = useAppSelector((state) => state.layoutItemsSlice);
@@ -51,13 +51,12 @@ function DashboardGrid() {
     dispatch(setBreakpoint(breakpoint));
   };
 
-  const showProfile = false;
+  const containerClassName = `relative flex ${dashboardSetting.isMobileView && "justify-center"} ${size !== "lg" && "justify-center"} ${dashboardSetting.profileAlignment === "top" && "justify-center"} w-full`;
+
   return (
-    <div
-      className={`relative flex ${isMobileView || size !== "lg" || !showProfile ? "justify-center" : "justify-end"} w-full`}
-    >
+    <div className={containerClassName}>
       <ReactGridLayout
-        className={`min-h-[calc(100vh+100px)] !p-0 ${isMobileView || size !== "lg" ? "w-[400px]" : "w-[900px]"} `}
+        className={`min-h-[calc(100vh+100px)] !p-0 ${dashboardSetting.isMobileView || size !== "lg" ? "w-[400px]" : "w-[900px]"} `}
         layouts={
           layout["lg"].length > 0 || !isEditMode
             ? layout
