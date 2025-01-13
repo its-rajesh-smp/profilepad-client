@@ -2,10 +2,8 @@ import { Button } from "@/common/components/shadcn/ui/button";
 import { useAppDispatch } from "@/common/hooks/useAppDispatch";
 import { useAppSelector } from "@/common/hooks/useAppSelector";
 import { CiAlignCenterV } from "react-icons/ci";
-import SettingSection from "./SettingSection";
-import { setDashboardSetting } from "../../reducers/grid-layout-config.reducer";
 import { updateDashboardSettingAct } from "../../action-creators/dashboard.act";
-
+import SettingSection from "./SettingSection";
 function ProfileAlignment() {
   const dispatch = useAppDispatch();
   const { profileAlignment } = useAppSelector(
