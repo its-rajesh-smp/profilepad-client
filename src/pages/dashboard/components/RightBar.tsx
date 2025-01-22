@@ -1,5 +1,26 @@
+import {
+  Sidebar,
+  SidebarContent,
+  SidebarFooter,
+  SidebarGroup,
+  SidebarHeader,
+  SidebarTrigger,
+} from "@/common/components/shadcn/ui/sidebar";
+
 function RightBar() {
-  return <div className="h-full w-[15%] bg-zinc-500">RightBar</div>;
+  return (
+    <>
+      <SidebarTrigger className="fixed right-0 top-0 z-[100] lg:hidden" />
+      <Sidebar side="right">
+        <SidebarHeader />
+        <SidebarContent>
+          <SidebarGroup />
+          <SidebarGroup />
+        </SidebarContent>
+        <SidebarFooter />
+      </Sidebar>
+    </>
+  );
 }
 
 export default RightBar;
