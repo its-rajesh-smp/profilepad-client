@@ -13,9 +13,8 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/common/components/shadcn/ui/tooltip";
-import { useIsMobile } from "@/common/hooks/use-mobile";
+import useScreenSize from "@/common/hooks/useScreenSize";
 import { cn } from "@/common/lib/utils";
-import { ViewVerticalIcon } from "@radix-ui/react-icons";
 import { Slot } from "@radix-ui/react-slot";
 import { VariantProps, cva } from "class-variance-authority";
 import * as React from "react";
@@ -58,7 +57,7 @@ const SidebarProvider = React.forwardRef<
 >(
   (
     {
-      defaultOpen = true,
+      defaultOpen = false,
       open: openProp,
       onOpenChange: setOpenProp,
       className,
@@ -68,7 +67,7 @@ const SidebarProvider = React.forwardRef<
     },
     ref,
   ) => {
-    const isMobile = useIsMobile();
+    const isMobile = useScreenSize().size !== "lg";
     const [openMobile, setOpenMobile] = React.useState(false);
 
     // This is the internal state of the sidebar.
@@ -290,10 +289,7 @@ const SidebarTrigger = React.forwardRef<
         toggleSidebar();
       }}
       {...props}
-    >
-      <ViewVerticalIcon className={iconClassName} />
-      <span className="sr-only">Toggle Sidebar</span>
-    </Button>
+    ></Button>
   );
 });
 SidebarTrigger.displayName = "SidebarTrigger";

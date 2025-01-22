@@ -10,8 +10,8 @@ import {
 function RightBar() {
   return (
     <>
-      <SidebarTrigger className="fixed right-0 top-0 z-[100] lg:hidden" />
-      <Sidebar side="right">
+      <SidebarTrigger />
+      <Sidebar variant="floating" side="right">
         <SidebarHeader />
         <SidebarContent>
           <SidebarGroup />

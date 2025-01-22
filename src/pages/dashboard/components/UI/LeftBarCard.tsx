@@ -40,7 +40,7 @@ const LinkCard = ({ item }: { item: ILeftSidebarItem }) => {
   return (
     <div
       {...defaultProps}
-      className={` ${defaultProps.className} flex h-28 w-28 flex-col gap-1`}
+      className={` ${defaultProps.className} flex !h-28 !w-28 flex-col gap-1`}
     >
       <div className="w-fit rounded-md border p-0.5 text-2xl">{item?.icon}</div>
       <p className="pl-0.5 text-xs">{item.title}</p>
