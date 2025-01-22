@@ -1,22 +1,78 @@
-import { Responsive as ResponsiveGridLayout } from "react-grid-layout";
+import useScreenSize from "@/common/hooks/useScreenSize";
+import {
+  Layouts,
+  Responsive as ResponsiveGridLayout,
+  WidthProvider,
+} from "react-grid-layout";
+import "react-grid-layout/css/styles.css";
+import "react-resizable/css/styles.css";
+import {
+  BREAKPOINTS,
+  COLS,
+  MARGIN,
+  ROW_HEIGHT,
+} from "../constants/dashboard-grid.const";
+import GridItem from "./UI/GridItem";
+
+const ReactGridLayout = WidthProvider(ResponsiveGridLayout);
 
 function DashboardGrid() {
-  const layout = [
-    { i: "a", x: 0, y: 0, w: 1, h: 2, static: true },
-    { i: "b", x: 1, y: 0, w: 3, h: 2, minW: 2, maxW: 4 },
-    { i: "c", x: 4, y: 0, w: 1, h: 2 },
-  ];
+  const { size } = useScreenSize();
+
+  const layouts: Layouts = {
+    lg: [
+      { i: "a", x: 0, y: 0, w: 2, h: 2, isResizable: false },
+      { i: "b", x: 2, y: 0, w: 3, h: 3, isResizable: false },
+      { i: "c", x: 5, y: 0, w: 1, h: 1, isResizable: false },
+      { i: "d", x: 6, y: 0, w: 2, h: 1, isResizable: false },
+      { i: "e", x: 0, y: 1, w: 1, h: 2, isResizable: false },
+      { i: "f", x: 1, y: 1, w: 2, h: 2, isResizable: false },
+      { i: "g", x: 3, y: 1, w: 3, h: 2, isResizable: false },
+      { i: "h", x: 0, y: 3, w: 2, h: 1, isResizable: false },
+      { i: "i", x: 2, y: 3, w: 2, h: 1, isResizable: false },
+      { i: "j", x: 4, y: 3, w: 2, h: 1, isResizable: false },
+      { i: "k", x: 6, y: 3, w: 2, h: 1, isResizable: false },
+      { i: "l", x: 0, y: 4, w: 3, h: 2, isResizable: false },
+      { i: "m", x: 3, y: 4, w: 2, h: 2, isResizable: false },
+    ],
+    xs: [
+      { i: "a", x: 0, y: 0, w: 3, h: 2, isResizable: false },
+      { i: "b", x: 0, y: 2, w: 3, h: 3, isResizable: false },
+      { i: "c", x: 3, y: 0, w: 2, h: 2, isResizable: false },
+      { i: "d", x: 5, y: 0, w: 1, h: 1, isResizable: false },
+      { i: "e", x: 0, y: 5, w: 2, h: 1, isResizable: false },
+      { i: "f", x: 2, y: 5, w: 2, h: 1, isResizable: false },
+      { i: "g", x: 4, y: 5, w: 3, h: 2, isResizable: false },
+      { i: "h", x: 0, y: 6, w: 1, h: 1, isResizable: false },
+      { i: "i", x: 1, y: 6, w: 2, h: 2, isResizable: false },
+      { i: "j", x: 3, y: 6, w: 2, h: 1, isResizable: false },
+      { i: "k", x: 5, y: 6, w: 1, h: 1, isResizable: false },
+      { i: "l", x: 6, y: 6, w: 3, h: 1, isResizable: false },
+    ],
+  };
+
+  let width = "lg:w-[800px] w-screen";
+  let currentLayout = size === "lg" ? layouts["lg"] : layouts["xs"];
+
   return (
-    <div className="h-full w-[800px] bg-red-300">
-      <ResponsiveGridLayout
-        className="layout"
-        breakpoints={{ lg: 1200, md: 996, sm: 768, xs: 480, xxs: 0 }}
-        cols={{ lg: 12, md: 10, sm: 6, xs: 4, xxs: 2 }}
+    <div className={`min-h-[calc(100vh+100px)] pb-[200px] ${width}`}>
+      <ReactGridLayout
+        className={`layout h-full justify-center ${width}`}
+        breakpoints={BREAKPOINTS}
+        layouts={layouts}
+        cols={COLS}
+        margin={MARGIN}
+        rowHeight={ROW_HEIGHT}
+        useCSSTransforms={true}
       >
-        <div key="1">1</div>
-        <div key="2">2</div>
-        <div key="3">3</div>
-      </ResponsiveGridLayout>
+        {currentLayout.map((item, index) => {
+          return (
+            <div key={item.i} data-grid={item}>
+              <GridItem key={item.i} index={index} i={item.i} />
+            </div>
+          );
+        })}
+      </ReactGridLayout>
     </div>
   );
 }
