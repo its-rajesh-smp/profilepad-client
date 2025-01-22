@@ -64,6 +64,8 @@ function DashboardGrid() {
         margin={MARGIN}
         rowHeight={size === "lg" ? ROW_HEIGHT.lg : ROW_HEIGHT.xs}
         useCSSTransforms={true}
+        isDroppable={true}
+        droppingItem={{ w: 2, h: 2, i: "dropping-item" }}
       >
         {currentLayout.map((item, index) => {
           return (
