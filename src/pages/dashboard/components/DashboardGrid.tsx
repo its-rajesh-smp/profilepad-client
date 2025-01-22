@@ -51,18 +51,18 @@ function DashboardGrid() {
     ],
   };
 
-  let width = "lg:w-[800px] w-screen";
+  let width = "lg:w-[800px]  w-[400px]";
   let currentLayout = size === "lg" ? layouts["lg"] : layouts["xs"];
 
   return (
     <div className={`min-h-[calc(100vh+100px)] pb-[200px] ${width}`}>
       <ReactGridLayout
-        className={`layout h-full justify-center ${width}`}
+        className={`layout h-full justify-center`}
         breakpoints={BREAKPOINTS}
         layouts={layouts}
         cols={COLS}
         margin={MARGIN}
-        rowHeight={ROW_HEIGHT}
+        rowHeight={size === "lg" ? ROW_HEIGHT.lg : ROW_HEIGHT.xs}
         useCSSTransforms={true}
       >
         {currentLayout.map((item, index) => {
