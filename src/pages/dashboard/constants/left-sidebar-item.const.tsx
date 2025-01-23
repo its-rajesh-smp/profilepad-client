@@ -1,36 +1,24 @@
 import { BiLogoGithub, BiUser } from "react-icons/bi";
-import { ILeftSidebarItem } from "../types/left-sidebar-items.types";
+import { ILeftSidebarCard } from "../types/left-sidebar-item.type";
 
-export const LEFT_SIDEBAR_ITEMS: ILeftSidebarItem[][] = [
+export const leftSidebarCards: ILeftSidebarCard[][] = [
   [
     {
-      h: 1,
-      w: 100,
-      id: "title",
       variant: "title",
     },
   ],
   [
     {
-      h: 1,
-      w: 100,
-      id: "profile",
       variant: "profile",
     },
   ],
   [
     {
-      h: 1,
-      w: 100,
-      id: "link",
       variant: "link",
       title: "Link",
       icon: <BiUser />,
     },
     {
-      h: 1,
-      w: 100,
-      id: "github",
       variant: "link",
       title: "Github",
       icon: <BiLogoGithub />,

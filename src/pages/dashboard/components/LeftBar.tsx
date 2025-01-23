@@ -6,7 +6,7 @@ import {
   SidebarTrigger,
   useSidebar,
 } from "@/common/components/shadcn/ui/sidebar";
-import { LEFT_SIDEBAR_ITEMS } from "../constants/left-sidebar-items.const.tsx";
+import { leftSidebarCards } from "../constants/left-sidebar-item.const.tsx";
 import LeftBarCard from "./UI/LeftBarCard";
 import { IoMdAdd, IoMdClose } from "react-icons/io";
 import { useId } from "react";
@@ -31,7 +31,7 @@ function LeftBar() {
         </SidebarHeader>
         <SidebarContent>
           <div className="flex flex-col gap-2 p-3 pt-1">
-            {LEFT_SIDEBAR_ITEMS.map((itemsContainerArray) => {
+            {leftSidebarCards.map((itemsContainerArray) => {
               return (
                 <div
                   key={useId()}
