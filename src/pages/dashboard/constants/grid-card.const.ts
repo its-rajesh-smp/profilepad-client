@@ -7,6 +7,10 @@ const defaultLayoutConfig: ISidebarDroppingItem = {
   w: 100,
 };
 
+export const defaultGridLayoutItemConfig = {
+  isResizable: false,
+};
+
 export const gridLayoutConfig: IDashboardCardConfigs = {
   text: { ...defaultLayoutConfig },
   image: {
