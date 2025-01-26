@@ -2,7 +2,7 @@ import { SidebarProvider } from "@/common/components/shadcn/ui/sidebar";
 import DashboardGrid from "./components/DashboardGrid";
 import LeftBar from "./components/LeftBar";
 import RightBar from "./components/RightBar";
-import { GridLayoutProvider } from "./contexts/react-grid-layout.context";
+import { GridLayoutProvider } from "./contexts/grid-layout.context";
 
 function Dashboard() {
   return (

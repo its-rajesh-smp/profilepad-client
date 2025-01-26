@@ -1,6 +1,6 @@
 import LazyImage from "@/common/components/LazyImage/LazyImage";
 import { useContext } from "react";
-import reactGridLayoutContext from "../../contexts/react-grid-layout.context";
+import reactGridLayoutContext from "../../contexts/grid-layout.context";
 import { ILeftSidebarCard } from "../../types/left-sidebar-item.type";
 
 // Higher-Order Component for common styles and functionality

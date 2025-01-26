@@ -1,3 +1,4 @@
+import { useAppSelector } from "@/common/hooks/useAppSelector";
 import useScreenSize from "@/common/hooks/useScreenSize";
 import { useContext } from "react";
 import {
@@ -12,7 +13,7 @@ import {
   MARGIN,
   ROW_HEIGHT,
 } from "../constants/dashboard-grid.const";
-import reactGridLayoutContext from "../contexts/react-grid-layout.context";
+import gridLayoutContext from "../contexts/grid-layout.context";
 import {
   adjustDroppingItemWidthBasedOnGridSize,
   formatGridLayout,
@@ -23,10 +24,11 @@ const ReactGridLayout = WidthProvider(ResponsiveGridLayout);
 
 function DashboardGrid() {
   const { size } = useScreenSize();
-
-  const { droppingItem, layouts, onDropHandler } = useContext(
-    reactGridLayoutContext,
+  const { layouts } = useAppSelector(
+    (state) => state.dashboardReducer.gridSlice,
   );
+
+  const { droppingItem, onDropHandler } = useContext(gridLayoutContext);
 
   const formattedGridLayout = formatGridLayout(layouts);
   return (
