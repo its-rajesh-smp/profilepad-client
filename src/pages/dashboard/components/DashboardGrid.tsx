@@ -1,6 +1,6 @@
 import { useAppSelector } from "@/common/hooks/useAppSelector";
 import useScreenSize from "@/common/hooks/useScreenSize";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import {
   Responsive as ResponsiveGridLayout,
   WidthProvider,
@@ -19,6 +19,8 @@ import {
   formatGridLayout,
 } from "../utils/dashboard-grid.util";
 import GridItem from "./UI/GridItem";
+import { useAppDispatch } from "@/common/hooks/useAppDispatch";
+import { getLayoutsAct } from "../actions-creators/grid-layout.action";
 
 const ReactGridLayout = WidthProvider(ResponsiveGridLayout);
 
@@ -27,8 +29,12 @@ function DashboardGrid() {
   const { layouts } = useAppSelector(
     (state) => state.dashboardReducer.gridSlice,
   );
-
   const { droppingItem, onDropHandler } = useContext(gridLayoutContext);
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(getLayoutsAct());
+  }, []);
 
   const formattedGridLayout = formatGridLayout(layouts);
   return (
