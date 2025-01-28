@@ -1,14 +1,14 @@
 import { Button } from "@/common/components/shadcn/ui/button";
 import { Input } from "@/common/components/shadcn/ui/input";
 import { debounce } from "@/common/utils/debounce.util";
+import { checkDashboardSlugAvailability } from "@/pages/dashboard/services/dashboard.service";
+import { motion } from "framer-motion";
 import { useCallback, useContext, useState } from "react";
 import { BiLoader } from "react-icons/bi";
 import { IoMdCheckmark } from "react-icons/io";
 import { Link } from "react-router-dom";
 import RegistrationStepContext from "../context/RegistrationContext";
-import { verifySlug } from "../services/register.service";
 import AuthErrorMassage from "./UI/AuthErrorMassage";
-import { motion } from "framer-motion";
 
 function ClaimUniqueLinkForm() {
   const [loading, setLoading] = useState(false);
@@ -27,7 +27,7 @@ function ClaimUniqueLinkForm() {
         setIsSlugAvailable(undefined);
         return;
       }
-      const response = await verifySlug(slug);
+      const response = await checkDashboardSlugAvailability(slug);
       setIsSlugAvailable(response.data.isAvailable);
       setLoading(false);
     }, 500),
