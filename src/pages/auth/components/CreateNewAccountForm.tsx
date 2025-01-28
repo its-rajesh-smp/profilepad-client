@@ -27,7 +27,7 @@ function CreateNewAccountForm() {
     if (slugText.length === 0) return;
     try {
       setLoader(true);
-      await dispatch(registerAct({ ...formData, slug: slugText }));
+      await dispatch(registerAct({ ...formData, dashboardSlug: slugText }));
     } catch (error: any) {
       setErrorMessage(getErrorMessage(error));
     } finally {

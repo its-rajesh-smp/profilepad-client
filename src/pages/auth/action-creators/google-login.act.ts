@@ -1,6 +1,6 @@
 import { AppDispatch } from "@/common/hooks/useAppDispatch";
 import { authenticate } from "../reducers/auth.reducer";
-import { loginWithGoogle } from "../services/register.service";
+import { loginWithGoogle } from "../services/auth.service";
 
 export const googleLoginAct = (accessToken: string, slug?: string) => {
   return async (dispatch: AppDispatch) => {

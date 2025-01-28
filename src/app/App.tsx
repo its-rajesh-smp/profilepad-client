@@ -1,5 +1,5 @@
 import { useAppDispatch } from "@/common/hooks/useAppDispatch";
-import { verifyUserAct } from "@/pages/auth/action-creators/register.act";
+import { fetchUserAct } from "@/pages/auth/action-creators/register.act";
 import LoadingPage from "@/pages/loading-page/LoadingPage";
 import appRouter from "@/routes/app.router";
 import { useEffect, useState } from "react";
@@ -12,7 +12,7 @@ function App() {
 
   useEffect(() => {
     (async () => {
-      await dispatch(verifyUserAct());
+      await dispatch(fetchUserAct());
       setIsLoading(false);
     })();
   }, []);

@@ -1,6 +1,6 @@
 import { AppDispatch } from "@/common/hooks/useAppDispatch";
 import { authenticate } from "../reducers/auth.reducer";
-import { login } from "../services/login.service";
+import { login } from "../services/auth.service";
 
 export const loginAct = (formData: { email: string; password: string }) => {
   return async (dispatch: AppDispatch) => {
