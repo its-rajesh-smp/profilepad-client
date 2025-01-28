@@ -2,23 +2,20 @@ import { AppDispatch } from "@/common/hooks/useAppDispatch";
 import { RootState } from "@/store/store";
 import { Layout } from "react-grid-layout";
 import { setGridLayouts } from "../reducers/grid.reducer";
-import { getUserGrid } from "../services/grid.service";
+import { createGridItem } from "../services/grid.service";
+import { ISidebarDroppingItem } from "../types/left-sidebar-item.type";
 
 export const createNewLayoutItemAct = (
   currentScreenSize: string,
   newLayout: Layout[],
+  droppingItem: ISidebarDroppingItem,
 ) => {
   return async (dispatch: AppDispatch, getState: () => RootState) => {
     const currentLayouts = { ...getState().dashboardReducer.gridSlice.layouts };
-    console.log(currentLayouts);
     currentLayouts[currentScreenSize] = newLayout;
-    dispatch(setGridLayouts(currentLayouts));
-  };
-};
 
-export const getLayoutsAct = () => {
-  return async (dispatch: AppDispatch) => {
-    const response = await getUserGrid();
-    dispatch(setGridLayouts(response.data.gridLayoutConfig));
+    await createGridItem({ layouts: currentLayouts, newItem: droppingItem });
+
+    dispatch(setGridLayouts(currentLayouts));
   };
 };

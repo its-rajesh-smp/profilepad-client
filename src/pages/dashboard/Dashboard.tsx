@@ -1,10 +1,20 @@
 import { SidebarProvider } from "@/common/components/shadcn/ui/sidebar";
+import { useAppDispatch } from "@/common/hooks/useAppDispatch";
+import { useEffect } from "react";
+import { getUserDashboardAct } from "./actions-creators/dashboard.action";
 import DashboardGrid from "./components/DashboardGrid";
 import LeftBar from "./components/LeftBar";
 import RightBar from "./components/RightBar";
 import { GridLayoutProvider } from "./contexts/grid-layout.context";
 
 function Dashboard() {
+  const dispatch = useAppDispatch();
+
+  // Get the user dashboard
+  useEffect(() => {
+    dispatch(getUserDashboardAct());
+  }, []);
+
   return (
     <div className="flex h-full w-full justify-center overflow-hidden">
       <div className="flex h-full w-full items-start justify-center gap-10">

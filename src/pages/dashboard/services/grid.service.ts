@@ -1,3 +1,4 @@
 import axiosInterceptors from "@/setup/axios.conf";
 
-export const getUserGrid = () => axiosInterceptors.get("/dashboard");
+export const createGridItem = (data: any) =>
+  axiosInterceptors.post("grid-item", data);

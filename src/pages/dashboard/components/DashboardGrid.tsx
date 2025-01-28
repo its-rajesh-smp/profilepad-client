@@ -1,7 +1,10 @@
 import { useAppSelector } from "@/common/hooks/useAppSelector";
 import useScreenSize from "@/common/hooks/useScreenSize";
-import { useContext, useEffect } from "react";
+import { debounce, isEqual } from "lodash";
+import { useContext } from "react";
 import {
+  Layout,
+  Layouts,
   Responsive as ResponsiveGridLayout,
   WidthProvider,
 } from "react-grid-layout";
@@ -19,8 +22,6 @@ import {
   formatGridLayout,
 } from "../utils/dashboard-grid.util";
 import GridItem from "./UI/GridItem";
-import { useAppDispatch } from "@/common/hooks/useAppDispatch";
-import { getLayoutsAct } from "../actions-creators/grid-layout.action";
 
 const ReactGridLayout = WidthProvider(ResponsiveGridLayout);
 
@@ -29,14 +30,22 @@ function DashboardGrid() {
   const { layouts } = useAppSelector(
     (state) => state.dashboardReducer.gridSlice,
   );
-  const { droppingItem, onDropHandler } = useContext(gridLayoutContext);
-  const dispatch = useAppDispatch();
-
-  useEffect(() => {
-    dispatch(getLayoutsAct());
-  }, []);
+  const { droppingItem, onDropHandler, onLayoutChangeHandler } =
+    useContext(gridLayoutContext);
 
   const formattedGridLayout = formatGridLayout(layouts);
+
+  // Only call onLayoutChangeHandler if the new layout is different from the current state layout
+  const debouncedLayoutChangeHandler = debounce(
+    (currentLayout: Layout[], all: Layouts) => {
+      // Only call if the new layout is different from the current state layout
+      if (!isEqual(all, layouts)) {
+        onLayoutChangeHandler(currentLayout, all);
+      }
+    },
+    1000,
+  );
+
   return (
     <div
       className={`min-h-[calc(100vh+100px)] w-[400px] pb-[200px] lg:w-[800px]`}
@@ -50,6 +59,7 @@ function DashboardGrid() {
         rowHeight={size === "lg" ? ROW_HEIGHT.lg : ROW_HEIGHT.xs}
         useCSSTransforms={true}
         isDroppable={true}
+        onLayoutChange={debouncedLayoutChangeHandler}
         droppingItem={adjustDroppingItemWidthBasedOnGridSize(
           droppingItem,
           size,

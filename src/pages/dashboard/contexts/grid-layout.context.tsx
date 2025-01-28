@@ -2,22 +2,25 @@ import { useAppDispatch } from "@/common/hooks/useAppDispatch";
 import useScreenSize from "@/common/hooks/useScreenSize";
 import { createUUID } from "@/common/utils/uuid.util";
 import { createContext, useState } from "react";
-import { Layout } from "react-grid-layout";
-import { createNewLayoutItemAct } from "../actions-creators/grid-layout.action";
+import { Layout, Layouts } from "react-grid-layout";
+import { createNewLayoutItemAct } from "../actions-creators/grid.action";
 import { gridLayoutConfig } from "../constants/grid-card.const";
 import { TDashboardGridCard } from "../types/dashboard-item.type";
 import { ISidebarDroppingItem } from "../types/left-sidebar-item.type";
+import { updateDashboardGridAct } from "../actions-creators/dashboard.action";
 
 interface IGridLayoutContext {
   onDragStartHandler: (variant: TDashboardGridCard) => void;
   onDropHandler: (layout: Layout[], item: Layout) => void;
   droppingItem: ISidebarDroppingItem | undefined;
+  onLayoutChangeHandler: (currentLayout: Layout[], allLayouts: Layouts) => void;
 }
 
 const initialState: IGridLayoutContext = {
   onDragStartHandler: () => {},
   onDropHandler: () => {},
   droppingItem: undefined,
+  onLayoutChangeHandler: () => {},
 };
 
 const GridLayoutContext = createContext(initialState);
@@ -42,8 +45,16 @@ export const GridLayoutProvider = ({
   };
 
   const onDropHandler = (newLayouts: Layout[]) => {
-    dispatch(createNewLayoutItemAct(size, newLayouts));
+    if (!droppingItem) return;
+    dispatch(createNewLayoutItemAct(size, newLayouts, droppingItem));
     setDroppingItem(undefined);
+  };
+
+  const onLayoutChangeHandler = (
+    _newLayouts: Layout[],
+    allLayouts: Layouts,
+  ) => {
+    dispatch(updateDashboardGridAct(allLayouts));
   };
 
   return (
@@ -52,6 +63,7 @@ export const GridLayoutProvider = ({
         onDragStartHandler,
         onDropHandler,
         droppingItem,
+        onLayoutChangeHandler,
       }}
     >
       {children}
