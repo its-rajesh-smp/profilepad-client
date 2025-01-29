@@ -10,5 +10,4 @@ export interface ISidebarDroppingItem {
   i: string;
   w: number;
   h: number;
-  variant: TDashboardGridCard;
 }

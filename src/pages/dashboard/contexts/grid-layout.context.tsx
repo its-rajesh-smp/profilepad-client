@@ -3,11 +3,11 @@ import useScreenSize from "@/common/hooks/useScreenSize";
 import { createUUID } from "@/common/utils/uuid.util";
 import { createContext, useState } from "react";
 import { Layout, Layouts } from "react-grid-layout";
+import { updateDashboardGridAct } from "../actions-creators/dashboard.action";
 import { createNewLayoutItemAct } from "../actions-creators/grid.action";
 import { gridLayoutConfig } from "../constants/grid-card.const";
 import { TDashboardGridCard } from "../types/dashboard-item.type";
 import { ISidebarDroppingItem } from "../types/left-sidebar-item.type";
-import { updateDashboardGridAct } from "../actions-creators/dashboard.action";
 
 interface IGridLayoutContext {
   onDragStartHandler: (variant: TDashboardGridCard) => void;
@@ -35,6 +35,9 @@ export const GridLayoutProvider = ({
   const [droppingItem, setDroppingItem] = useState<
     ISidebarDroppingItem | undefined
   >(undefined);
+  const [droppingItemVariant, setDroppingItemVariant] = useState<
+    TDashboardGridCard | undefined
+  >(undefined);
 
   const dispatch = useAppDispatch();
 
@@ -42,12 +45,21 @@ export const GridLayoutProvider = ({
     const newDroppingItem: ISidebarDroppingItem = gridLayoutConfig[variant];
     newDroppingItem.i = createUUID();
     setDroppingItem(newDroppingItem);
+    setDroppingItemVariant(variant);
   };
 
   const onDropHandler = (newLayouts: Layout[]) => {
-    if (!droppingItem) return;
-    dispatch(createNewLayoutItemAct(size, newLayouts, droppingItem));
+    if (!droppingItem || !droppingItemVariant) return;
+    dispatch(
+      createNewLayoutItemAct(
+        size,
+        newLayouts,
+        droppingItem,
+        droppingItemVariant,
+      ),
+    );
     setDroppingItem(undefined);
+    setDroppingItemVariant(undefined);
   };
 
   const onLayoutChangeHandler = (

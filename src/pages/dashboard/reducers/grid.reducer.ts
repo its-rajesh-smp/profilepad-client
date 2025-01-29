@@ -21,8 +21,12 @@ const gridSlice = createSlice({
     setGridLayoutItems: (state, action) => {
       state.layoutItems = action.payload;
     },
+    createNewLayoutItem: (state, action) => {
+      state.layoutItems.push(action.payload);
+    },
   },
 });
 
-export const { setGridLayouts, setGridLayoutItems } = gridSlice.actions;
+export const { setGridLayouts, setGridLayoutItems, createNewLayoutItem } =
+  gridSlice.actions;
 export default gridSlice.reducer;

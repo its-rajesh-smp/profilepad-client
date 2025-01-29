@@ -39,7 +39,7 @@ function DashboardGrid() {
   const debouncedLayoutChangeHandler = debounce(
     (currentLayout: Layout[], all: Layouts) => {
       // Only call if the new layout is different from the current state layout
-      if (!isEqual(all, layouts)) {
+      if (!isEqual(all, formattedGridLayout)) {
         onLayoutChangeHandler(currentLayout, all);
       }
     },
@@ -69,10 +69,15 @@ function DashboardGrid() {
         {(size === "lg"
           ? formattedGridLayout["lg"]
           : formattedGridLayout["xs"]
-        ).map((item, index) => {
+        ).map((item, index, arr) => {
           return (
             <div key={item.i} data-grid={item}>
-              <GridItem key={item.i} index={index} i={item.i} />
+              <GridItem
+                key={item.i}
+                isLast={arr.length - 1 === index}
+                index={index}
+                i={item.i}
+              />
             </div>
           );
         })}

@@ -5,7 +5,6 @@ const defaultLayoutConfig: ISidebarDroppingItem = {
   h: 1,
   i: "",
   w: 100,
-  variant: "text",
 };
 
 export const defaultGridLayoutItemConfig = {

@@ -13,12 +13,12 @@ export const getUserDashboardAct = () => {
     const gridItemsRes = await getGridItems();
     dispatch(setGridLayouts(dashboardRes.data.layouts));
     dispatch(setGridLayoutItems(gridItemsRes.data));
+    sessionStorage.setItem("isFirstTime", "true");
   };
 };
 
 export const updateDashboardGridAct = (updatedLayouts: Layouts) => {
-  return async (dispatch: AppDispatch) => {
+  return async (_dispatch: AppDispatch) => {
     await updateDashboard({ layouts: updatedLayouts });
-    dispatch(setGridLayouts(updatedLayouts));
   };
 };
