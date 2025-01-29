@@ -1,4 +1,6 @@
 import { motion } from "framer-motion";
+import useItemDetails from "../../hooks/useItemDetails";
+import TitlePrimary from "../cards/title/TitlePrimary";
 
 interface IGridItemProps {
   index: number;
@@ -6,8 +8,9 @@ interface IGridItemProps {
 }
 
 function GridItem({ index, i }: IGridItemProps) {
-  const isFirstTime = false;
+  const item = useItemDetails(i);
 
+  const isFirstTime = false;
   const animation = isFirstTime
     ? {
         initial: { y: "100%", opacity: 0 },
@@ -31,9 +34,9 @@ function GridItem({ index, i }: IGridItemProps) {
     <motion.div
       {...animation}
       whileHover={{ scale: 1.05 }}
-      className="h-full w-full cursor-move bg-zinc-500"
+      className="h-full w-full cursor-move"
     >
-      GridItem {i}
+      {item.variant === "text" && <TitlePrimary />}
     </motion.div>
   );
 }
