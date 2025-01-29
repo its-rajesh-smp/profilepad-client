@@ -39,7 +39,7 @@ function DashboardGrid() {
   const debouncedLayoutChangeHandler = debounce(
     (currentLayout: Layout[], all: Layouts) => {
       // Only call if the new layout is different from the current state layout
-      if (!isEqual(all, formattedGridLayout)) {
+      if (!isEqual(all, formattedGridLayout) && !droppingItem) {
         onLayoutChangeHandler(currentLayout, all);
       }
     },
