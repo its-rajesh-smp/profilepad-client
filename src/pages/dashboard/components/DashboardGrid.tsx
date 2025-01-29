@@ -76,7 +76,7 @@ function DashboardGrid() {
                 key={item.i}
                 isLast={arr.length - 1 === index}
                 index={index}
-                i={item.i}
+                {...item}
               />
             </div>
           );

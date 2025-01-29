@@ -5,29 +5,34 @@ import useItemDetails from "../../hooks/useItemDetails";
 import { setIsFirstGridLoad } from "../../reducers/dashboard.reducer";
 import LinkPrimary from "../cards/link/LinkPrimary";
 import TitlePrimary from "../cards/title/TitlePrimary";
+import { getLayoutSizeType } from "../../utils/grid-item.util";
+import useScreenSize from "@/common/hooks/useScreenSize";
 
 interface IGridItemProps {
   index: number;
-  i: string;
   isLast: boolean;
+  i: string;
+  w: number;
+  h: number;
 }
 
-function GridItem({ index, i, isLast }: IGridItemProps) {
+function GridItem({ index, i, isLast, h, w }: IGridItemProps) {
   const item = useItemDetails(i);
   const isFirstGridLoad = useAppSelector(
     (state) => state.dashboardReducer.dashboardSlice.isFirstGridLoad,
   );
   const dispatch = useAppDispatch();
+  const { size } = useScreenSize();
 
   const animation = isFirstGridLoad
     ? {
-        initial: { y: "100%", opacity: 0 },
+        initial: { y: "50%", opacity: 0 },
         animate: { y: 0, opacity: 1 },
         transition: {
           duration: 0.5,
           ease: "easeInOut",
           type: "spring",
-          stiffness: 250,
+          stiffness: 50,
           delay: (1 + index) * 0.1,
         },
       }
@@ -38,9 +43,11 @@ function GridItem({ index, i, isLast }: IGridItemProps) {
           duration: 0.5,
           ease: "easeInOut",
           type: "spring",
-          stiffness: 250,
+          stiffness: 70,
         },
       };
+
+  const sizeType = getLayoutSizeType(size, w, h);
 
   return (
     <motion.div
@@ -51,8 +58,8 @@ function GridItem({ index, i, isLast }: IGridItemProps) {
         isLast && dispatch(setIsFirstGridLoad(false));
       }}
     >
-      {item?.variant === "title" && <TitlePrimary />}
-      {item?.variant === "link" && <LinkPrimary />}
+      {item?.variant === "title" && <TitlePrimary sizeType={sizeType} id={i} />}
+      {item?.variant === "link" && <LinkPrimary sizeType={sizeType} id={i} />}
     </motion.div>
   );
 }

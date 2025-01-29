@@ -10,12 +10,14 @@ const LazyImage = ({
   className?: string;
   wrapperClassName?: string;
 }) => (
-  <LazyLoadImage
-    wrapperClassName={wrapperClassName}
-    effect="blur"
-    className={className}
-    src={src}
-  />
+  <span className="h-full w-full overflow-hidden">
+    <LazyLoadImage
+      wrapperClassName={wrapperClassName}
+      effect="blur"
+      className={className}
+      src={src}
+    />
+  </span>
 );
 
 export default LazyImage;
