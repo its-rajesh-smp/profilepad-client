@@ -7,6 +7,7 @@ import LinkPrimary from "../cards/link/LinkPrimary";
 import TitlePrimary from "../cards/title/TitlePrimary";
 import { getLayoutSizeType } from "../../utils/grid-item.util";
 import useScreenSize from "@/common/hooks/useScreenSize";
+import ProfileHeadlinePrimary from "../cards/profile-headline/ProfileHeadlinePrimary";
 
 interface IGridItemProps {
   index: number;
@@ -60,6 +61,9 @@ function GridItem({ index, i, isLast, h, w }: IGridItemProps) {
     >
       {item?.variant === "title" && <TitlePrimary sizeType={sizeType} id={i} />}
       {item?.variant === "link" && <LinkPrimary sizeType={sizeType} id={i} />}
+      {item?.variant === "profileHeadline" && (
+        <ProfileHeadlinePrimary sizeType={sizeType} id={i} />
+      )}
     </motion.div>
   );
 }

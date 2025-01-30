@@ -8,6 +8,7 @@ import { createNewLayoutItemAct } from "../actions-creators/grid.action";
 import { gridLayoutConfig } from "../constants/grid-card.const";
 import { TDashboardGridCard } from "../types/dashboard-item.type";
 import { ISidebarDroppingItem } from "../types/left-sidebar-item.type";
+import { formatGridLayout } from "../utils/dashboard-grid.util";
 
 interface IGridLayoutContext {
   onDragStartHandler: (variant: TDashboardGridCard) => void;
@@ -48,15 +49,10 @@ export const GridLayoutProvider = ({
     setDroppingItemVariant(variant);
   };
 
-  const onDropHandler = (newLayouts: Layout[]) => {
+  const onDropHandler = (newLayouts: Layout[], item: Layout) => {
     if (!droppingItem || !droppingItemVariant) return;
     dispatch(
-      createNewLayoutItemAct(
-        size,
-        newLayouts,
-        droppingItem,
-        droppingItemVariant,
-      ),
+      createNewLayoutItemAct(size, newLayouts, item, droppingItemVariant),
     );
     setDroppingItem(undefined);
     setDroppingItemVariant(undefined);
@@ -66,7 +62,7 @@ export const GridLayoutProvider = ({
     _newLayouts: Layout[],
     allLayouts: Layouts,
   ) => {
-    dispatch(updateDashboardGridAct(allLayouts));
+    dispatch(updateDashboardGridAct(formatGridLayout(allLayouts)));
   };
 
   return (

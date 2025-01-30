@@ -21,7 +21,7 @@ export const gridLayoutConfig: IDashboardCardConfigs = {
     h: 2,
     w: 2,
   },
-  profile: {
+  profileHeadline: {
     ...defaultLayoutConfig,
     h: 2,
     w: 100,

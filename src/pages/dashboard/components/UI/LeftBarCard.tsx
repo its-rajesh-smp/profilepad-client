@@ -7,7 +7,6 @@ import { ILeftSidebarCard } from "../../types/left-sidebar-item.type";
 const withDefaultProps = (Component: React.FC<any>) => {
   return (props: any) => {
     const { onDragStartHandler } = useContext(reactGridLayoutContext);
-
     const defaultProps: any = {
       className: `droppable-element h-fit w-full rounded-xl cursor-move border bg-white p-3 shadow-sm `,
       draggable: true,
@@ -68,7 +67,7 @@ function LeftBarCard({ item }: { item: ILeftSidebarCard }) {
   switch (item.variant) {
     case "title":
       return <WrappedTitleCard item={item} />;
-    case "profile":
+    case "profileHeadline":
       return <WrappedProfileCard item={item} />;
     case "link":
       return <WrappedLinkCard item={item} />;

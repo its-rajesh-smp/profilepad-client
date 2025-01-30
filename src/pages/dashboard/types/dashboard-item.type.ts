@@ -4,7 +4,7 @@ export type TDashboardGridCard =
   | "title"
   | "text"
   | "image"
-  | "profile"
+  | "profileHeadline"
   | "link";
 
 export type IDashboardCardConfigs = {

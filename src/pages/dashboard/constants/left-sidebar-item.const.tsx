@@ -9,7 +9,7 @@ export const leftSidebarCards: ILeftSidebarCard[][] = [
   ],
   [
     {
-      variant: "profile",
+      variant: "profileHeadline",
     },
   ],
   [

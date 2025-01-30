@@ -5,7 +5,6 @@ function useItemDetails(id: string) {
     (state) => state.dashboardReducer.gridSlice,
   );
   const item = layoutItems.find((item: any) => item.id === id);
-  console.log(item);
   return item;
 }
 
