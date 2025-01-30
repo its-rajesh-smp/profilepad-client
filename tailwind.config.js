@@ -41,6 +41,9 @@ module.exports = {
         primary: "#1E2022",
         secondary: "#9B9B9B",
       },
+      fontSize: {
+        xxs: "0.6rem",
+      },
     },
   },
   plugins: [require("tailwindcss-animate")],

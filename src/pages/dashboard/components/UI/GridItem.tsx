@@ -1,13 +1,15 @@
 import { useAppDispatch } from "@/common/hooks/useAppDispatch";
 import { useAppSelector } from "@/common/hooks/useAppSelector";
+import useScreenSize from "@/common/hooks/useScreenSize";
 import { motion } from "framer-motion";
+import { useState } from "react";
 import useItemDetails from "../../hooks/useItemDetails";
 import { setIsFirstGridLoad } from "../../reducers/dashboard.reducer";
-import LinkPrimary from "../cards/link/LinkPrimary";
-import TitlePrimary from "../cards/title/TitlePrimary";
 import { getLayoutSizeType } from "../../utils/grid-item.util";
-import useScreenSize from "@/common/hooks/useScreenSize";
+import LinkPrimary from "../cards/link/LinkPrimary";
 import ProfileHeadlinePrimary from "../cards/profile-headline/ProfileHeadlinePrimary";
+import TitlePrimary from "../cards/title/TitlePrimary";
+import GridItemActionBar from "./GridItemActionBar";
 
 interface IGridItemProps {
   index: number;
@@ -24,6 +26,7 @@ function GridItem({ index, i, isLast, h, w }: IGridItemProps) {
   );
   const dispatch = useAppDispatch();
   const { size } = useScreenSize();
+  const [isHovered, setIsHovered] = useState(false);
 
   const animation = isFirstGridLoad
     ? {
@@ -54,15 +57,30 @@ function GridItem({ index, i, isLast, h, w }: IGridItemProps) {
     <motion.div
       {...animation}
       whileHover={{ scale: 1.05 }}
-      className="h-full w-full cursor-move"
+      onHoverStart={() => {
+        setIsHovered(true);
+      }}
+      onHoverEnd={() => {
+        setIsHovered(false);
+      }}
+      className="relative h-full w-full cursor-move"
       onAnimationComplete={() => {
         isLast && dispatch(setIsFirstGridLoad(false));
       }}
     >
-      {item?.variant === "title" && <TitlePrimary sizeType={sizeType} id={i} />}
-      {item?.variant === "link" && <LinkPrimary sizeType={sizeType} id={i} />}
+      {isHovered && <GridItemActionBar {...item} />}
+      {item?.variant === "title" && (
+        <TitlePrimary variant="title" sizeType={sizeType} id={i} />
+      )}
+      {item?.variant === "link" && (
+        <LinkPrimary variant="link" sizeType={sizeType} id={i} />
+      )}
       {item?.variant === "profileHeadline" && (
-        <ProfileHeadlinePrimary sizeType={sizeType} id={i} />
+        <ProfileHeadlinePrimary
+          variant="profileHeadline"
+          sizeType={sizeType}
+          id={i}
+        />
       )}
     </motion.div>
   );

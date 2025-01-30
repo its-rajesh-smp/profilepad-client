@@ -65,6 +65,7 @@ function DashboardGrid() {
           size,
         )}
         onDrop={onDropHandler}
+        draggableCancel=".no-drag"
       >
         {(size === "lg"
           ? formattedGridLayout["lg"]

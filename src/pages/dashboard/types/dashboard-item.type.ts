@@ -23,4 +23,5 @@ export type TDashboardGridItemSize =
 export type TDashboardGridItem = {
   sizeType: TDashboardGridItemSize;
   id: string;
+  variant: TDashboardGridCard;
 };

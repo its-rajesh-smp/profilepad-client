@@ -33,14 +33,15 @@ const ProfileCard = (props: any) => (
     {...props}
     className={`${props.className} flex flex-col items-center justify-center gap-1`}
   >
-    <LazyImage
-      wrapperClassName="w-12 h-12"
-      className="h-12 w-12 rounded-full object-cover"
-      src="https://plus.unsplash.com/premium_photo-1683121366070-5ceb7e007a97?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8dXNlcnxlbnwwfHwwfHx8MA%3D%3D"
-    />
-    <div className="flex flex-col items-center justify-center">
-      <p className="text-xs font-semibold">John Doe</p>
-      <p className="text-xs">Founder unicorspartup.com</p>
+    <div>
+      <LazyImage
+        wrapperClassName="w-12 h-12"
+        className="h-12 w-12 rounded-full object-cover"
+      />
+    </div>
+    <div className="flex flex-col items-center justify-center gap-0.5">
+      <p className="text-xs font-semibold text-primary">Rajesh SMP</p>
+      <p className="text-xxs text-primary">Creator @ ProfilePad.io </p>
     </div>
   </div>
 );

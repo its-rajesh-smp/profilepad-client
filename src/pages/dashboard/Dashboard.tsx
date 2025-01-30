@@ -6,9 +6,13 @@ import DashboardGrid from "./components/DashboardGrid";
 import LeftBar from "./components/LeftBar";
 import RightBar from "./components/RightBar";
 import { GridLayoutProvider } from "./contexts/grid-layout.context";
+import { useAppSelector } from "@/common/hooks/useAppSelector";
 
 function Dashboard() {
   const dispatch = useAppDispatch();
+  const currentSelectedGridItem = useAppSelector(
+    (state) => state.dashboardReducer.dashboardSlice.currentSelectedGridItem,
+  );
 
   // Get the user dashboard
   useEffect(() => {
@@ -23,7 +27,10 @@ function Dashboard() {
             <LeftBar />
           </SidebarProvider>
           <DashboardGrid />
-          <SidebarProvider className="fixed right-0 top-0 z-[100] w-fit">
+          <SidebarProvider
+            open={currentSelectedGridItem ? true : false}
+            className="fixed right-0 top-0 z-[100] w-fit"
+          >
             <RightBar />
           </SidebarProvider>
         </GridLayoutProvider>
