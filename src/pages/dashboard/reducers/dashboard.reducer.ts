@@ -3,12 +3,12 @@ import { IGridItem } from "../types/dashboard-item.type";
 
 interface IInitialState {
   isFirstGridLoad: boolean;
-  currentSelectedGridItem: IGridItem | null;
+  currentSelectedGridItem: IGridItem | undefined;
 }
 
 const initialState: IInitialState = {
   isFirstGridLoad: true,
-  currentSelectedGridItem: null,
+  currentSelectedGridItem: undefined,
 };
 
 const dashboardSlice = createSlice({
