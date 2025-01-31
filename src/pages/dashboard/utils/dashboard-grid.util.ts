@@ -1,10 +1,9 @@
 import { Layouts } from "react-grid-layout";
 import { COLS } from "../constants/dashboard-grid.const";
-import { defaultGridLayoutItemConfig } from "../constants/grid-card.const";
-import { ISidebarDroppingItem } from "../types/left-sidebar-item.type";
+import { ILeftSidebarDroppingItem } from "../types/left-sidebar-item.type";
 
 export const adjustDroppingItemWidthBasedOnGridSize = (
-  droppingItem: ISidebarDroppingItem | undefined,
+  droppingItem: ILeftSidebarDroppingItem | undefined,
   currentSize: string,
 ) => {
   if (!droppingItem) {
@@ -30,7 +29,7 @@ export const formatGridLayout = (layouts: Layouts) => {
   Object.keys(layouts).forEach((key) => {
     newLayouts[key] = layouts[key].map((layout) => ({
       ...layout,
-      ...defaultGridLayoutItemConfig,
+      isResizable: false,
     }));
   });
   return newLayouts;

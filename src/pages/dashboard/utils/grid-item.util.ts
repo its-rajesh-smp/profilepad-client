@@ -1,11 +1,11 @@
 import { COLS } from "../constants/dashboard-grid.const";
-import { TDashboardGridItemSize } from "../types/dashboard-item.type";
+import { TGridItemSizeVariant } from "../types/dashboard-item.type";
 
-export const getLayoutSizeType = (
+export const getGridItemSizeVariant = (
   currentSize: string,
   w: number,
   h: number,
-): TDashboardGridItemSize => {
+): TGridItemSizeVariant => {
   let itemW = w;
   let itemH = h;
   if (currentSize === "lg" && w >= COLS.lg) {

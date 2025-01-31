@@ -3,12 +3,15 @@ import { motion } from "framer-motion";
 import { FiSettings } from "react-icons/fi";
 import { IoMdClose } from "react-icons/io";
 import { setCurrentSelectedGridItem } from "../../reducers/dashboard.reducer";
+import GridItemContext from "../../contexts/grid-item.context";
+import { useContext } from "react";
 
-function GridItemActionBar(props: any) {
+function GridItemActionBar() {
   const dispatch = useAppDispatch();
+  const { item } = useContext(GridItemContext);
 
   const onClickSettings = () => {
-    dispatch(setCurrentSelectedGridItem({ ...props }));
+    dispatch(setCurrentSelectedGridItem(item));
   };
 
   return (

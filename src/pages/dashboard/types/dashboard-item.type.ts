@@ -1,17 +1,17 @@
-import { ISidebarDroppingItem } from "./left-sidebar-item.type";
+import { ILeftSidebarDroppingItem } from "./left-sidebar-item.type";
 
-export type TDashboardGridCard =
+export type TGridItemVariant =
   | "title"
   | "text"
   | "image"
   | "profileHeadline"
   | "link";
 
-export type IDashboardCardConfigs = {
-  [key in TDashboardGridCard]: ISidebarDroppingItem;
+export type IGridItemConfigs = {
+  [key in TGridItemVariant]: ILeftSidebarDroppingItem;
 };
 
-export type TDashboardGridItemSize =
+export type TGridItemSizeVariant =
   | "H-1_W-100"
   | "H-1_W-4"
   | "H-2_W-2"
@@ -20,8 +20,8 @@ export type TDashboardGridItemSize =
   | "H-4_W-2"
   | "H-4_W-4";
 
-export type TDashboardGridItem = {
-  sizeType: TDashboardGridItemSize;
+export type IGridItem = {
+  sizeVariant: TGridItemSizeVariant;
   id: string;
-  variant: TDashboardGridCard;
+  variant: TGridItemVariant;
 };

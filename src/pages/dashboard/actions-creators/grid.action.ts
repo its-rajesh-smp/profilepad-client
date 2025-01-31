@@ -3,13 +3,13 @@ import { RootState } from "@/store/store";
 import { Layout } from "react-grid-layout";
 import { createNewLayoutItem, setGridLayouts } from "../reducers/grid.reducer";
 import { createGridItem } from "../services/grid.service";
-import { TDashboardGridCard } from "../types/dashboard-item.type";
+import { TGridItemVariant } from "../types/dashboard-item.type";
 
 export const createNewLayoutItemAct = (
   currentScreenSize: string,
   newLayout: Layout[],
   droppingItem: Layout,
-  variant: TDashboardGridCard,
+  variant: TGridItemVariant,
 ) => {
   return async (dispatch: AppDispatch, getState: () => RootState) => {
     const currentLayouts = { ...getState().dashboardReducer.gridSlice.layouts };
@@ -25,8 +25,8 @@ export const createNewLayoutItemAct = (
       id: droppingItem.i,
       variant,
     };
-    const res = await createGridItem({ layouts: currentLayouts, newItem });
     dispatch(setGridLayouts(currentLayouts));
+    const res = await createGridItem({ layouts: currentLayouts, newItem });
     dispatch(createNewLayoutItem(res.data));
   };
 };

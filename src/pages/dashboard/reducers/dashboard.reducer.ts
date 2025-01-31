@@ -1,9 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { TDashboardGridItem } from "../types/dashboard-item.type";
+import { IGridItem } from "../types/dashboard-item.type";
 
 interface IInitialState {
   isFirstGridLoad: boolean;
-  currentSelectedGridItem: TDashboardGridItem | null;
+  currentSelectedGridItem: IGridItem | null;
 }
 
 const initialState: IInitialState = {

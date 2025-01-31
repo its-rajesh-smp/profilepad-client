@@ -16,6 +16,7 @@ import {
   MARGIN,
   ROW_HEIGHT,
 } from "../constants/dashboard-grid.const";
+import { GridItemContextProvider } from "../contexts/grid-item.context";
 import gridLayoutContext from "../contexts/grid-layout.context";
 import {
   adjustDroppingItemWidthBasedOnGridSize,
@@ -73,12 +74,9 @@ function DashboardGrid() {
         ).map((item, index, arr) => {
           return (
             <div key={item.i} data-grid={item}>
-              <GridItem
-                key={item.i}
-                isLast={arr.length - 1 === index}
-                index={index}
-                {...item}
-              />
+              <GridItemContextProvider {...item}>
+                <GridItem isLast={arr.length - 1 === index} index={index} />
+              </GridItemContextProvider>
             </div>
           );
         })}

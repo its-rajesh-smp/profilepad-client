@@ -5,15 +5,14 @@ import { createContext, useState } from "react";
 import { Layout, Layouts } from "react-grid-layout";
 import { updateDashboardGridAct } from "../actions-creators/dashboard.action";
 import { createNewLayoutItemAct } from "../actions-creators/grid.action";
-import { gridLayoutConfig } from "../constants/grid-card.const";
-import { TDashboardGridCard } from "../types/dashboard-item.type";
-import { ISidebarDroppingItem } from "../types/left-sidebar-item.type";
-import { formatGridLayout } from "../utils/dashboard-grid.util";
+import { gridItemConfigs } from "../constants/grid-card.const";
+import { TGridItemVariant } from "../types/dashboard-item.type";
+import { ILeftSidebarDroppingItem } from "../types/left-sidebar-item.type";
 
 interface IGridLayoutContext {
-  onDragStartHandler: (variant: TDashboardGridCard) => void;
+  onDragStartHandler: (variant: TGridItemVariant) => void;
   onDropHandler: (layout: Layout[], item: Layout) => void;
-  droppingItem: ISidebarDroppingItem | undefined;
+  droppingItem: ILeftSidebarDroppingItem | undefined;
   onLayoutChangeHandler: (currentLayout: Layout[], allLayouts: Layouts) => void;
 }
 
@@ -34,16 +33,16 @@ export const GridLayoutProvider = ({
   const { size } = useScreenSize();
 
   const [droppingItem, setDroppingItem] = useState<
-    ISidebarDroppingItem | undefined
+    ILeftSidebarDroppingItem | undefined
   >(undefined);
   const [droppingItemVariant, setDroppingItemVariant] = useState<
-    TDashboardGridCard | undefined
+    TGridItemVariant | undefined
   >(undefined);
 
   const dispatch = useAppDispatch();
 
-  const onDragStartHandler = (variant: TDashboardGridCard) => {
-    const newDroppingItem: ISidebarDroppingItem = gridLayoutConfig[variant];
+  const onDragStartHandler = (variant: TGridItemVariant) => {
+    const newDroppingItem = gridItemConfigs[variant];
     newDroppingItem.i = createUUID();
     setDroppingItem(newDroppingItem);
     setDroppingItemVariant(variant);
@@ -62,7 +61,7 @@ export const GridLayoutProvider = ({
     _newLayouts: Layout[],
     allLayouts: Layouts,
   ) => {
-    dispatch(updateDashboardGridAct(formatGridLayout(allLayouts)));
+    dispatch(updateDashboardGridAct(allLayouts));
   };
 
   return (

@@ -1,62 +1,63 @@
 import LazyImage from "@/common/components/LazyImage/LazyImage";
-import { TDashboardGridItem } from "@/pages/dashboard/types/dashboard-item.type";
+import GridItemContext from "@/pages/dashboard/contexts/grid-item.context";
+import { useContext } from "react";
 import { BiLink } from "react-icons/bi";
 
-function LinkPrimary({ sizeType, id }: TDashboardGridItem) {
-  // const item = useItemDetails(id);
+function LinkPrimary() {
+  const { item, gridItemSizeVariant } = useContext(GridItemContext);
 
-  if (sizeType === "H-2_W-2") {
+  if (gridItemSizeVariant === "H-2_W-2") {
     return (
       <div className="flex h-full w-full flex-col gap-2 rounded-2xl border p-5">
         <div className="h-fit w-fit rounded-lg border p-3">
-          <BiLink className="text-secondary text-2xl" />
+          <BiLink className="text-2xl text-secondary" />
         </div>
         <div className="flex flex-col gap-1">
-          <p className="text-primary text-sm font-semibold">Google</p>
-          <p className="text-secondary text-xs">google.com</p>
+          <p className="text-sm font-semibold text-primary">Google</p>
+          <p className="text-xs text-secondary">google.com</p>
         </div>
       </div>
     );
   }
 
-  if (sizeType === "H-1_W-100") {
+  if (gridItemSizeVariant === "H-1_W-100") {
     return (
       <div className="flex h-full w-full gap-5 rounded-2xl border p-5">
         <div className="h-fit w-fit rounded-lg border p-3">
-          <BiLink className="text-secondary text-2xl" />
+          <BiLink className="text-2xl text-secondary" />
         </div>
         <div className="flex flex-col gap-1">
-          <p className="text-primary text-sm font-semibold">Google</p>
-          <p className="text-secondary text-xs">google.com</p>
+          <p className="text-sm font-semibold text-primary">Google</p>
+          <p className="text-xs text-secondary">google.com</p>
         </div>
       </div>
     );
   }
 
-  if (sizeType === "H-1_W-4") {
+  if (gridItemSizeVariant === "H-1_W-4") {
     return (
       <div className="flex h-full w-full gap-5 rounded-2xl border p-5">
         <div className="h-fit w-fit rounded-lg border p-3">
-          <BiLink className="text-secondary text-2xl" />
+          <BiLink className="text-2xl text-secondary" />
         </div>
         <div className="flex flex-col gap-1">
-          <p className="text-primary text-sm font-semibold">Google</p>
-          <p className="text-secondary text-xs">google.com</p>
+          <p className="text-sm font-semibold text-primary">Google</p>
+          <p className="text-xs text-secondary">google.com</p>
         </div>
       </div>
     );
   }
 
-  if (sizeType === "H-4_W-4") {
+  if (gridItemSizeVariant === "H-4_W-4") {
     return (
       <div className="flex h-full w-full flex-col gap-5 rounded-2xl border p-5">
         <div className="flex items-center gap-4">
           <div className="h-fit w-fit rounded-lg border p-3">
-            <BiLink className="text-secondary text-2xl" />
+            <BiLink className="text-2xl text-secondary" />
           </div>
           <div className="flex flex-col gap-1">
-            <p className="text-primary text-sm font-semibold">Google</p>
-            <p className="text-secondary text-xs">google.com</p>
+            <p className="text-sm font-semibold text-primary">Google</p>
+            <p className="text-xs text-secondary">google.com</p>
           </div>
         </div>
 

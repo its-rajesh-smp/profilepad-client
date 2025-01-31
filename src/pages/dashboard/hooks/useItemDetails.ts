@@ -1,10 +1,11 @@
 import { useAppSelector } from "@/common/hooks/useAppSelector";
+import { IGridItem } from "../types/dashboard-item.type";
 
 function useItemDetails(id: string) {
   const { layoutItems } = useAppSelector(
     (state) => state.dashboardReducer.gridSlice,
   );
-  const item = layoutItems.find((item: any) => item.id === id);
+  const item: IGridItem = layoutItems.find((item: IGridItem) => item.id === id);
   return item;
 }
 

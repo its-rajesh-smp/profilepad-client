@@ -1,17 +1,13 @@
-import { IDashboardCardConfigs } from "../types/dashboard-item.type";
-import { ISidebarDroppingItem } from "../types/left-sidebar-item.type";
+import { IGridItemConfigs } from "../types/dashboard-item.type";
+import { ILeftSidebarDroppingItem } from "../types/left-sidebar-item.type";
 
-const defaultLayoutConfig: ISidebarDroppingItem = {
+const defaultLayoutConfig: ILeftSidebarDroppingItem = {
   h: 1,
   i: "",
   w: 100,
 };
 
-export const defaultGridLayoutItemConfig = {
-  isResizable: false,
-};
-
-export const gridLayoutConfig: IDashboardCardConfigs = {
+export const gridItemConfigs: IGridItemConfigs = {
   text: { ...defaultLayoutConfig },
   image: {
     ...defaultLayoutConfig,

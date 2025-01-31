@@ -1,12 +1,12 @@
-import { TDashboardGridCard } from "./dashboard-item.type";
+import { TGridItemVariant } from "./dashboard-item.type";
 
 export interface ILeftSidebarCard {
-  variant: TDashboardGridCard;
+  variant: TGridItemVariant;
   icon?: React.ReactNode;
   title?: string;
 }
 
-export interface ISidebarDroppingItem {
+export interface ILeftSidebarDroppingItem {
   i: string;
   w: number;
   h: number;
