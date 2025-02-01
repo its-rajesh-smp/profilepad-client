@@ -24,6 +24,7 @@ export type IGridItem = {
   sizeVariant: TGridItemSizeVariant;
   id: string;
   variant: TGridItemVariant;
+  styles?: any;
 };
 
 export type TGridItemSettingInputType = "color" | "position" | "design";
@@ -36,4 +37,5 @@ export interface IGridItemSetting {
   type: TGridItemSettingInputType;
   availableDesigns?: TGridItemSizeVariant[];
   title: string;
+  stylesToUpdate?: string;
 }

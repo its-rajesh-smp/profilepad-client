@@ -1,9 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { Layouts } from "react-grid-layout";
+import { IGridItem } from "../types/dashboard-item.type";
 
 interface IInitialState {
   layouts: Layouts;
-  layoutItems: any;
+  layoutItems: IGridItem[];
 }
 
 const initialState: IInitialState = {
@@ -37,6 +38,17 @@ const gridSlice = createSlice({
       state.layouts = newLayout;
       return state;
     },
+
+    updateGridLayoutItem: (state, action) => {
+      const newLayoutItems = state.layoutItems.map((item) => {
+        if (item.id === action.payload.id) {
+          return { ...item, ...action.payload };
+        }
+        return item;
+      });
+      state.layoutItems = newLayoutItems;
+      return state;
+    },
   },
 });
 
@@ -45,5 +57,6 @@ export const {
   setGridLayoutItems,
   createNewLayoutItem,
   updateGridLayoutItemSize,
+  updateGridLayoutItem,
 } = gridSlice.actions;
 export default gridSlice.reducer;

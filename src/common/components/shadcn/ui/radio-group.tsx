@@ -32,7 +32,9 @@ const RadioGroupItem = React.forwardRef<
       )}
       {...props}
     >
-      <RadioGroupPrimitive.Indicator className="flex items-center justify-center text-current">
+      <RadioGroupPrimitive.Indicator
+        className={`flex items-center justify-center text-current`}
+      >
         <svg
           width="6"
           height="6"

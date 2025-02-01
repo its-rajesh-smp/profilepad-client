@@ -1,9 +1,14 @@
 import { AppDispatch } from "@/common/hooks/useAppDispatch";
 import { RootState } from "@/store/store";
 import { Layout } from "react-grid-layout";
-import { createNewLayoutItem, setGridLayouts } from "../reducers/grid.reducer";
-import { createGridItem } from "../services/grid.service";
+import {
+  createNewLayoutItem,
+  setGridLayouts,
+  updateGridLayoutItem,
+} from "../reducers/grid.reducer";
+import { createGridItem, updateAGridItem } from "../services/grid.service";
 import { TGridItemVariant } from "../types/dashboard-item.type";
+import { updateCurrentSelectedGridItem } from "../reducers/dashboard.reducer";
 
 export const createNewLayoutItemAct = (
   currentScreenSize: string,
@@ -28,5 +33,16 @@ export const createNewLayoutItemAct = (
     dispatch(setGridLayouts(currentLayouts));
     const res = await createGridItem({ layouts: currentLayouts, newItem });
     dispatch(createNewLayoutItem(res.data));
+  };
+};
+
+export const updateAGridItemAct = (data: any) => {
+  return async (dispatch: AppDispatch, getState: () => RootState) => {
+    const currentSelectedItem =
+      getState().dashboardReducer.dashboardSlice.currentSelectedGridItem;
+    if (!currentSelectedItem) return;
+    dispatch(updateCurrentSelectedGridItem(data));
+    dispatch(updateGridLayoutItem({ ...currentSelectedItem, ...data }));
+    await updateAGridItem(currentSelectedItem.id, data);
   };
 };

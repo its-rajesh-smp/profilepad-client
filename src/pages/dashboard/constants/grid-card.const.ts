@@ -35,6 +35,7 @@ export const gridItemSettings: IGridItemSettings = {
     {
       type: "color",
       title: "Background Color",
+      stylesToUpdate: "primaryText->backgroundColor",
     },
     {
       type: "design",
@@ -46,10 +47,17 @@ export const gridItemSettings: IGridItemSettings = {
     {
       type: "color",
       title: "Text Color",
+      stylesToUpdate: "primaryText->color",
+    },
+    {
+      type: "color",
+      title: "Background Color",
+      stylesToUpdate: "card->backgroundColor",
     },
     {
       type: "position",
       title: "Text Position",
+      stylesToUpdate: "primaryText->textAlign",
     },
     {
       type: "design",

@@ -39,3 +39,39 @@ export const convertGridItemVariantToSize = (variant: TGridItemSizeVariant) => {
   const [, h, w] = match.map(Number);
   return { w, h };
 };
+
+export const generateStylesToUpdate = (
+  styleUpdatePath: any,
+  value: any,
+  existingStyles: any = {},
+) => {
+  const map = styleUpdatePath.split("->");
+  let data = { ...existingStyles };
+  let current = data;
+
+  map.forEach((key: any, index: any) => {
+    if (index === map.length - 1) {
+      current[key] = value;
+      return;
+    }
+    current[key] = current[key] ? { ...current[key] } : {};
+    current = current[key];
+  });
+
+  return data;
+};
+
+export const getStylesUsingStyleUpdatePath = (
+  styles: any,
+  styleUpdatePath: string,
+) => {
+  if (!styleUpdatePath || !styles) return undefined;
+
+  const map = styleUpdatePath.split("->");
+  let temp = styles;
+  for (let key of map) {
+    if (!temp[key]) return undefined;
+    temp = temp[key];
+  }
+  return temp;
+};

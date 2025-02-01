@@ -6,7 +6,6 @@ import { getUserDashboardAct } from "./actions-creators/dashboard.action";
 import DashboardGrid from "./components/DashboardGrid";
 import LeftBar from "./components/LeftBar";
 import RightBar from "./components/RightBar";
-import DashboardMenu from "./components/UI/DashboardMenu";
 import { GridLayoutProvider } from "./contexts/grid-layout.context";
 
 function Dashboard() {

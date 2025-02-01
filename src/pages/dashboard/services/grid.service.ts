@@ -4,3 +4,6 @@ export const createGridItem = (data: any) =>
   axiosInterceptors.post("grid-item", data);
 
 export const getGridItems = () => axiosInterceptors.get("grid-item/all");
+
+export const updateAGridItem = (id: string, data: any) =>
+  axiosInterceptors.patch(`grid-item/${id}`, data);
