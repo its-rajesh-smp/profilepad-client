@@ -1,4 +1,5 @@
 import LazyImage from "@/common/components/LazyImage/LazyImage";
+import AutoSaveTextField from "@/common/components/UI/AutoSaveTextField";
 import GridItemContext from "@/pages/dashboard/contexts/grid-item.context";
 import { useContext } from "react";
 
@@ -13,9 +14,19 @@ function ProfileHeadlinePrimary() {
           className="h-20 w-20 rounded-full object-cover"
         />
       </div>
-      <div className="flex flex-col items-center justify-center gap-1">
-        <p className="text-lg font-semibold">Rajesh Singha Maha Patra</p>
-        <p className="text-xs">Fullstack Developer @ Unicors</p>
+      <div className="flex flex-col items-center justify-center">
+        <AutoSaveTextField
+          defaultValue="hello world"
+          fieldToUpdate="title"
+          id="title"
+          className="text-center text-lg font-semibold"
+        />
+        <AutoSaveTextField
+          defaultValue="Fullstack Developer @ Unicors"
+          fieldToUpdate="title"
+          id="title"
+          className="rounded-sm text-center text-xs"
+        />
       </div>
     </div>
   );

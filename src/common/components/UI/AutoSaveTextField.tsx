@@ -12,20 +12,19 @@ interface IAutoSaveTextFieldProps {
   onFocus?: () => void;
   onBlur?: () => void;
   style?: React.CSSProperties;
+  defaultValue?: string;
 }
 
 function AutoSaveTextField({
   id,
   fieldToUpdate,
-  children,
   className,
   onChange,
   style = {},
   onBlur = () => {},
   onFocus = () => {},
+  defaultValue,
 }: IAutoSaveTextFieldProps) {
-  const { editMode } = useAppSelector((state) => state.authSlice);
-
   // Utility to update nested JSON field
   const updateNestedField = (path: string, value: any) => {
     const keys = path.split(".");
@@ -55,14 +54,14 @@ function AutoSaveTextField({
   return (
     <span
       style={style}
-      className={`h-full w-full outline-none ${className}`}
-      contentEditable={editMode}
+      className={`no-drag mb-1 w-full cursor-text rounded-md bg-white px-2 outline-none transition-all focus:bg-zinc-100 ${className}`}
+      contentEditable={true}
       suppressContentEditableWarning
       onInput={onTextChange}
       onFocus={onFocus}
       onBlur={onBlur}
     >
-      {children}
+      {defaultValue}
     </span>
   );
 }

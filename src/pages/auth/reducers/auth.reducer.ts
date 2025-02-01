@@ -7,7 +7,6 @@ interface IAuthState {
   isAuthenticated: boolean | undefined;
   authToken?: string;
   user: IAuthUser;
-  editMode?: boolean;
 }
 
 const initialState: IAuthState = {
@@ -39,10 +38,6 @@ const authSlice = createSlice({
       state.user = { ...state.user, ...action.payload };
       return state;
     },
-    setEditMode: (state, action) => {
-      state.editMode = action.payload;
-      return state;
-    },
     logout: () => {
       localStorage.removeItem("authToken");
       return initialState;
@@ -50,5 +45,5 @@ const authSlice = createSlice({
   },
 });
 
-export const { authenticate, logout, setUser, setEditMode } = authSlice.actions;
+export const { authenticate, logout, setUser } = authSlice.actions;
 export default authSlice.reducer;
