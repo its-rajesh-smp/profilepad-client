@@ -8,10 +8,12 @@ import { useContext } from "react";
 
 function GridItemActionBar() {
   const dispatch = useAppDispatch();
-  const { item } = useContext(GridItemContext);
+  const { item, gridItemSizeVariant } = useContext(GridItemContext);
 
   const onClickSettings = () => {
-    dispatch(setCurrentSelectedGridItem(item));
+    dispatch(
+      setCurrentSelectedGridItem({ ...item, sizeVariant: gridItemSizeVariant }),
+    );
   };
 
   return (

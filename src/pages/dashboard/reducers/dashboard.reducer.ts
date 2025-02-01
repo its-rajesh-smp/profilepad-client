@@ -21,9 +21,19 @@ const dashboardSlice = createSlice({
     setCurrentSelectedGridItem: (state, action) => {
       state.currentSelectedGridItem = action.payload;
     },
+    updateCurrentSelectedGridItem: (state, action) => {
+      const newSelectedItem = {
+        ...state.currentSelectedGridItem,
+        ...action.payload,
+      };
+      state.currentSelectedGridItem = newSelectedItem;
+    },
   },
 });
 
-export const { setIsFirstGridLoad, setCurrentSelectedGridItem } =
-  dashboardSlice.actions;
+export const {
+  setIsFirstGridLoad,
+  setCurrentSelectedGridItem,
+  updateCurrentSelectedGridItem,
+} = dashboardSlice.actions;
 export default dashboardSlice.reducer;

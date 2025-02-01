@@ -39,7 +39,7 @@ export const gridItemSettings: IGridItemSettings = {
     {
       type: "design",
       title: "Design",
-      availableDesigns: ["H-2_W-100", "H-2_W-4", "H-2_W-2"],
+      availableDesigns: ["H-2_W-100", "H-2_W-4"],
     },
   ],
   title: [
