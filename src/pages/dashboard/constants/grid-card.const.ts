@@ -1,4 +1,7 @@
-import { IGridItemConfigs } from "../types/dashboard-item.type";
+import {
+  IGridItemConfigs,
+  IGridItemSettings,
+} from "../types/dashboard-item.type";
 import { ILeftSidebarDroppingItem } from "../types/left-sidebar-item.type";
 
 const defaultLayoutConfig: ILeftSidebarDroppingItem = {
@@ -25,4 +28,36 @@ export const gridItemConfigs: IGridItemConfigs = {
   title: {
     ...defaultLayoutConfig,
   },
+};
+
+export const gridItemSettings: IGridItemSettings = {
+  profileHeadline: [
+    {
+      type: "color",
+      title: "Background Color",
+    },
+    {
+      type: "design",
+      title: "Design",
+      availableDesigns: ["H-2_W-100", "H-2_W-4", "H-2_W-2"],
+    },
+  ],
+  title: [
+    {
+      type: "color",
+      title: "Text Color",
+    },
+    {
+      type: "position",
+      title: "Text Position",
+    },
+    {
+      type: "design",
+      title: "Design",
+      availableDesigns: ["H-1_W-4", "H-1_W-100"],
+    },
+  ],
+  text: [],
+  image: [],
+  link: [],
 };

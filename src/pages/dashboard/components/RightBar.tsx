@@ -8,7 +8,9 @@ import {
 import { useAppDispatch } from "@/common/hooks/useAppDispatch";
 import { useAppSelector } from "@/common/hooks/useAppSelector";
 import { IoMdClose } from "react-icons/io";
+import { gridItemSettings } from "../constants/grid-card.const";
 import { setCurrentSelectedGridItem } from "../reducers/dashboard.reducer";
+import { IGridItemSetting } from "../types/dashboard-item.type";
 import RightBarSection from "./right-bar/RightBarSection";
 import SelectCardColor from "./right-bar/SelectCardColor";
 import SelectCardType from "./right-bar/SelectCardType";
@@ -19,6 +21,10 @@ function RightBar() {
   const currentSelectedGridItem = useAppSelector(
     (state) => state.dashboardReducer.dashboardSlice.currentSelectedGridItem,
   );
+
+  const settings = currentSelectedGridItem?.variant
+    ? gridItemSettings[currentSelectedGridItem.variant]
+    : null;
 
   return (
     <>
@@ -34,25 +40,35 @@ function RightBar() {
           </div>
         </SidebarHeader>
         <SidebarContent className="no-scrollbar">
-          <div className="flex flex-col gap-4 p-3 pt-1">
-            <RightBarSection title="Background">
-              <SelectCardColor />
-            </RightBarSection>
-            <RightBarSection
-              className="!flex-row items-center justify-between"
-              title="Position"
-            >
-              <SelectTextPosition />
-            </RightBarSection>
-            <RightBarSection title="Design">
-              <SelectCardType />
-            </RightBarSection>
-          </div>
+          {settings && (
+            <div className="flex flex-col gap-4 p-3 pt-1">
+              {settings.map((setting, index) => {
+                return (
+                  <RightBarSection key={index} title={setting.title}>
+                    {getSection(setting)}
+                  </RightBarSection>
+                );
+              })}
+            </div>
+          )}
         </SidebarContent>
         <SidebarFooter />
       </Sidebar>
     </>
   );
 }
+
+const getSection = (setting: IGridItemSetting) => {
+  switch (setting.type) {
+    case "color":
+      return <SelectCardColor />;
+    case "position":
+      return <SelectTextPosition />;
+    case "design":
+      return <SelectCardType availableDesigns={setting.availableDesigns} />;
+    default:
+      return <></>;
+  }
+};
 
 export default RightBar;
