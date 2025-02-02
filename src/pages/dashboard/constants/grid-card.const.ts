@@ -34,8 +34,17 @@ export const gridItemSettings: IGridItemSettings = {
   profileHeadline: [
     {
       type: "color",
+      title: "Text Color",
+      stylesToUpdate: "card->color",
+    },
+    {
+      type: "color",
       title: "Background Color",
-      stylesToUpdate: "primaryText->backgroundColor",
+      stylesToUpdate: "card->backgroundColor",
+    },
+    {
+      type: "src",
+      title: "Image Url",
     },
     {
       type: "design",

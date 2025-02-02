@@ -27,7 +27,7 @@ export type IGridItem = {
   styles?: any;
 };
 
-export type TGridItemSettingInputType = "color" | "position" | "design";
+export type TGridItemSettingInputType = "color" | "position" | "design" | "src";
 
 export type IGridItemSettings = {
   [key in TGridItemVariant]: IGridItemSetting[];

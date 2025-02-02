@@ -4,10 +4,13 @@ import GridItemContext from "@/pages/dashboard/contexts/grid-item.context";
 import { useContext } from "react";
 
 function ProfileHeadlinePrimary() {
-  const {} = useContext(GridItemContext);
+  const { item } = useContext(GridItemContext);
 
   return (
-    <div className="flex h-full w-full flex-col items-center gap-1 rounded-2xl border p-5">
+    <div
+      style={item?.styles?.card}
+      className="flex h-full w-full flex-col items-center gap-1 rounded-2xl border bg-white p-5 transition-all duration-300"
+    >
       <div>
         <LazyImage
           wrapperClassName="w-20 h-20"
@@ -16,12 +19,14 @@ function ProfileHeadlinePrimary() {
       </div>
       <div className="flex flex-col items-center justify-center">
         <AutoSaveTextField
+          style={item?.styles?.card}
           defaultValue="hello world"
           fieldToUpdate="title"
           id="title"
           className="text-center text-lg font-semibold"
         />
         <AutoSaveTextField
+          style={item?.styles?.card}
           defaultValue="Fullstack Developer @ Unicors"
           fieldToUpdate="title"
           id="title"

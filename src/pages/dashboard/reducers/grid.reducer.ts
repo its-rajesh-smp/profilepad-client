@@ -49,6 +49,14 @@ const gridSlice = createSlice({
       state.layoutItems = newLayoutItems;
       return state;
     },
+
+    deleteGridLayoutItem: (state, action) => {
+      const newLayoutItems = state.layoutItems.filter(
+        (item) => item.id !== action.payload.id,
+      );
+      state.layoutItems = newLayoutItems;
+      return state;
+    },
   },
 });
 
@@ -58,5 +66,6 @@ export const {
   createNewLayoutItem,
   updateGridLayoutItemSize,
   updateGridLayoutItem,
+  deleteGridLayoutItem,
 } = gridSlice.actions;
 export default gridSlice.reducer;

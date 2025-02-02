@@ -5,6 +5,7 @@ import { IoMdClose } from "react-icons/io";
 import { setCurrentSelectedGridItem } from "../../reducers/dashboard.reducer";
 import GridItemContext from "../../contexts/grid-item.context";
 import { useContext } from "react";
+import { deleteAGridItemAct } from "../../actions-creators/grid.action";
 
 function GridItemActionBar() {
   const dispatch = useAppDispatch();
@@ -14,6 +15,10 @@ function GridItemActionBar() {
     dispatch(
       setCurrentSelectedGridItem({ ...item, sizeVariant: gridItemSizeVariant }),
     );
+  };
+
+  const onClickDelete = () => {
+    dispatch(deleteAGridItemAct(item.id));
   };
 
   return (
@@ -28,7 +33,10 @@ function GridItemActionBar() {
       >
         <FiSettings className="h-full w-full p-1" />
       </div>
-      <div className="flex h-5 w-5 cursor-pointer items-center justify-center rounded-full transition-all hover:bg-blue-500 hover:text-white">
+      <div
+        onClick={onClickDelete}
+        className="flex h-5 w-5 cursor-pointer items-center justify-center rounded-full transition-all hover:bg-blue-500 hover:text-white"
+      >
         <IoMdClose className="h-full w-full p-1" />
       </div>
     </motion.div>

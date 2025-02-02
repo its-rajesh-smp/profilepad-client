@@ -3,10 +3,15 @@ import { RootState } from "@/store/store";
 import { Layout } from "react-grid-layout";
 import {
   createNewLayoutItem,
+  deleteGridLayoutItem,
   setGridLayouts,
   updateGridLayoutItem,
 } from "../reducers/grid.reducer";
-import { createGridItem, updateAGridItem } from "../services/grid.service";
+import {
+  createGridItem,
+  deleteAGridItem,
+  updateAGridItem,
+} from "../services/grid.service";
 import { TGridItemVariant } from "../types/dashboard-item.type";
 import { updateCurrentSelectedGridItem } from "../reducers/dashboard.reducer";
 
@@ -44,5 +49,13 @@ export const updateAGridItemAct = (data: any) => {
     dispatch(updateCurrentSelectedGridItem(data));
     dispatch(updateGridLayoutItem({ ...currentSelectedItem, ...data }));
     await updateAGridItem(currentSelectedItem.id, data);
+  };
+};
+
+export const deleteAGridItemAct = (id: string) => {
+  return async (dispatch: AppDispatch) => {
+    const res = await deleteAGridItem(id);
+    dispatch(setGridLayouts(res.data.layouts));
+    dispatch(deleteGridLayoutItem({ id }));
   };
 };

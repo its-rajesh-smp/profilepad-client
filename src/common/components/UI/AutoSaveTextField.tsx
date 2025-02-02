@@ -1,4 +1,3 @@
-import { useAppSelector } from "@/common/hooks/useAppSelector";
 import { debounce } from "@/common/utils/debounce.util";
 import { useCallback } from "react";
 
@@ -13,6 +12,8 @@ interface IAutoSaveTextFieldProps {
   onBlur?: () => void;
   style?: React.CSSProperties;
   defaultValue?: string;
+  type?: "input" | "text";
+  inputPlaceholder?: string;
 }
 
 function AutoSaveTextField({
@@ -24,6 +25,8 @@ function AutoSaveTextField({
   onBlur = () => {},
   onFocus = () => {},
   defaultValue,
+  type = "text",
+  inputPlaceholder,
 }: IAutoSaveTextFieldProps) {
   // Utility to update nested JSON field
   const updateNestedField = (path: string, value: any) => {
@@ -51,10 +54,24 @@ function AutoSaveTextField({
     debouncedUpdateOnDb(newText);
   };
 
+  if (type == "input") {
+    return (
+      <input
+        id={id}
+        className={`no-drag mb-1 w-full cursor-text rounded-md bg-white px-2 text-left outline-none transition-all duration-300 placeholder:text-xs focus:!bg-zinc-100 ${className}`}
+        value={defaultValue}
+        onChange={onTextChange}
+        onFocus={onFocus}
+        onBlur={onBlur}
+        placeholder={inputPlaceholder}
+      />
+    );
+  }
+
   return (
     <span
       style={style}
-      className={`no-drag mb-1 w-full cursor-text rounded-md bg-white px-2 text-left outline-none transition-all focus:!bg-zinc-100 ${className}`}
+      className={`no-drag mb-1 w-full cursor-text rounded-md bg-white px-2 text-left outline-none transition-all duration-300 focus:!bg-zinc-100 ${className}`}
       contentEditable={true}
       suppressContentEditableWarning
       onInput={onTextChange}

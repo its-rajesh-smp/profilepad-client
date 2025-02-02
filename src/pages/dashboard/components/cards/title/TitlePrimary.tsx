@@ -14,7 +14,7 @@ function TitlePrimary() {
         fieldToUpdate="title"
         id="title"
         style={{ ...item?.styles?.primaryText, ...item?.styles?.card }}
-        className="bg-white text-2xl font-bold transition-colors duration-300"
+        className="bg-white text-2xl font-bold"
       />
     </div>
   );

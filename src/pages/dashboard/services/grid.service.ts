@@ -7,3 +7,6 @@ export const getGridItems = () => axiosInterceptors.get("grid-item/all");
 
 export const updateAGridItem = (id: string, data: any) =>
   axiosInterceptors.patch(`grid-item/${id}`, data);
+
+export const deleteAGridItem = (id: string) =>
+  axiosInterceptors.delete(`grid-item/${id}`);

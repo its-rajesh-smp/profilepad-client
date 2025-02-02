@@ -15,6 +15,7 @@ import RightBarSection from "./right-bar/RightBarSection";
 import SelectCardColor from "./right-bar/SelectCardColor";
 import SelectCardType from "./right-bar/SelectCardType";
 import SelectTextPosition from "./right-bar/SelectTextPosition";
+import UploadImageUrl from "./right-bar/UploadImageUrl";
 
 function RightBar() {
   const dispatch = useAppDispatch();
@@ -66,6 +67,8 @@ const getSection = (setting: IGridItemSetting) => {
       return <SelectTextPosition stylesToUpdate={setting.stylesToUpdate!} />;
     case "design":
       return <SelectCardType availableDesigns={setting.availableDesigns} />;
+    case "src":
+      return <UploadImageUrl />;
     default:
       return <></>;
   }
