@@ -27,7 +27,7 @@ function UploadImageUrl() {
       id="src"
       fieldToUpdate="profileImg.src"
       className="bg-white"
-      value=""
+      value={currentSelectedGridItem?.metadata?.profileImg?.src}
       placeholder="Enter image URL"
       onChange={onChange}
     />
