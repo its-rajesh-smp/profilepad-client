@@ -1,8 +1,9 @@
+import { DEFAULT_USER_IMAGE_SRC } from "@/common/constants/url.const";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import "react-lazy-load-image-component/src/effects/blur.css";
 
 const LazyImage = ({
-  src = "https://media.licdn.com/dms/image/v2/D4D03AQEZ40MUfPqLXA/profile-displayphoto-shrink_100_100/profile-displayphoto-shrink_100_100/0/1688566592382?e=1743638400&v=beta&t=ub9zx3E6h-4J-yr-SiTtibCpfVbYzY4b1lDtsXtOkhs",
+  src = DEFAULT_USER_IMAGE_SRC,
   className,
   wrapperClassName = "w-full h-full",
 }: {
@@ -14,8 +15,11 @@ const LazyImage = ({
     <LazyLoadImage
       wrapperClassName={wrapperClassName}
       effect="blur"
-      className={className}
+      className={`h-full w-full ${className} `}
       src={src}
+      onError={(event) => {
+        (event.target as HTMLImageElement).src = DEFAULT_USER_IMAGE_SRC;
+      }}
     />
   </span>
 );

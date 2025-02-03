@@ -16,7 +16,7 @@ interface IGridItemProps {
 
 function GridItem({ index, isLast }: IGridItemProps) {
   const isFirstGridLoad = useAppSelector(
-    (state) => state.dashboardReducer.dashboardSlice.isFirstGridLoad,
+    (state) => state.dashboardSlice.isFirstGridLoad,
   );
   const { item } = useContext(GridItemContext);
   const dispatch = useAppDispatch();
@@ -56,10 +56,10 @@ function GridItem({ index, isLast }: IGridItemProps) {
         onHoverEnd={() => {
           setIsHovered(false);
         }}
-        className="relative h-full w-full cursor-move bg-white hover:overflow-hidden hover:rounded-2xl hover:shadow-sm"
-        onAnimationComplete={() => {
-          isLast && dispatch(setIsFirstGridLoad(false));
-        }}
+        className={`relative flex h-full w-full cursor-move overflow-hidden rounded-2xl bg-white hover:shadow-sm`}
+        // onAnimationComplete={() => {
+        //   isLast && dispatch(setIsFirstGridLoad(false));
+        // }}
       >
         {isHovered && <GridItemActionBar />}
 

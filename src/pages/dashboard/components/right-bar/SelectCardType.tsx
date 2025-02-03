@@ -2,13 +2,10 @@ import { useAppDispatch } from "@/common/hooks/useAppDispatch";
 import { useAppSelector } from "@/common/hooks/useAppSelector";
 import useScreenSize from "@/common/hooks/useScreenSize";
 import { Check } from "lucide-react";
+import { updateCurrentSelectedGridItem } from "../../reducers/dashboard.reducer";
 import { updateGridLayoutItemSize } from "../../reducers/grid.reducer";
 import { TGridItemSizeVariant } from "../../types/dashboard-item.type";
 import { convertGridItemVariantToSize } from "../../utils/grid-item.util";
-import {
-  setCurrentSelectedGridItem,
-  updateCurrentSelectedGridItem,
-} from "../../reducers/dashboard.reducer";
 
 function SelectCardType({
   availableDesigns = [],
@@ -16,7 +13,7 @@ function SelectCardType({
   availableDesigns?: TGridItemSizeVariant[];
 }) {
   const currentSelectedGridItem = useAppSelector(
-    (state) => state.dashboardReducer.dashboardSlice.currentSelectedGridItem,
+    (state) => state.dashboardSlice.currentSelectedGridItem,
   );
   const { size: screenSize } = useScreenSize();
   const dispatch = useAppDispatch();
@@ -51,8 +48,6 @@ function SelectCardType({
 
     dispatch(updateCurrentSelectedGridItem({ sizeVariant: variant }));
   };
-
-  console.log(availableDesigns);
 
   return (
     <div className="grid grid-cols-2 gap-2">

@@ -22,7 +22,7 @@ export const createNewLayoutItemAct = (
   variant: TGridItemVariant,
 ) => {
   return async (dispatch: AppDispatch, getState: () => RootState) => {
-    const currentLayouts = { ...getState().dashboardReducer.gridSlice.layouts };
+    const currentLayouts = { ...getState().gridSlice.layouts };
 
     let otherScreenSize = currentScreenSize === "lg" ? "xs" : "lg";
     currentLayouts[currentScreenSize] = newLayout;
@@ -41,29 +41,26 @@ export const createNewLayoutItemAct = (
   };
 };
 
-export const updateAGridItemFromSettingAct = (data: any) => {
+export const updateAGridItemAct = (
+  id: string,
+  data: any,
+  isUpdateReq: boolean = false,
+) => {
   return async (dispatch: AppDispatch, getState: () => RootState) => {
     const currentSelectedItem =
-      getState().dashboardReducer.dashboardSlice.currentSelectedGridItem;
-    if (!currentSelectedItem) return;
-    dispatch(updateCurrentSelectedGridItem(data));
-    dispatch(updateGridLayoutItem({ ...currentSelectedItem, ...data }));
-    await updateAGridItem(currentSelectedItem.id, data);
-  };
-};
+      getState().dashboardSlice.currentSelectedGridItem || null;
 
-export const updateAGridItemAct = (id: string, data: any) => {
-  return async (dispatch: AppDispatch, getState: () => RootState) => {
-    const currentSelectedItem =
-      getState().dashboardReducer.dashboardSlice.currentSelectedGridItem ||
-      null;
-
-    if (currentSelectedItem) {
+    if ((currentSelectedItem && data?.styles) || isUpdateReq) {
       dispatch(updateCurrentSelectedGridItem(data));
     }
 
-    dispatch(updateGridLayoutItem({ ...(currentSelectedItem || {}), ...data }));
-    // dispatch(updateGridLayoutItem(data));
+    let dataToUpdate = { ...data };
+
+    if ((currentSelectedItem && data?.styles) || isUpdateReq) {
+      dataToUpdate = { ...currentSelectedItem, ...data };
+    }
+
+    dispatch(updateGridLayoutItem(dataToUpdate));
     await updateAGridItem(id, data);
   };
 };

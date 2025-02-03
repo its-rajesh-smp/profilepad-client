@@ -31,6 +31,7 @@ function ProfileHeadlinePrimary() {
         <LazyImage
           wrapperClassName="w-20 h-20"
           className="h-20 w-20 rounded-full object-cover"
+          src={item?.metadata?.profileImg?.src?.trim()}
         />
       </div>
       <div className="flex flex-col items-center justify-center">

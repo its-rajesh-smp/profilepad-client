@@ -47,7 +47,6 @@ const gridSlice = createSlice({
         return item;
       });
       state.layoutItems = newLayoutItems;
-      return state;
     },
 
     deleteGridLayoutItem: (state, action) => {

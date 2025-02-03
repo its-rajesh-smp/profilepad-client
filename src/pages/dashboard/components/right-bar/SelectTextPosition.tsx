@@ -1,7 +1,7 @@
 import { useAppDispatch } from "@/common/hooks/useAppDispatch";
 import { useAppSelector } from "@/common/hooks/useAppSelector";
 import { AlignCenter, AlignLeft, AlignRight } from "lucide-react";
-import { updateAGridItemFromSettingAct } from "../../actions-creators/grid.action";
+import { updateAGridItemAct } from "../../actions-creators/grid.action";
 import {
   generateStylesToUpdate,
   getStylesUsingStyleUpdatePath,
@@ -9,7 +9,7 @@ import {
 
 function SelectTextPosition({ stylesToUpdate }: { stylesToUpdate: string }) {
   const currentSelectedGridItem = useAppSelector(
-    (state) => state.dashboardReducer.dashboardSlice.currentSelectedGridItem,
+    (state) => state.dashboardSlice.currentSelectedGridItem,
   );
   const dispatch = useAppDispatch();
 
@@ -23,7 +23,7 @@ function SelectTextPosition({ stylesToUpdate }: { stylesToUpdate: string }) {
     );
 
     dispatch(
-      updateAGridItemFromSettingAct({
+      updateAGridItemAct(currentSelectedGridItem.id, {
         styles: dataToUpdate,
       }),
     );

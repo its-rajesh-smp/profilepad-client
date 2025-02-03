@@ -1,7 +1,7 @@
 import ChooseColor from "@/common/components/shadcn/choose-color";
 import { useAppDispatch } from "@/common/hooks/useAppDispatch";
 import { useAppSelector } from "@/common/hooks/useAppSelector";
-import { updateAGridItemFromSettingAct } from "../../actions-creators/grid.action";
+import { updateAGridItemAct } from "../../actions-creators/grid.action";
 import {
   generateStylesToUpdate,
   getStylesUsingStyleUpdatePath,
@@ -9,7 +9,7 @@ import {
 
 function SelectCardColor({ stylesToUpdate }: { stylesToUpdate: string }) {
   const currentSelectedGridItem = useAppSelector(
-    (state) => state.dashboardReducer.dashboardSlice.currentSelectedGridItem,
+    (state) => state.dashboardSlice.currentSelectedGridItem,
   );
   const dispatch = useAppDispatch();
 
@@ -23,7 +23,7 @@ function SelectCardColor({ stylesToUpdate }: { stylesToUpdate: string }) {
     );
 
     dispatch(
-      updateAGridItemFromSettingAct({
+      updateAGridItemAct(currentSelectedGridItem.id, {
         styles: dataToUpdate,
       }),
     );
@@ -34,7 +34,7 @@ function SelectCardColor({ stylesToUpdate }: { stylesToUpdate: string }) {
     stylesToUpdate,
   );
   return (
-    <div className="">
+    <div>
       <ChooseColor
         value={currentValue}
         onChange={onClick}

@@ -11,7 +11,7 @@ import { GridLayoutProvider } from "./contexts/grid-layout.context";
 function Dashboard() {
   const dispatch = useAppDispatch();
   const currentSelectedGridItem = useAppSelector(
-    (state) => state.dashboardReducer.dashboardSlice.currentSelectedGridItem,
+    (state) => state.dashboardSlice.currentSelectedGridItem,
   );
 
   // Get the user dashboard

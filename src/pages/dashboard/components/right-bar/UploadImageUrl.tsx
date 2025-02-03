@@ -1,20 +1,24 @@
 import AutoSaveTextField from "@/common/components/UI/AutoSaveTextField";
 import { useAppDispatch } from "@/common/hooks/useAppDispatch";
 import { useAppSelector } from "@/common/hooks/useAppSelector";
-import { updateAGridItemFromSettingAct } from "../../actions-creators/grid.action";
+import { updateAGridItemAct } from "../../actions-creators/grid.action";
 
 function UploadImageUrl() {
   const dispatch = useAppDispatch();
   const currentSelectedGridItem = useAppSelector(
-    (state) => state.dashboardReducer.dashboardSlice.currentSelectedGridItem,
+    (state) => state.dashboardSlice.currentSelectedGridItem,
   );
 
   const onChange = (_id: string, value: any) => {
     if (!currentSelectedGridItem) return;
     dispatch(
-      updateAGridItemFromSettingAct({
-        metadata: { ...currentSelectedGridItem.metadata, ...value },
-      }),
+      updateAGridItemAct(
+        currentSelectedGridItem.id,
+        {
+          metadata: { ...currentSelectedGridItem.metadata, ...value },
+        },
+        true,
+      ),
     );
   };
 

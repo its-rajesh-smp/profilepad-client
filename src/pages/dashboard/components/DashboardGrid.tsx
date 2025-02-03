@@ -28,9 +28,7 @@ const ReactGridLayout = WidthProvider(ResponsiveGridLayout);
 
 function DashboardGrid() {
   const { size } = useScreenSize();
-  const { layouts } = useAppSelector(
-    (state) => state.dashboardReducer.gridSlice,
-  );
+  const { layouts } = useAppSelector((state) => state.gridSlice);
   const { droppingItem, onDropHandler, onLayoutChangeHandler } =
     useContext(gridLayoutContext);
 

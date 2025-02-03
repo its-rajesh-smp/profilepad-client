@@ -61,7 +61,7 @@ function AutoSaveTextField({
       onFocus={onFocus}
       onBlur={onBlur}
     >
-      {value?.trim() || placeholder || "Enter text"}
+      {value || placeholder || "Enter text..."}
     </span>
   );
 }

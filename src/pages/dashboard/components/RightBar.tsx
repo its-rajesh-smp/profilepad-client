@@ -20,7 +20,7 @@ import UploadImageUrl from "./right-bar/UploadImageUrl";
 function RightBar() {
   const dispatch = useAppDispatch();
   const currentSelectedGridItem = useAppSelector(
-    (state) => state.dashboardReducer.dashboardSlice.currentSelectedGridItem,
+    (state) => state.dashboardSlice.currentSelectedGridItem,
   );
 
   const settings = currentSelectedGridItem?.variant
