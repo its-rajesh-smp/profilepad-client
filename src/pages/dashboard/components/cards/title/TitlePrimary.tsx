@@ -10,7 +10,8 @@ function TitlePrimary() {
       className="flex h-full w-full items-center rounded-2xl border bg-white px-4 transition-colors duration-300"
     >
       <AutoSaveTextField
-        defaultValue="hello world"
+        placeholder="hello world"
+        value="Hello World"
         fieldToUpdate="title"
         id="title"
         style={{ ...item?.styles?.primaryText, ...item?.styles?.card }}

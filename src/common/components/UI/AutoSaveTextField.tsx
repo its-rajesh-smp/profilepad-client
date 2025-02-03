@@ -7,13 +7,11 @@ interface IAutoSaveTextFieldProps {
   fieldToUpdate: string; // JSON field path, e.g., "metadata.html" or simple field "primaryText"
   className?: string;
   onChange?: (id: string, data: any) => void;
-  onSave?: (data: any) => void;
   onFocus?: () => void;
   onBlur?: () => void;
   style?: React.CSSProperties;
-  defaultValue?: string;
-  type?: "input" | "text";
-  inputPlaceholder?: string;
+  value?: string;
+  placeholder?: string;
 }
 
 function AutoSaveTextField({
@@ -24,9 +22,8 @@ function AutoSaveTextField({
   style = {},
   onBlur = () => {},
   onFocus = () => {},
-  defaultValue,
-  type = "text",
-  inputPlaceholder,
+  value,
+  placeholder,
 }: IAutoSaveTextFieldProps) {
   // Utility to update nested JSON field
   const updateNestedField = (path: string, value: any) => {
@@ -54,20 +51,6 @@ function AutoSaveTextField({
     debouncedUpdateOnDb(newText);
   };
 
-  if (type == "input") {
-    return (
-      <input
-        id={id}
-        className={`no-drag mb-1 w-full cursor-text rounded-md bg-white px-2 text-left outline-none transition-all duration-300 placeholder:text-xs focus:!bg-zinc-100 ${className}`}
-        value={defaultValue}
-        onChange={onTextChange}
-        onFocus={onFocus}
-        onBlur={onBlur}
-        placeholder={inputPlaceholder}
-      />
-    );
-  }
-
   return (
     <span
       style={style}
@@ -78,7 +61,7 @@ function AutoSaveTextField({
       onFocus={onFocus}
       onBlur={onBlur}
     >
-      {defaultValue}
+      {value?.trim() || placeholder || "Enter text"}
     </span>
   );
 }

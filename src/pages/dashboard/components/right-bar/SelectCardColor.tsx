@@ -1,7 +1,7 @@
 import ChooseColor from "@/common/components/shadcn/choose-color";
 import { useAppDispatch } from "@/common/hooks/useAppDispatch";
 import { useAppSelector } from "@/common/hooks/useAppSelector";
-import { updateAGridItemAct } from "../../actions-creators/grid.action";
+import { updateAGridItemFromSettingAct } from "../../actions-creators/grid.action";
 import {
   generateStylesToUpdate,
   getStylesUsingStyleUpdatePath,
@@ -23,7 +23,7 @@ function SelectCardColor({ stylesToUpdate }: { stylesToUpdate: string }) {
     );
 
     dispatch(
-      updateAGridItemAct({
+      updateAGridItemFromSettingAct({
         styles: dataToUpdate,
       }),
     );

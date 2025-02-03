@@ -25,6 +25,7 @@ export type IGridItem = {
   id: string;
   variant: TGridItemVariant;
   styles?: any;
+  metadata?: any;
 };
 
 export type TGridItemSettingInputType = "color" | "position" | "design" | "src";

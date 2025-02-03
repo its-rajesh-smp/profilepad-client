@@ -1,7 +1,7 @@
 import { useAppDispatch } from "@/common/hooks/useAppDispatch";
 import { useAppSelector } from "@/common/hooks/useAppSelector";
 import { AlignCenter, AlignLeft, AlignRight } from "lucide-react";
-import { updateAGridItemAct } from "../../actions-creators/grid.action";
+import { updateAGridItemFromSettingAct } from "../../actions-creators/grid.action";
 import {
   generateStylesToUpdate,
   getStylesUsingStyleUpdatePath,
@@ -23,7 +23,7 @@ function SelectTextPosition({ stylesToUpdate }: { stylesToUpdate: string }) {
     );
 
     dispatch(
-      updateAGridItemAct({
+      updateAGridItemFromSettingAct({
         styles: dataToUpdate,
       }),
     );
