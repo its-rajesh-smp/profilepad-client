@@ -60,8 +60,8 @@ export const updateAGridItemAct = (
       dataToUpdate = { ...currentSelectedItem, ...data };
     }
 
-    dispatch(updateGridLayoutItem(dataToUpdate));
-    await updateAGridItem(id, data);
+    dispatch(updateGridLayoutItem({ dataToUpdate, id }));
+    await updateAGridItem(id, dataToUpdate);
   };
 };
 

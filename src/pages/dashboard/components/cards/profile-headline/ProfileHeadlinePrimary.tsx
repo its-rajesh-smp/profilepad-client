@@ -6,7 +6,7 @@ import GridItemContext from "@/pages/dashboard/contexts/grid-item.context";
 import { useContext } from "react";
 
 function ProfileHeadlinePrimary() {
-  const { item } = useContext(GridItemContext);
+  const item = useContext(GridItemContext).item;
   const dispatch = useAppDispatch();
 
   /**

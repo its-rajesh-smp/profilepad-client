@@ -42,11 +42,11 @@ const gridSlice = createSlice({
     updateGridLayoutItem: (state, action) => {
       const newLayoutItems = state.layoutItems.map((item) => {
         if (item.id === action.payload.id) {
-          return { ...item, ...action.payload };
+          return { ...item, ...action.payload.dataToUpdate };
         }
         return item;
       });
-      state.layoutItems = newLayoutItems;
+      return { ...state, layoutItems: newLayoutItems };
     },
 
     deleteGridLayoutItem: (state, action) => {

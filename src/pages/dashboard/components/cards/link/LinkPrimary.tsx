@@ -1,10 +1,27 @@
 import LazyImage from "@/common/components/LazyImage/LazyImage";
+import AutoSaveTextField from "@/common/components/UI/AutoSaveTextField";
+import { useAppDispatch } from "@/common/hooks/useAppDispatch";
+import { updateAGridItemAct } from "@/pages/dashboard/actions-creators/grid.action";
 import GridItemContext from "@/pages/dashboard/contexts/grid-item.context";
 import { useContext } from "react";
 import { BiLink } from "react-icons/bi";
 
 function LinkPrimary() {
   const { item, gridItemSizeVariant } = useContext(GridItemContext);
+  const dispatch = useAppDispatch();
+
+  /**
+   * Updates the grid item's metadata with the provided data.
+   * Dispatches an action to update the grid item in the store.
+   * @param dataToUpdate - The data to merge into the grid item's metadata.
+   */
+  const onTextChange = (_id: string, dataToUpdate: any) => {
+    dispatch(
+      updateAGridItemAct(item.id, {
+        metadata: { ...item.metadata, ...dataToUpdate },
+      }),
+    );
+  };
 
   if (gridItemSizeVariant === "H-2_W-2") {
     return (
@@ -13,8 +30,22 @@ function LinkPrimary() {
           <BiLink className="text-2xl text-secondary" />
         </div>
         <div className="flex flex-col gap-1">
-          <p className="text-sm font-semibold text-primary">Google</p>
-          <p className="text-xs text-secondary">google.com</p>
+          <AutoSaveTextField
+            id="primaryText"
+            fieldToUpdate="primaryText"
+            className="text-sm font-semibold text-primary"
+            placeholder="Google"
+            value={item?.metadata?.primaryText}
+            onChange={onTextChange}
+          />
+          <AutoSaveTextField
+            id="secondaryText"
+            fieldToUpdate="secondaryText"
+            className="text-xs text-secondary"
+            placeholder="google.com"
+            value={item?.metadata?.secondaryText}
+            onChange={onTextChange}
+          />
         </div>
       </div>
     );
