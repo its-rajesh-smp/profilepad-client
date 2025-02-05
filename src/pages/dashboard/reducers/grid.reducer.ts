@@ -40,13 +40,14 @@ const gridSlice = createSlice({
     },
 
     updateGridLayoutItem: (state, action) => {
-      const newLayoutItems = state.layoutItems.map((item) => {
+      const updatedLayoutItems = state.layoutItems.map((item: any) => {
         if (item.id === action.payload.id) {
           return { ...item, ...action.payload.dataToUpdate };
         }
         return item;
       });
-      return { ...state, layoutItems: newLayoutItems };
+
+      state.layoutItems = updatedLayoutItems;
     },
 
     deleteGridLayoutItem: (state, action) => {

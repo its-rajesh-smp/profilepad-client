@@ -1,5 +1,5 @@
 import { debounce } from "@/common/utils/debounce.util";
-import { useCallback } from "react";
+import { useCallback, useRef } from "react";
 
 interface IAutoSaveTextFieldProps {
   children?: React.ReactNode;
@@ -25,6 +25,8 @@ function AutoSaveTextField({
   value,
   placeholder,
 }: IAutoSaveTextFieldProps) {
+  const localRef = useRef(value || placeholder);
+
   // Utility to update nested JSON field
   const updateNestedField = (path: string, value: any) => {
     const keys = path.split(".");
@@ -43,7 +45,7 @@ function AutoSaveTextField({
       }
       onChange?.(id, updatedField);
     }, 500),
-    [id, fieldToUpdate],
+    [id, fieldToUpdate, onChange],
   );
 
   const onTextChange = (e: any) => {
@@ -61,7 +63,7 @@ function AutoSaveTextField({
       onFocus={onFocus}
       onBlur={onBlur}
     >
-      {value || placeholder || "Enter text..."}
+      {localRef.current}
     </span>
   );
 }
