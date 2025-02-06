@@ -43,6 +43,11 @@ function AutoSaveTextField({
         // Update simple field
         updatedField = { [fieldToUpdate]: value };
       }
+
+      if (updatedField[fieldToUpdate].trim() === "") {
+        updatedField[fieldToUpdate] = undefined;
+      }
+
       onChange?.(id, updatedField);
     }, 500),
     [id, fieldToUpdate, onChange],

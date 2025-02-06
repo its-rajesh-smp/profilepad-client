@@ -13,7 +13,7 @@ const LazyImage = ({
   wrapperClassName?: string;
   errorImage?: string;
 }) => (
-  <span className="h-full w-full overflow-hidden">
+  <span className="flex h-full w-full items-center justify-center overflow-hidden">
     <LazyLoadImage
       wrapperClassName={wrapperClassName}
       effect="blur"

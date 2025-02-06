@@ -2,6 +2,7 @@ import LazyImage from "@/common/components/LazyImage/LazyImage";
 import AutoSaveTextField from "@/common/components/UI/AutoSaveTextField";
 import { DEFAULT_LINK_PREVIEW_IMAGE_SRC } from "@/common/constants/url.const";
 import { useAppDispatch } from "@/common/hooks/useAppDispatch";
+import useWebsiteData from "@/common/hooks/useURLPreview";
 import { updateAGridItemAct } from "@/pages/dashboard/actions-creators/grid.action";
 import { gridItemColorVariants } from "@/pages/dashboard/constants/gid-card-color-schema.const";
 
@@ -28,7 +29,11 @@ function LinkPrimary() {
 
   const colorSchema = gridItemColorVariants[item.colorVariant || "white"];
 
-  const renderContent = (iconSize: string, textSize: string) => (
+  const { websiteLogoUrl, websitePreviewUrl } = useWebsiteData(
+    item?.metadata?.href,
+  );
+
+  const renderContent = (textSize: string) => (
     <div className="flex flex-col">
       <AutoSaveTextField
         id="primaryText"
@@ -49,17 +54,32 @@ function LinkPrimary() {
     </div>
   );
 
+  const renderIcon = () => {
+    return (
+      <div
+        className={`h-fit w-fit rounded-lg ${!websiteLogoUrl && "border p-3"} ${colorSchema.borderColor}`}
+      >
+        {!websiteLogoUrl && (
+          <BiLink className={`text-xl ${colorSchema.iconColor}`} />
+        )}
+
+        {websiteLogoUrl && (
+          <LazyImage
+            className={`!h-10 !w-10 rounded-lg`}
+            src={websiteLogoUrl}
+          />
+        )}
+      </div>
+    );
+  };
+
   if (gridItemSizeVariant === "2x2") {
     return (
       <div
         className={`flex h-full w-full flex-col gap-2 rounded-2xl border p-5 ${colorSchema.backgroundColor} transition-all duration-300`}
       >
-        <div
-          className={`h-fit w-fit rounded-lg border p-3 ${colorSchema.borderColor}`}
-        >
-          <BiLink className={`text-2xl ${colorSchema.iconColor}`} />
-        </div>
-        {renderContent("text-sm", "text-sm")}
+        {renderIcon()}
+        {renderContent("text-sm")}
       </div>
     );
   }
@@ -69,12 +89,8 @@ function LinkPrimary() {
       <div
         className={`flex h-full w-full gap-5 rounded-2xl border p-5 ${colorSchema.backgroundColor} transition-all duration-300`}
       >
-        <div
-          className={`h-fit w-fit rounded-lg border p-3 ${colorSchema.borderColor}`}
-        >
-          <BiLink className={`text-2xl ${colorSchema.iconColor}`} />
-        </div>
-        {renderContent("text-sm", "text-sm")}
+        {renderIcon()}
+        {renderContent("text-sm")}
       </div>
     );
   }
@@ -84,12 +100,8 @@ function LinkPrimary() {
       <div
         className={`flex h-full w-full items-center gap-5 rounded-2xl border p-5 ${colorSchema.backgroundColor} transition-all duration-300`}
       >
-        <div
-          className={`h-fit w-fit rounded-lg border p-3 ${colorSchema.borderColor}`}
-        >
-          <BiLink className={`text-xl ${colorSchema.iconColor}`} />
-        </div>
-        {renderContent("text-sm", "text-sm")}
+        {renderIcon()}
+        {renderContent("text-sm")}
       </div>
     );
   }
@@ -100,19 +112,18 @@ function LinkPrimary() {
         className={`flex h-full w-full flex-col gap-5 rounded-2xl border p-5 ${colorSchema.backgroundColor} transition-all duration-300`}
       >
         <div className="flex items-center gap-4">
-          <div
-            className={`h-fit w-fit rounded-lg border p-3 ${colorSchema.borderColor}`}
-          >
-            <BiLink className={`text-2xl ${colorSchema.iconColor}`} />
-          </div>
-          {renderContent("text-sm", "text-sm")}
+          {renderIcon()}
+          {renderContent("text-sm")}
         </div>
 
         <LazyImage
           wrapperClassName="h-full w-full"
           className="h-full w-full rounded-2xl object-cover"
-          src={item?.metadata?.previewImgSrc}
-          errorImage={DEFAULT_LINK_PREVIEW_IMAGE_SRC}
+          src={
+            item?.metadata?.previewImgSrc ||
+            websitePreviewUrl ||
+            DEFAULT_LINK_PREVIEW_IMAGE_SRC
+          }
         />
       </div>
     );

@@ -72,6 +72,11 @@ export const gridItemSettings: IGridItemSettings = {
     },
     {
       type: "src",
+      title: "Website Url",
+      fieldToUpdate: "href",
+    },
+    {
+      type: "src",
       title: "Preview Image Url",
       fieldToUpdate: "previewImgSrc",
     },
