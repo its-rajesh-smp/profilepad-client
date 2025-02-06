@@ -2,7 +2,8 @@ import LazyImage from "@/common/components/LazyImage/LazyImage";
 import AutoSaveTextField from "@/common/components/UI/AutoSaveTextField";
 import { useAppDispatch } from "@/common/hooks/useAppDispatch";
 import { updateAGridItemAct } from "@/pages/dashboard/actions-creators/grid.action";
-import { gridItemColorVariants } from "@/pages/dashboard/constants/grid-card.const";
+import { gridItemColorVariants } from "@/pages/dashboard/constants/gid-card-color-schema.const";
+
 import GridItemContext from "@/pages/dashboard/contexts/grid-item.context";
 import { useContext } from "react";
 
