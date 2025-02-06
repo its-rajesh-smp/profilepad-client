@@ -43,6 +43,7 @@ module.exports = {
       },
       backgroundColor: {
         secondary: "#9B9B9B",
+        select: "#3266D0",
       },
       fontSize: {
         xxs: "0.6rem",

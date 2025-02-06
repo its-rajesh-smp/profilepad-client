@@ -24,6 +24,7 @@ function SelectCardType({
       { variant: "1x100", className: "col-span-2 h-14" },
       { variant: "1x4", className: "col-span-1 h-14" },
       { variant: "2x4", className: "col-span-1 h-24" },
+      { variant: "2x2", className: "col-span-1 h-24" },
       { variant: "2x100", className: "col-span-2 h-24" },
       { variant: "4x4", className: "col-span-2 h-48" },
     ];

@@ -2,6 +2,7 @@ import LazyImage from "@/common/components/LazyImage/LazyImage";
 import AutoSaveTextField from "@/common/components/UI/AutoSaveTextField";
 import { useAppDispatch } from "@/common/hooks/useAppDispatch";
 import { updateAGridItemAct } from "@/pages/dashboard/actions-creators/grid.action";
+import { gridItemColorVariants } from "@/pages/dashboard/constants/grid-card.const";
 import GridItemContext from "@/pages/dashboard/contexts/grid-item.context";
 import { useContext } from "react";
 
@@ -22,10 +23,11 @@ function ProfileHeadlinePrimary() {
     );
   };
 
+  const colorSchema = gridItemColorVariants[item.colorVariant || "white"];
+
   return (
     <div
-      style={{ backgroundColor: item?.styles?.backgroundColor }}
-      className="flex h-full w-full flex-col items-center gap-1 rounded-2xl border bg-white p-5 transition-all duration-300"
+      className={`flex h-full w-full flex-col items-center gap-1 rounded-2xl border ${colorSchema.backgroundColor} p-5 transition-all duration-300`}
     >
       <div>
         <LazyImage
@@ -36,21 +38,19 @@ function ProfileHeadlinePrimary() {
       </div>
       <div className="flex flex-col items-center justify-center">
         <AutoSaveTextField
-          style={{ color: item?.styles?.color, backgroundColor: "inherit" }}
           value={item?.metadata?.primaryText}
           placeholder="Rajesh SMP"
           fieldToUpdate="primaryText"
           id="primaryText"
-          className="text-center text-lg font-semibold"
+          className={`bg-inherit text-center text-lg font-semibold ${colorSchema.primaryTextColor} `}
           onChange={onTextChange}
         />
         <AutoSaveTextField
-          style={{ color: item?.styles?.color, backgroundColor: "inherit" }}
           value={item?.metadata?.secondaryText}
           placeholder="Creator @ ProfilePad.io"
           fieldToUpdate="secondaryText"
           id="secondaryText"
-          className="rounded-sm text-center text-xs"
+          className={`rounded-sm bg-inherit text-center text-xs ${colorSchema.secondaryTextColor} `}
           onChange={onTextChange}
         />
       </div>

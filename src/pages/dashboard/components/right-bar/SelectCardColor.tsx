@@ -4,7 +4,7 @@ import { useAppSelector } from "@/common/hooks/useAppSelector";
 import { updateAGridItemAct } from "../../actions-creators/grid.action";
 import useGridItem from "../../hooks/useGridItem";
 
-function SelectCardColor({ stylesToUpdate }: { stylesToUpdate: string }) {
+function SelectCardColor() {
   const currentSelectedGridItemId = useAppSelector(
     (state) => state.dashboardSlice.currentSelectedGridItemId,
   );
@@ -13,7 +13,7 @@ function SelectCardColor({ stylesToUpdate }: { stylesToUpdate: string }) {
 
   const onClick = (value: string) => {
     const dataToUpdate = {
-      styles: { ...item?.styles, [stylesToUpdate]: value },
+      colorVariant: value,
     };
     dispatch(updateAGridItemAct(item.id, dataToUpdate));
   };
@@ -22,7 +22,7 @@ function SelectCardColor({ stylesToUpdate }: { stylesToUpdate: string }) {
     <div>
       <ChooseColor
         onChange={onClick}
-        value={item?.styles?.[stylesToUpdate]}
+        value={item?.colorVariant || "white"}
         className="grid grid-cols-7"
       />
     </div>

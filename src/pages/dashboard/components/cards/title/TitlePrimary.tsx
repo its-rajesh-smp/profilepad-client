@@ -1,6 +1,7 @@
 import AutoSaveTextField from "@/common/components/UI/AutoSaveTextField";
 import { useAppDispatch } from "@/common/hooks/useAppDispatch";
 import { updateAGridItemAct } from "@/pages/dashboard/actions-creators/grid.action";
+import { gridItemColorVariants } from "@/pages/dashboard/constants/grid-card.const";
 import GridItemContext from "@/pages/dashboard/contexts/grid-item.context";
 import { useContext } from "react";
 
@@ -21,10 +22,11 @@ function TitlePrimary() {
     );
   };
 
+  const colorSchema = gridItemColorVariants[item.colorVariant || "white"];
+
   return (
     <div
-      style={item?.styles?.card}
-      className="flex h-full w-full items-center rounded-2xl border bg-white px-4 transition-colors duration-300"
+      className={`flex h-full w-full items-center rounded-2xl border ${colorSchema.backgroundColor} px-4 transition-all duration-300`}
     >
       <AutoSaveTextField
         onChange={onTextChange}
@@ -32,8 +34,7 @@ function TitlePrimary() {
         value={item?.metadata?.primaryText}
         fieldToUpdate="primaryText"
         id="primaryText"
-        style={{ ...item?.styles?.primaryText, ...item?.styles?.card }}
-        className="bg-white text-2xl font-bold"
+        className={`bg-inherit text-2xl font-bold ${colorSchema.primaryTextColor}`}
       />
     </div>
   );

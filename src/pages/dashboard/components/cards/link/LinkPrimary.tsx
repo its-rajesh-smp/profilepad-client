@@ -1,7 +1,9 @@
 import LazyImage from "@/common/components/LazyImage/LazyImage";
 import AutoSaveTextField from "@/common/components/UI/AutoSaveTextField";
+import { DEFAULT_LINK_PREVIEW_IMAGE_SRC } from "@/common/constants/url.const";
 import { useAppDispatch } from "@/common/hooks/useAppDispatch";
 import { updateAGridItemAct } from "@/pages/dashboard/actions-creators/grid.action";
+import { gridItemColorVariants } from "@/pages/dashboard/constants/grid-card.const";
 import GridItemContext from "@/pages/dashboard/contexts/grid-item.context";
 import { useContext } from "react";
 import { BiLink } from "react-icons/bi";
@@ -23,79 +25,93 @@ function LinkPrimary() {
     );
   };
 
+  const colorSchema = gridItemColorVariants[item.colorVariant || "white"];
+
+  const renderContent = (iconSize: string, textSize: string) => (
+    <div className="flex flex-col">
+      <AutoSaveTextField
+        id="primaryText"
+        fieldToUpdate="primaryText"
+        className={`bg-inherit ${textSize} font-semibold ${colorSchema.primaryTextColor}`}
+        placeholder="Google"
+        value={item?.metadata?.primaryText}
+        onChange={onTextChange}
+      />
+      <AutoSaveTextField
+        id="secondaryText"
+        fieldToUpdate="secondaryText"
+        className={`bg-inherit text-xs ${colorSchema.secondaryTextColor}`}
+        placeholder="google.com"
+        value={item?.metadata?.secondaryText}
+        onChange={onTextChange}
+      />
+    </div>
+  );
+
   if (gridItemSizeVariant === "2x2") {
     return (
-      <div className="flex h-full w-full flex-col gap-2 rounded-2xl border p-5">
-        <div className="h-fit w-fit rounded-lg border p-3">
-          <BiLink className="text-2xl text-secondary" />
+      <div
+        className={`flex h-full w-full flex-col gap-2 rounded-2xl border p-5 ${colorSchema.backgroundColor} transition-all duration-300`}
+      >
+        <div
+          className={`h-fit w-fit rounded-lg border p-3 ${colorSchema.borderColor}`}
+        >
+          <BiLink className={`text-2xl ${colorSchema.iconColor}`} />
         </div>
-        <div className="flex flex-col gap-1">
-          <AutoSaveTextField
-            id="primaryText"
-            fieldToUpdate="primaryText"
-            className="text-sm font-semibold text-primary"
-            placeholder="Google"
-            value={item?.metadata?.primaryText}
-            onChange={onTextChange}
-          />
-          <AutoSaveTextField
-            id="secondaryText"
-            fieldToUpdate="secondaryText"
-            className="text-xs text-secondary"
-            placeholder="google.com"
-            value={item?.metadata?.secondaryText}
-            onChange={onTextChange}
-          />
-        </div>
+        {renderContent("text-sm", "text-sm")}
       </div>
     );
   }
 
   if (gridItemSizeVariant === "1x100") {
     return (
-      <div className="flex h-full w-full gap-5 rounded-2xl border p-5">
-        <div className="h-fit w-fit rounded-lg border p-3">
-          <BiLink className="text-2xl text-secondary" />
+      <div
+        className={`flex h-full w-full gap-5 rounded-2xl border p-5 ${colorSchema.backgroundColor} transition-all duration-300`}
+      >
+        <div
+          className={`h-fit w-fit rounded-lg border p-3 ${colorSchema.borderColor}`}
+        >
+          <BiLink className={`text-2xl ${colorSchema.iconColor}`} />
         </div>
-        <div className="flex flex-col gap-1">
-          <p className="text-sm font-semibold text-primary">Google</p>
-          <p className="text-xs text-secondary">google.com</p>
-        </div>
+        {renderContent("text-sm", "text-sm")}
       </div>
     );
   }
 
   if (gridItemSizeVariant === "1x4") {
     return (
-      <div className="flex h-full w-full gap-5 rounded-2xl border p-5">
-        <div className="h-fit w-fit rounded-lg border p-3">
-          <BiLink className="text-2xl text-secondary" />
+      <div
+        className={`flex h-full w-full items-center gap-5 rounded-2xl border p-5 ${colorSchema.backgroundColor} transition-all duration-300`}
+      >
+        <div
+          className={`h-fit w-fit rounded-lg border p-3 ${colorSchema.borderColor}`}
+        >
+          <BiLink className={`text-xl ${colorSchema.iconColor}`} />
         </div>
-        <div className="flex flex-col gap-1">
-          <p className="text-sm font-semibold text-primary">Google</p>
-          <p className="text-xs text-secondary">google.com</p>
-        </div>
+        {renderContent("text-sm", "text-sm")}
       </div>
     );
   }
 
   if (gridItemSizeVariant === "4x4") {
     return (
-      <div className="flex h-full w-full flex-col gap-5 rounded-2xl border p-5">
+      <div
+        className={`flex h-full w-full flex-col gap-5 rounded-2xl border p-5 ${colorSchema.backgroundColor} transition-all duration-300`}
+      >
         <div className="flex items-center gap-4">
-          <div className="h-fit w-fit rounded-lg border p-3">
-            <BiLink className="text-2xl text-secondary" />
+          <div
+            className={`h-fit w-fit rounded-lg border p-3 ${colorSchema.borderColor}`}
+          >
+            <BiLink className={`text-2xl ${colorSchema.iconColor}`} />
           </div>
-          <div className="flex flex-col gap-1">
-            <p className="text-sm font-semibold text-primary">Google</p>
-            <p className="text-xs text-secondary">google.com</p>
-          </div>
+          {renderContent("text-sm", "text-sm")}
         </div>
 
         <LazyImage
           wrapperClassName="h-full w-full"
           className="h-full w-full rounded-2xl object-cover"
-          src="https://images.unsplash.com/photo-1503023345310-bd7c1de61c7d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8aG90ZWx8ZW58MHx8MHx8fDA%3D&w=1000&q=80"
+          src={item?.metadata?.previewImgSrc}
+          errorImage={DEFAULT_LINK_PREVIEW_IMAGE_SRC}
         />
       </div>
     );

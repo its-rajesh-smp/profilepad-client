@@ -31,7 +31,7 @@ function Dashboard() {
           </SidebarProvider>
           <DashboardGrid />
           <SidebarProvider
-            open={currentSelectedGridItemId !== ""}
+            open={currentSelectedGridItemId ? true : false}
             className="fixed right-0 top-0 z-[100] w-fit"
           >
             <RightBar />

@@ -27,24 +27,15 @@ const RadioGroupItem = React.forwardRef<
     <RadioGroupPrimitive.Item
       ref={ref}
       className={cn(
-        "focus-visible:outline-ring/70 aspect-square size-4 rounded-full border border-zinc-200 shadow-sm shadow-black/5 outline-offset-2 focus-visible:outline focus-visible:outline-2 disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:border-zinc-900 data-[state=checked]:bg-zinc-900 data-[state=checked]:text-zinc-50 dark:border-zinc-800 dark:data-[state=checked]:border-zinc-50 dark:data-[state=checked]:bg-zinc-50 dark:data-[state=checked]:text-zinc-900",
+        "relative flex size-8 items-center justify-center rounded-lg border-2 border-transparent transition-all duration-200 ease-in-out",
+        "focus:ring-primary shadow-md hover:shadow-lg focus:ring-2 focus:ring-offset-2",
+        "data-[state=checked]:border-primary data-[state=checked]:bg-primary/10",
+        "disabled:cursor-not-allowed disabled:opacity-50",
         className,
       )}
       {...props}
     >
-      <RadioGroupPrimitive.Indicator
-        className={`flex items-center justify-center text-current`}
-      >
-        <svg
-          width="6"
-          height="6"
-          viewBox="0 0 6 6"
-          fill="currentcolor"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <circle cx="3" cy="3" r="3" />
-        </svg>
-      </RadioGroupPrimitive.Indicator>
+      <RadioGroupPrimitive.Indicator className="bg-primary flex size-4 scale-0 items-center justify-center rounded-md shadow-lg transition-all duration-150 ease-in-out data-[state=checked]:scale-100" />
     </RadioGroupPrimitive.Item>
   );
 });

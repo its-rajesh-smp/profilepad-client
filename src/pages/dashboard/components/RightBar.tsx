@@ -61,7 +61,7 @@ function RightBar() {
 const getSection = (setting: IGridItemSetting) => {
   switch (setting.type) {
     case "color":
-      return <SelectCardColor stylesToUpdate={setting.stylesToUpdate!} />;
+      return <SelectCardColor />;
     case "position":
       return <SelectTextPosition stylesToUpdate={setting.stylesToUpdate!} />;
     case "design":

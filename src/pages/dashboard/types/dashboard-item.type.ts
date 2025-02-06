@@ -23,7 +23,7 @@ export type IGridItem = {
   sizeVariant: TGridItemSizeVariant;
   id: string;
   variant: TGridItemVariant;
-  styles?: any;
+  colorVariant?: TGridItemColorVariant;
   metadata?: any;
 };
 
@@ -40,3 +40,13 @@ export interface IGridItemSetting {
   stylesToUpdate?: string;
   fieldToUpdate?: string;
 }
+
+export type TGridItemColorVariant = "black" | "blue" | "white" | "red";
+
+export type GridItemColorStyles = {
+  backgroundColor: string;
+  primaryTextColor: string;
+  secondaryTextColor: string;
+  iconColor: string;
+  borderColor: string;
+};
