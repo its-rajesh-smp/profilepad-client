@@ -2,7 +2,7 @@ import { useAppDispatch } from "@/common/hooks/useAppDispatch";
 import { useAppSelector } from "@/common/hooks/useAppSelector";
 import useScreenSize from "@/common/hooks/useScreenSize";
 import { Check } from "lucide-react";
-import { updateCurrentSelectedGridItem } from "../../reducers/dashboard.reducer";
+import useGridItemSize from "../../hooks/useGridItemSize";
 import { updateGridLayoutItemSize } from "../../reducers/grid.reducer";
 import { TGridItemSizeVariant } from "../../types/dashboard-item.type";
 import { convertGridItemVariantToSize } from "../../utils/grid-item.util";
@@ -12,41 +12,34 @@ function SelectCardType({
 }: {
   availableDesigns?: TGridItemSizeVariant[];
 }) {
-  const currentSelectedGridItem = useAppSelector(
-    (state) => state.dashboardSlice.currentSelectedGridItem,
-  );
   const { size: screenSize } = useScreenSize();
+  const currentSelectedGridItemId = useAppSelector(
+    (state) => state.dashboardSlice.currentSelectedGridItemId,
+  );
+  let sizeVariant = useGridItemSize(currentSelectedGridItemId);
   const dispatch = useAppDispatch();
 
   const designConfigs: { variant: TGridItemSizeVariant; className: string }[] =
     [
-      { variant: "H-1_W-100", className: "col-span-2 h-14" },
-      { variant: "H-1_W-4", className: "col-span-1 h-14" },
-      { variant: "H-2_W-4", className: "col-span-1 h-24" },
-      { variant: "H-2_W-100", className: "col-span-2 h-24" },
-      { variant: "H-4_W-2", className: "col-span-1 h-48" },
-      { variant: "H-4_W-4", className: "col-span-2 h-48" },
+      { variant: "1x100", className: "col-span-2 h-14" },
+      { variant: "1x4", className: "col-span-1 h-14" },
+      { variant: "2x4", className: "col-span-1 h-24" },
+      { variant: "2x100", className: "col-span-2 h-24" },
+      { variant: "4x4", className: "col-span-2 h-48" },
     ];
 
   const designSet = new Set(availableDesigns);
 
   const onClickDesign = (variant: TGridItemSizeVariant) => {
-    if (!currentSelectedGridItem) {
-      return;
-    }
-
     const { w, h } = convertGridItemVariantToSize(variant);
-
     dispatch(
       updateGridLayoutItemSize({
-        i: currentSelectedGridItem.id,
+        i: currentSelectedGridItemId,
         w,
         h,
         currentScreenSize: screenSize,
       }),
     );
-
-    dispatch(updateCurrentSelectedGridItem({ sizeVariant: variant }));
   };
 
   return (
@@ -59,10 +52,9 @@ function SelectCardType({
             key={variant}
             className={`relative flex cursor-pointer flex-col items-center justify-center gap-2 rounded-2xl border bg-white px-4 transition-all hover:shadow-sm ${className} `}
           >
-            {currentSelectedGridItem &&
-              variant === currentSelectedGridItem.sizeVariant && (
-                <Check className="absolute left-3 top-2 h-4 w-4 text-blue-500" />
-              )}
+            {variant === sizeVariant && (
+              <Check className="absolute left-3 top-2 h-4 w-4 text-blue-500" />
+            )}
             <p className="absolute bottom-2 right-3 text-xxs text-secondary">
               {variant}
             </p>

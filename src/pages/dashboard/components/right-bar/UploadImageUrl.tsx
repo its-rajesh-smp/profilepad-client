@@ -2,32 +2,28 @@ import AutoSaveTextField from "@/common/components/UI/AutoSaveTextField";
 import { useAppDispatch } from "@/common/hooks/useAppDispatch";
 import { useAppSelector } from "@/common/hooks/useAppSelector";
 import { updateAGridItemAct } from "../../actions-creators/grid.action";
+import useGridItem from "../../hooks/useGridItem";
 
-function UploadImageUrl() {
+function UploadImageUrl({ fieldToUpdate }: { fieldToUpdate?: string }) {
   const dispatch = useAppDispatch();
-  const currentSelectedGridItem = useAppSelector(
-    (state) => state.dashboardSlice.currentSelectedGridItem,
+  const currentSelectedGridItemId = useAppSelector(
+    (state) => state.dashboardSlice.currentSelectedGridItemId,
   );
+  const item = useGridItem(currentSelectedGridItemId);
 
   const onChange = (_id: string, value: any) => {
-    if (!currentSelectedGridItem) return;
-    dispatch(
-      updateAGridItemAct(
-        currentSelectedGridItem.id,
-        {
-          metadata: { ...currentSelectedGridItem.metadata, ...value },
-        },
-        true,
-      ),
-    );
+    const dataToUpdate = {
+      metadata: { ...item.metadata, ...value },
+    };
+    dispatch(updateAGridItemAct(item.id, dataToUpdate));
   };
 
   return (
     <AutoSaveTextField
       id="src"
-      fieldToUpdate="profileImg.src"
+      fieldToUpdate={fieldToUpdate || "metadata.src"}
+      value={item?.metadata[fieldToUpdate as any] || ""}
       className="bg-white"
-      value={currentSelectedGridItem?.metadata?.profileImg?.src}
       placeholder="Enter image URL"
       onChange={onChange}
     />

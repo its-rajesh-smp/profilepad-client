@@ -24,19 +24,19 @@ function ProfileHeadlinePrimary() {
 
   return (
     <div
-      style={item?.styles?.card}
+      style={{ backgroundColor: item?.styles?.backgroundColor }}
       className="flex h-full w-full flex-col items-center gap-1 rounded-2xl border bg-white p-5 transition-all duration-300"
     >
       <div>
         <LazyImage
           wrapperClassName="w-20 h-20"
           className="h-20 w-20 rounded-full object-cover"
-          src={item?.metadata?.profileImg?.src?.trim()}
+          src={item?.metadata?.profileImgSrc}
         />
       </div>
       <div className="flex flex-col items-center justify-center">
         <AutoSaveTextField
-          style={item?.styles?.card}
+          style={{ color: item?.styles?.color, backgroundColor: "inherit" }}
           value={item?.metadata?.primaryText}
           placeholder="Rajesh SMP"
           fieldToUpdate="primaryText"
@@ -45,7 +45,7 @@ function ProfileHeadlinePrimary() {
           onChange={onTextChange}
         />
         <AutoSaveTextField
-          style={item?.styles?.card}
+          style={{ color: item?.styles?.color, backgroundColor: "inherit" }}
           value={item?.metadata?.secondaryText}
           placeholder="Creator @ ProfilePad.io"
           fieldToUpdate="secondaryText"

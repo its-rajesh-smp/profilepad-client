@@ -1,38 +1,14 @@
 import { useAppDispatch } from "@/common/hooks/useAppDispatch";
 import { useAppSelector } from "@/common/hooks/useAppSelector";
 import { AlignCenter, AlignLeft, AlignRight } from "lucide-react";
-import { updateAGridItemAct } from "../../actions-creators/grid.action";
-import {
-  generateStylesToUpdate,
-  getStylesUsingStyleUpdatePath,
-} from "../../utils/grid-item.util";
 
 function SelectTextPosition({ stylesToUpdate }: { stylesToUpdate: string }) {
-  const currentSelectedGridItem = useAppSelector(
-    (state) => state.dashboardSlice.currentSelectedGridItem,
+  const currentValue = useAppSelector(
+    (state) => state.dashboardSlice.currentSelectedGridItemId,
   );
   const dispatch = useAppDispatch();
 
-  const onClick = (alignment: "left" | "center" | "right") => {
-    if (!currentSelectedGridItem || !stylesToUpdate) return;
-
-    const dataToUpdate = generateStylesToUpdate(
-      stylesToUpdate,
-      alignment,
-      currentSelectedGridItem.styles,
-    );
-
-    dispatch(
-      updateAGridItemAct(currentSelectedGridItem.id, {
-        styles: dataToUpdate,
-      }),
-    );
-  };
-
-  const currentValue = getStylesUsingStyleUpdatePath(
-    currentSelectedGridItem?.styles,
-    stylesToUpdate,
-  );
+  const onClick = (alignment: "left" | "center" | "right") => {};
 
   return (
     <div className="flex flex-row gap-5">

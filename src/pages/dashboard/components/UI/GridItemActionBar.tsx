@@ -1,20 +1,18 @@
 import { useAppDispatch } from "@/common/hooks/useAppDispatch";
 import { motion } from "framer-motion";
+import { useContext } from "react";
 import { FiSettings } from "react-icons/fi";
 import { IoMdClose } from "react-icons/io";
-import { setCurrentSelectedGridItem } from "../../reducers/dashboard.reducer";
-import GridItemContext from "../../contexts/grid-item.context";
-import { useContext } from "react";
 import { deleteAGridItemAct } from "../../actions-creators/grid.action";
+import GridItemContext from "../../contexts/grid-item.context";
+import { setCurrentSelectedGridItemId } from "../../reducers/dashboard.reducer";
 
 function GridItemActionBar() {
   const dispatch = useAppDispatch();
-  const { item, gridItemSizeVariant } = useContext(GridItemContext);
+  const { item } = useContext(GridItemContext);
 
   const onClickSettings = () => {
-    dispatch(
-      setCurrentSelectedGridItem({ ...item, sizeVariant: gridItemSizeVariant }),
-    );
+    dispatch(setCurrentSelectedGridItemId(item.id));
   };
 
   const onClickDelete = () => {

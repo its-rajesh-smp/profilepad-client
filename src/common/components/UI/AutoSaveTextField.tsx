@@ -25,7 +25,7 @@ function AutoSaveTextField({
   value,
   placeholder,
 }: IAutoSaveTextFieldProps) {
-  const localRef = useRef(value || placeholder);
+  const localRef = useRef(value?.trim() || placeholder);
 
   // Utility to update nested JSON field
   const updateNestedField = (path: string, value: any) => {

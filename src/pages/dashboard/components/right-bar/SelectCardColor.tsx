@@ -2,42 +2,27 @@ import ChooseColor from "@/common/components/shadcn/choose-color";
 import { useAppDispatch } from "@/common/hooks/useAppDispatch";
 import { useAppSelector } from "@/common/hooks/useAppSelector";
 import { updateAGridItemAct } from "../../actions-creators/grid.action";
-import {
-  generateStylesToUpdate,
-  getStylesUsingStyleUpdatePath,
-} from "../../utils/grid-item.util";
+import useGridItem from "../../hooks/useGridItem";
 
 function SelectCardColor({ stylesToUpdate }: { stylesToUpdate: string }) {
-  const currentSelectedGridItem = useAppSelector(
-    (state) => state.dashboardSlice.currentSelectedGridItem,
+  const currentSelectedGridItemId = useAppSelector(
+    (state) => state.dashboardSlice.currentSelectedGridItemId,
   );
   const dispatch = useAppDispatch();
+  const item = useGridItem(currentSelectedGridItemId);
 
   const onClick = (value: string) => {
-    if (!currentSelectedGridItem || !stylesToUpdate) return;
-
-    const dataToUpdate = generateStylesToUpdate(
-      stylesToUpdate,
-      value,
-      currentSelectedGridItem.styles,
-    );
-
-    dispatch(
-      updateAGridItemAct(currentSelectedGridItem.id, {
-        styles: dataToUpdate,
-      }),
-    );
+    const dataToUpdate = {
+      styles: { ...item?.styles, [stylesToUpdate]: value },
+    };
+    dispatch(updateAGridItemAct(item.id, dataToUpdate));
   };
 
-  const currentValue = getStylesUsingStyleUpdatePath(
-    currentSelectedGridItem?.styles,
-    stylesToUpdate,
-  );
   return (
     <div>
       <ChooseColor
-        value={currentValue}
         onChange={onClick}
+        value={item?.styles?.[stylesToUpdate]}
         className="grid grid-cols-7"
       />
     </div>

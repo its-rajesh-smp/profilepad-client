@@ -1,7 +1,6 @@
 import { AppDispatch } from "@/common/hooks/useAppDispatch";
 import { RootState } from "@/store/store";
 import { Layout } from "react-grid-layout";
-import { updateCurrentSelectedGridItem } from "../reducers/dashboard.reducer";
 import {
   createNewLayoutItem,
   deleteGridLayoutItem,
@@ -41,26 +40,9 @@ export const createNewLayoutItemAct = (
   };
 };
 
-export const updateAGridItemAct = (
-  id: string,
-  data: any,
-  isUpdateReq: boolean = false,
-) => {
-  return async (dispatch: AppDispatch, getState: () => RootState) => {
-    const currentSelectedItem =
-      getState().dashboardSlice.currentSelectedGridItem || null;
-
-    if ((currentSelectedItem && data?.styles) || isUpdateReq) {
-      dispatch(updateCurrentSelectedGridItem(data));
-    }
-
-    let dataToUpdate = { ...data };
-
-    if ((currentSelectedItem && data?.styles) || isUpdateReq) {
-      dataToUpdate = { ...currentSelectedItem, ...data };
-    }
-
-    dispatch(updateGridLayoutItem({ dataToUpdate, id }));
+export const updateAGridItemAct = (id: string, dataToUpdate: any) => {
+  return async (dispatch: AppDispatch) => {
+    dispatch(updateGridLayoutItem({ id, dataToUpdate }));
     await updateAGridItem(id, dataToUpdate);
   };
 };

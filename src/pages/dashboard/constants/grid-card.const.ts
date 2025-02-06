@@ -35,43 +35,44 @@ export const gridItemSettings: IGridItemSettings = {
     {
       type: "color",
       title: "Text Color",
-      stylesToUpdate: "card->color",
+      stylesToUpdate: "color",
     },
     {
       type: "color",
       title: "Background Color",
-      stylesToUpdate: "card->backgroundColor",
+      stylesToUpdate: "backgroundColor",
     },
     {
       type: "src",
       title: "Image Url",
+      fieldToUpdate: "profileImgSrc",
     },
     {
       type: "design",
       title: "Design",
-      availableDesigns: ["H-2_W-100", "H-2_W-4"],
+      availableDesigns: ["2x100", "2x4"],
     },
   ],
   title: [
     {
       type: "color",
       title: "Text Color",
-      stylesToUpdate: "primaryText->color",
+      stylesToUpdate: "primaryTextColor",
     },
     {
       type: "color",
       title: "Background Color",
-      stylesToUpdate: "card->backgroundColor",
+      stylesToUpdate: "backgroundColor",
     },
     {
       type: "position",
       title: "Text Position",
-      stylesToUpdate: "primaryText->textAlign",
+      stylesToUpdate: "primaryTextTextAlign",
     },
     {
       type: "design",
       title: "Design",
-      availableDesigns: ["H-1_W-4", "H-1_W-100"],
+      availableDesigns: ["1x4", "1x100"],
     },
   ],
   text: [],

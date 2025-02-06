@@ -10,8 +10,8 @@ import { GridLayoutProvider } from "./contexts/grid-layout.context";
 
 function Dashboard() {
   const dispatch = useAppDispatch();
-  const currentSelectedGridItem = useAppSelector(
-    (state) => state.dashboardSlice.currentSelectedGridItem,
+  const currentSelectedGridItemId = useAppSelector(
+    (state) => state.dashboardSlice.currentSelectedGridItemId,
   );
 
   // Get the user dashboard
@@ -31,7 +31,7 @@ function Dashboard() {
           </SidebarProvider>
           <DashboardGrid />
           <SidebarProvider
-            open={currentSelectedGridItem ? true : false}
+            open={currentSelectedGridItemId !== ""}
             className="fixed right-0 top-0 z-[100] w-fit"
           >
             <RightBar />

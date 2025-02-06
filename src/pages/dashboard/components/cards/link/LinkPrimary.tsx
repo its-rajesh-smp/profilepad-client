@@ -23,7 +23,7 @@ function LinkPrimary() {
     );
   };
 
-  if (gridItemSizeVariant === "H-2_W-2") {
+  if (gridItemSizeVariant === "2x2") {
     return (
       <div className="flex h-full w-full flex-col gap-2 rounded-2xl border p-5">
         <div className="h-fit w-fit rounded-lg border p-3">
@@ -51,7 +51,7 @@ function LinkPrimary() {
     );
   }
 
-  if (gridItemSizeVariant === "H-1_W-100") {
+  if (gridItemSizeVariant === "1x100") {
     return (
       <div className="flex h-full w-full gap-5 rounded-2xl border p-5">
         <div className="h-fit w-fit rounded-lg border p-3">
@@ -65,7 +65,7 @@ function LinkPrimary() {
     );
   }
 
-  if (gridItemSizeVariant === "H-1_W-4") {
+  if (gridItemSizeVariant === "1x4") {
     return (
       <div className="flex h-full w-full gap-5 rounded-2xl border p-5">
         <div className="h-fit w-fit rounded-lg border p-3">
@@ -79,7 +79,7 @@ function LinkPrimary() {
     );
   }
 
-  if (gridItemSizeVariant === "H-4_W-4") {
+  if (gridItemSizeVariant === "4x4") {
     return (
       <div className="flex h-full w-full flex-col gap-5 rounded-2xl border p-5">
         <div className="flex items-center gap-4">

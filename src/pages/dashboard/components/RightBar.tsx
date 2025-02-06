@@ -9,7 +9,8 @@ import { useAppDispatch } from "@/common/hooks/useAppDispatch";
 import { useAppSelector } from "@/common/hooks/useAppSelector";
 import { IoMdClose } from "react-icons/io";
 import { gridItemSettings } from "../constants/grid-card.const";
-import { setCurrentSelectedGridItem } from "../reducers/dashboard.reducer";
+import useGridItem from "../hooks/useGridItem";
+import { setCurrentSelectedGridItemId } from "../reducers/dashboard.reducer";
 import { IGridItemSetting } from "../types/dashboard-item.type";
 import RightBarSection from "./right-bar/RightBarSection";
 import SelectCardColor from "./right-bar/SelectCardColor";
@@ -19,13 +20,11 @@ import UploadImageUrl from "./right-bar/UploadImageUrl";
 
 function RightBar() {
   const dispatch = useAppDispatch();
-  const currentSelectedGridItem = useAppSelector(
-    (state) => state.dashboardSlice.currentSelectedGridItem,
+  const currentSelectedGridItemId = useAppSelector(
+    (state) => state.dashboardSlice.currentSelectedGridItemId,
   );
-
-  const settings = currentSelectedGridItem?.variant
-    ? gridItemSettings[currentSelectedGridItem.variant]
-    : null;
+  const item = useGridItem(currentSelectedGridItemId);
+  const settings = gridItemSettings[item?.variant];
 
   return (
     <>
@@ -34,7 +33,7 @@ function RightBar() {
           <div className="relative flex items-center justify-center gap-2 p-2">
             <p className="text-sm font-bold text-zinc-800">Setting</p>
             <SidebarTrigger
-              onClick={() => dispatch(setCurrentSelectedGridItem(null))}
+              onClick={() => dispatch(setCurrentSelectedGridItemId(""))}
               icon={<IoMdClose />}
               className="absolute right-0"
             />
@@ -68,7 +67,7 @@ const getSection = (setting: IGridItemSetting) => {
     case "design":
       return <SelectCardType availableDesigns={setting.availableDesigns} />;
     case "src":
-      return <UploadImageUrl />;
+      return <UploadImageUrl fieldToUpdate={setting.fieldToUpdate} />;
     default:
       return <></>;
   }

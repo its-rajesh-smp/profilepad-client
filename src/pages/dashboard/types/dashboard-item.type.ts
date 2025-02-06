@@ -12,13 +12,12 @@ export type IGridItemConfigs = {
 };
 
 export type TGridItemSizeVariant =
-  | "H-1_W-100"
-  | "H-1_W-4"
-  | "H-2_W-2"
-  | "H-2_W-100"
-  | "H-2_W-4"
-  | "H-4_W-2"
-  | "H-4_W-4";
+  | "1x100"
+  | "1x4"
+  | "2x2"
+  | "2x100"
+  | "2x4"
+  | "4x4";
 
 export type IGridItem = {
   sizeVariant: TGridItemSizeVariant;
@@ -39,4 +38,5 @@ export interface IGridItemSetting {
   availableDesigns?: TGridItemSizeVariant[];
   title: string;
   stylesToUpdate?: string;
+  fieldToUpdate?: string;
 }

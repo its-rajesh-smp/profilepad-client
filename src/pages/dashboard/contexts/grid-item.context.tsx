@@ -1,6 +1,6 @@
-import { useAppSelector } from "@/common/hooks/useAppSelector";
 import useScreenSize, { TScreenSize } from "@/common/hooks/useScreenSize";
 import { createContext } from "react";
+import useGridItem from "../hooks/useGridItem";
 import { IGridItem, TGridItemSizeVariant } from "../types/dashboard-item.type";
 import { getGridItemSizeVariant } from "../utils/grid-item.util";
 
@@ -12,8 +12,8 @@ export interface IGridItemContext {
 
 const initialState: IGridItemContext = {
   screenSize: "lg",
-  item: { id: "", sizeVariant: "H-2_W-2", variant: "image" },
-  gridItemSizeVariant: "H-1_W-100",
+  item: { id: "", sizeVariant: "2x2", variant: "image" },
+  gridItemSizeVariant: "1x100",
 };
 
 const GridItemContext = createContext(initialState);
@@ -31,10 +31,7 @@ const GridItemContextProvider = ({
 }) => {
   const { size: screenSize } = useScreenSize();
   const gridItemSizeVariant = getGridItemSizeVariant(screenSize, w, h);
-  const { layoutItems } = useAppSelector((state) => state.gridSlice);
-  const item: IGridItem = layoutItems.find(
-    (item: IGridItem) => item.id === i,
-  ) as IGridItem;
+  const item = useGridItem(i);
 
   return (
     <GridItemContext.Provider value={{ screenSize, item, gridItemSizeVariant }}>
