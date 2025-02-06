@@ -13,6 +13,7 @@ import {
   updateAGridItem,
 } from "../services/grid.service";
 import { TGridItemVariant } from "../types/dashboard-item.type";
+import { setCurrentSelectedGridItemId } from "../reducers/dashboard.reducer";
 
 export const createNewLayoutItemAct = (
   currentScreenSize: string,
@@ -48,9 +49,17 @@ export const updateAGridItemAct = (id: string, dataToUpdate: any) => {
 };
 
 export const deleteAGridItemAct = (id: string) => {
-  return async (dispatch: AppDispatch) => {
+  return async (dispatch: AppDispatch, getState: () => RootState) => {
+    const currentSelectedLayoutItemId =
+      getState().dashboardSlice.currentSelectedGridItemId;
+
+    // Unselect the item if it is currently selected
+    if (currentSelectedLayoutItemId === id) {
+      dispatch(setCurrentSelectedGridItemId(""));
+    }
+    dispatch(deleteGridLayoutItem({ id }));
+
     const res = await deleteAGridItem(id);
     dispatch(setGridLayouts(res.data.layouts));
-    dispatch(deleteGridLayoutItem({ id }));
   };
 };

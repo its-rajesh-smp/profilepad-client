@@ -33,7 +33,7 @@ function RightBar() {
           <div className="relative flex items-center justify-center gap-2 p-2">
             <p className="text-sm font-bold text-zinc-800">Setting</p>
             <SidebarTrigger
-              onClick={() => dispatch(setCurrentSelectedGridItemId(""))}
+              onClick={() => dispatch(setCurrentSelectedGridItemId(null))}
               icon={<IoMdClose />}
               className="absolute right-0"
             />

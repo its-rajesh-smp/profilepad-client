@@ -22,7 +22,7 @@ function UploadImageUrl({ fieldToUpdate }: { fieldToUpdate?: string }) {
     <AutoSaveTextField
       id="src"
       fieldToUpdate={fieldToUpdate || "metadata.src"}
-      value={item?.metadata[fieldToUpdate as any] || ""}
+      value={(item?.metadata || {})[fieldToUpdate as any] || ""}
       className="bg-white"
       placeholder="Enter image URL"
       onChange={onChange}
