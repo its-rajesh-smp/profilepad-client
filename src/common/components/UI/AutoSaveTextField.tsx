@@ -61,7 +61,7 @@ function AutoSaveTextField({
   return (
     <span
       style={style}
-      className={`no-drag focus:bg-select mb-1 w-full cursor-text rounded-md text-left outline-none transition-all duration-300 focus:text-white ${className} `}
+      className={`no-drag mb-1 w-full cursor-text rounded-md text-left outline-none transition-all duration-300 focus:bg-select focus:text-white ${className} `}
       contentEditable={true}
       suppressContentEditableWarning
       onInput={onTextChange}

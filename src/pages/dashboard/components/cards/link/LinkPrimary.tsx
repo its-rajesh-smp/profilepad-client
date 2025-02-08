@@ -1,14 +1,15 @@
 import LazyImage from "@/common/components/LazyImage/LazyImage";
 import AutoSaveTextField from "@/common/components/UI/AutoSaveTextField";
-import { DEFAULT_LINK_PREVIEW_IMAGE_SRC } from "@/common/constants/url.const";
 import { useAppDispatch } from "@/common/hooks/useAppDispatch";
 import useWebsiteData from "@/common/hooks/useURLPreview";
 import { updateAGridItemAct } from "@/pages/dashboard/actions-creators/grid.action";
 import { gridItemColorVariants } from "@/pages/dashboard/constants/gid-card-color-schema.const";
 
+import { DEFAULT_LINK_PREVIEW_IMAGE_SRC } from "@/common/constants/url.const";
 import GridItemContext from "@/pages/dashboard/contexts/grid-item.context";
 import { useContext } from "react";
 import { BiLink } from "react-icons/bi";
+import GithubHitmap from "./github-heatmap/GithubHitmap";
 
 function LinkPrimary() {
   const { item, gridItemSizeVariant } = useContext(GridItemContext);
@@ -26,12 +27,11 @@ function LinkPrimary() {
       }),
     );
   };
-
-  const colorSchema = gridItemColorVariants[item.colorVariant || "white"];
-
-  const { websiteLogoUrl, websitePreviewUrl } = useWebsiteData(
+  const { websiteLogoUrl, websitePreviewUrl, websiteType } = useWebsiteData(
     item?.metadata?.href,
   );
+
+  const colorSchema = gridItemColorVariants[item.colorVariant || "white"];
 
   const renderContent = (textSize: string) => (
     <div className="flex flex-col">
@@ -39,7 +39,7 @@ function LinkPrimary() {
         id="primaryText"
         fieldToUpdate="primaryText"
         className={`bg-inherit ${textSize} font-semibold ${colorSchema.primaryTextColor}`}
-        placeholder="Google"
+        placeholder={"Google"}
         value={item?.metadata?.primaryText}
         onChange={onTextChange}
       />
@@ -47,7 +47,7 @@ function LinkPrimary() {
         id="secondaryText"
         fieldToUpdate="secondaryText"
         className={`bg-inherit text-xs ${colorSchema.secondaryTextColor}`}
-        placeholder="google.com"
+        placeholder={"google.com"}
         value={item?.metadata?.secondaryText}
         onChange={onTextChange}
       />
@@ -70,6 +70,28 @@ function LinkPrimary() {
           />
         )}
       </div>
+    );
+  };
+
+  const renderAdditionalContent = () => {
+    if (websiteType === "github") {
+      return (
+        <div className="flex h-full w-full items-end justify-center">
+          <GithubHitmap href={item?.metadata?.href} />
+        </div>
+      );
+    }
+
+    return (
+      <LazyImage
+        wrapperClassName="h-full w-full"
+        className="h-full w-full rounded-2xl object-cover"
+        src={
+          item?.metadata?.previewImgSrc ||
+          websitePreviewUrl ||
+          DEFAULT_LINK_PREVIEW_IMAGE_SRC
+        }
+      />
     );
   };
 
@@ -115,16 +137,7 @@ function LinkPrimary() {
           {renderIcon()}
           {renderContent("text-sm")}
         </div>
-
-        <LazyImage
-          wrapperClassName="h-full w-full"
-          className="h-full w-full rounded-2xl object-cover"
-          src={
-            item?.metadata?.previewImgSrc ||
-            websitePreviewUrl ||
-            DEFAULT_LINK_PREVIEW_IMAGE_SRC
-          }
-        />
+        {renderAdditionalContent()}
       </div>
     );
   }

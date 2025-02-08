@@ -3,7 +3,6 @@ import { useAppSelector } from "@/common/hooks/useAppSelector";
 import { motion } from "framer-motion";
 import { useContext, useState } from "react";
 import GridItemContext from "../../contexts/grid-item.context";
-import { setIsFirstGridLoad } from "../../reducers/dashboard.reducer";
 import LinkPrimary from "../cards/link/LinkPrimary";
 import ProfileHeadlinePrimary from "../cards/profile-headline/ProfileHeadlinePrimary";
 import TitlePrimary from "../cards/title/TitlePrimary";
