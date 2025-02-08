@@ -6,6 +6,7 @@ import {
   SidebarTrigger,
   useSidebar,
 } from "@/common/components/shadcn/ui/sidebar";
+import { useOutsideClick } from "@/common/components/UI/AceternityModal";
 import { useAppDispatch } from "@/common/hooks/useAppDispatch";
 import { useAppSelector } from "@/common/hooks/useAppSelector";
 import { useEffect, useRef } from "react";
@@ -19,7 +20,6 @@ import SelectCardColor from "./right-bar/SelectCardColor";
 import SelectCardType from "./right-bar/SelectCardType";
 import SelectTextPosition from "./right-bar/SelectTextPosition";
 import UploadImageUrl from "./right-bar/UploadImageUrl";
-import { useOutsideClick } from "@/common/components/UI/AceternityModal";
 
 function RightBar() {
   const dispatch = useAppDispatch();
@@ -31,6 +31,7 @@ function RightBar() {
   const { setOpenMobile, setOpen, isMobile } = useSidebar();
   const sidebarRef = useRef<any>(null);
 
+  // This is to open the sidebar when a grid item is selected
   useEffect(() => {
     if (currentSelectedGridItemId?.length > 0) {
       setOpenMobile(true);
@@ -41,6 +42,7 @@ function RightBar() {
     }
   }, [currentSelectedGridItemId]);
 
+  // This is to close the sidebar when the user clicks outside on mobile
   useOutsideClick(sidebarRef, () => {
     isMobile && dispatch(setCurrentSelectedGridItemId(null));
   });
