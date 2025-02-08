@@ -53,11 +53,6 @@ export const gridItemSettings: IGridItemSettings = {
       title: "Color Variant",
     },
     {
-      type: "position",
-      title: "Text Position",
-      stylesToUpdate: "primaryTextTextAlign",
-    },
-    {
       type: "design",
       title: "Design",
       availableDesigns: ["1x4", "1x100"],

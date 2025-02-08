@@ -35,7 +35,7 @@ function TitlePrimary() {
         value={item?.metadata?.primaryText}
         fieldToUpdate="primaryText"
         id="primaryText"
-        className={`bg-inherit text-2xl font-bold ${colorSchema.primaryTextColor}`}
+        className={`text-2xl font-semibold ${colorSchema.primaryTextColor}`}
       />
     </div>
   );
