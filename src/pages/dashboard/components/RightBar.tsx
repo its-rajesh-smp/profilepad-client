@@ -4,9 +4,11 @@ import {
   SidebarFooter,
   SidebarHeader,
   SidebarTrigger,
+  useSidebar,
 } from "@/common/components/shadcn/ui/sidebar";
 import { useAppDispatch } from "@/common/hooks/useAppDispatch";
 import { useAppSelector } from "@/common/hooks/useAppSelector";
+import { useEffect, useRef } from "react";
 import { IoMdClose } from "react-icons/io";
 import { gridItemSettings } from "../constants/grid-card.const";
 import useGridItem from "../hooks/useGridItem";
@@ -17,6 +19,7 @@ import SelectCardColor from "./right-bar/SelectCardColor";
 import SelectCardType from "./right-bar/SelectCardType";
 import SelectTextPosition from "./right-bar/SelectTextPosition";
 import UploadImageUrl from "./right-bar/UploadImageUrl";
+import { useOutsideClick } from "@/common/components/UI/AceternityModal";
 
 function RightBar() {
   const dispatch = useAppDispatch();
@@ -25,6 +28,22 @@ function RightBar() {
   );
   const item = useGridItem(currentSelectedGridItemId);
   const settings = gridItemSettings[item?.variant];
+  const { setOpenMobile, setOpen, isMobile } = useSidebar();
+  const sidebarRef = useRef<any>(null);
+
+  useEffect(() => {
+    if (currentSelectedGridItemId?.length > 0) {
+      setOpenMobile(true);
+      setOpen(true);
+    } else {
+      setOpen(false);
+      setOpenMobile(false);
+    }
+  }, [currentSelectedGridItemId]);
+
+  useOutsideClick(sidebarRef, () => {
+    isMobile && dispatch(setCurrentSelectedGridItemId(null));
+  });
 
   return (
     <>
@@ -39,7 +58,7 @@ function RightBar() {
             />
           </div>
         </SidebarHeader>
-        <SidebarContent className="no-scrollbar">
+        <SidebarContent ref={sidebarRef} className="no-scrollbar">
           {settings && (
             <div className="flex flex-col gap-4 p-3 pt-1">
               {settings.map((setting, index) => {

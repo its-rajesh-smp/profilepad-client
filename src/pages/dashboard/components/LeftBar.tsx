@@ -9,9 +9,19 @@ import {
 import { IoMdAdd, IoMdClose } from "react-icons/io";
 import { leftSidebarCards } from "../constants/left-sidebar-item.const.tsx";
 import LeftBarCard from "./UI/LeftBarCard";
+import { useAppSelector } from "@/common/hooks/useAppSelector.ts";
+import { useEffect } from "react";
 
 function LeftBar() {
-  const { open } = useSidebar();
+  const { open, setOpenMobile } = useSidebar();
+  const isDragging = useAppSelector((state) => state.dashboardSlice.isDragging);
+
+  // Close sidebar when dragging a card in mobile
+  useEffect(() => {
+    if (isDragging) {
+      setOpenMobile(false);
+    }
+  }, [isDragging]);
 
   return (
     <>

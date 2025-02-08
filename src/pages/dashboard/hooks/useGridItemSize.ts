@@ -6,7 +6,9 @@ import { getGridItemSizeVariant } from "../utils/grid-item.util";
 function useGridItemSize(id: string) {
   const { size: screenSize } = useScreenSize();
   const gridItem = useAppSelector((state) =>
-    state.gridSlice.layouts[screenSize].find((item) => item.i === id),
+    state.gridSlice.layouts[screenSize === "lg" ? "lg" : "xs"].find(
+      (item) => item.i === id,
+    ),
   ) as Layout;
 
   const gridItemSizeVariant = getGridItemSizeVariant(

@@ -3,11 +3,13 @@ import { createSlice } from "@reduxjs/toolkit";
 interface IInitialState {
   isFirstGridLoad: boolean;
   currentSelectedGridItemId: string;
+  isDragging: boolean;
 }
 
 const initialState: IInitialState = {
   isFirstGridLoad: true,
   currentSelectedGridItemId: "",
+  isDragging: false,
 };
 
 const dashboardSlice = createSlice({
@@ -20,9 +22,15 @@ const dashboardSlice = createSlice({
     setCurrentSelectedGridItemId: (state, action) => {
       state.currentSelectedGridItemId = action.payload;
     },
+    setIsDragging: (state, action) => {
+      state.isDragging = action.payload;
+    },
   },
 });
 
-export const { setIsFirstGridLoad, setCurrentSelectedGridItemId } =
-  dashboardSlice.actions;
+export const {
+  setIsFirstGridLoad,
+  setCurrentSelectedGridItemId,
+  setIsDragging,
+} = dashboardSlice.actions;
 export default dashboardSlice.reducer;

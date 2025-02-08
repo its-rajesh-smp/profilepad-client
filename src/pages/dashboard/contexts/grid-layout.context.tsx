@@ -8,6 +8,7 @@ import { createNewLayoutItemAct } from "../actions-creators/grid.action";
 import { gridItemConfigs } from "../constants/grid-card.const";
 import { TGridItemVariant } from "../types/dashboard-item.type";
 import { ILeftSidebarDroppingItem } from "../types/left-sidebar-item.type";
+import { setIsDragging } from "../reducers/dashboard.reducer";
 
 interface IGridLayoutContext {
   onDragStartHandler: (variant: TGridItemVariant) => void;
@@ -42,6 +43,7 @@ export const GridLayoutProvider = ({
   const dispatch = useAppDispatch();
 
   const onDragStartHandler = (variant: TGridItemVariant) => {
+    dispatch(setIsDragging(true));
     const newDroppingItem = gridItemConfigs[variant];
     newDroppingItem.i = createUUID();
     setDroppingItem(newDroppingItem);
@@ -50,6 +52,7 @@ export const GridLayoutProvider = ({
 
   const onDropHandler = (newLayouts: Layout[], item: Layout) => {
     if (!droppingItem || !droppingItemVariant) return;
+    dispatch(setIsDragging(false));
     dispatch(
       createNewLayoutItemAct(size, newLayouts, item, droppingItemVariant),
     );
