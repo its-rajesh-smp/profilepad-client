@@ -46,6 +46,19 @@ const ProfileCard = (props: any) => (
   </div>
 );
 
+// ImageCard Component
+const ImageCard = (props: any) => (
+  <div
+    {...props}
+    className={`${props.className} flex h-28 w-28 flex-col items-center justify-center gap-1`}
+  >
+    <LazyImage
+      wrapperClassName="h-28 w-28"
+      className="h-full w-full object-cover"
+    />
+  </div>
+);
+
 // LinkCard Component
 const LinkCard = (props: any) => (
   <div
@@ -63,6 +76,7 @@ const LinkCard = (props: any) => (
 const WrappedTitleCard = withDefaultProps(TitleCard);
 const WrappedProfileCard = withDefaultProps(ProfileCard);
 const WrappedLinkCard = withDefaultProps(LinkCard);
+const WrappedImageCard = withDefaultProps(ImageCard);
 
 function LeftBarCard({ item }: { item: ILeftSidebarCard }) {
   switch (item.variant) {
@@ -72,6 +86,8 @@ function LeftBarCard({ item }: { item: ILeftSidebarCard }) {
       return <WrappedProfileCard item={item} />;
     case "link":
       return <WrappedLinkCard item={item} />;
+    case "image":
+      return <WrappedImageCard item={item} />;
     default:
       return <WrappedProfileCard />;
   }

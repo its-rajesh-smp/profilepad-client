@@ -5,7 +5,7 @@ import { createContext, useState } from "react";
 import { Layout, Layouts } from "react-grid-layout";
 import { updateDashboardGridAct } from "../actions-creators/dashboard.action";
 import { createNewLayoutItemAct } from "../actions-creators/grid.action";
-import { gridItemConfigs } from "../constants/grid-card.const";
+import { gridItemConfigs } from "../constants/grid-card.const.tsx";
 import { TGridItemVariant } from "../types/dashboard-item.type";
 import { ILeftSidebarDroppingItem } from "../types/left-sidebar-item.type";
 import { setIsDragging } from "../reducers/dashboard.reducer";

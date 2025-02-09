@@ -7,6 +7,7 @@ import LinkPrimary from "../cards/link/LinkPrimary";
 import ProfileHeadlinePrimary from "../cards/profile-headline/ProfileHeadlinePrimary";
 import TitlePrimary from "../cards/title/TitlePrimary";
 import GridItemActionBar from "./GridItemActionBar";
+import ImagePrimary from "../cards/image/ImagePrimary";
 
 interface IGridItemProps {
   index: number;
@@ -65,6 +66,7 @@ function GridItem({ index, isLast }: IGridItemProps) {
         {item.variant === "title" && <TitlePrimary />}
         {item.variant === "link" && <LinkPrimary />}
         {item.variant === "profileHeadline" && <ProfileHeadlinePrimary />}
+        {item.variant === "image" && <ImagePrimary />}
       </motion.div>
     )
   );

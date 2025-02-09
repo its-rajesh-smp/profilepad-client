@@ -17,7 +17,7 @@ const LazyImage = ({
     <LazyLoadImage
       wrapperClassName={wrapperClassName}
       effect="blur"
-      className={`h-full w-full ${className} `}
+      className={`h-full w-full ${className} select-none`}
       src={src}
       onError={(event) => {
         (event.target as HTMLImageElement).src = errorImage;

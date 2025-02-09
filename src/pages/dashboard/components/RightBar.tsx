@@ -11,7 +11,7 @@ import { useAppDispatch } from "@/common/hooks/useAppDispatch";
 import { useAppSelector } from "@/common/hooks/useAppSelector";
 import { useEffect, useRef } from "react";
 import { IoMdClose } from "react-icons/io";
-import { gridItemSettings } from "../constants/grid-card.const";
+import { gridItemSettings } from "../constants/grid-card.const.tsx";
 import useGridItem from "../hooks/useGridItem";
 import { setCurrentSelectedGridItemId } from "../reducers/dashboard.reducer";
 import { IGridItemSetting } from "../types/dashboard-item.type";

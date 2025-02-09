@@ -1,8 +1,12 @@
+import { BiLogoGithub, BiUser } from "react-icons/bi";
 import {
   IGridItemConfigs,
   IGridItemSettings,
 } from "../types/dashboard-item.type";
-import { ILeftSidebarDroppingItem } from "../types/left-sidebar-item.type";
+import {
+  ILeftSidebarCard,
+  ILeftSidebarDroppingItem,
+} from "../types/left-sidebar-item.type";
 
 const defaultLayoutConfig: ILeftSidebarDroppingItem = {
   h: 1,
@@ -14,6 +18,8 @@ export const gridItemConfigs: IGridItemConfigs = {
   text: { ...defaultLayoutConfig },
   image: {
     ...defaultLayoutConfig,
+    h: 2,
+    w: 2,
   },
   link: {
     ...defaultLayoutConfig,
@@ -59,7 +65,22 @@ export const gridItemSettings: IGridItemSettings = {
     },
   ],
   text: [],
-  image: [],
+  image: [
+    {
+      type: "color",
+      title: "Color Variant",
+    },
+    {
+      type: "src",
+      title: "Image Url",
+      fieldToUpdate: "href",
+    },
+    {
+      type: "design",
+      title: "Design",
+      availableDesigns: ["2x2", "4x4"],
+    },
+  ],
   link: [
     {
       type: "color",
@@ -82,3 +103,33 @@ export const gridItemSettings: IGridItemSettings = {
     },
   ],
 };
+
+export const leftSidebarCards: ILeftSidebarCard[][] = [
+  [
+    {
+      variant: "title",
+    },
+  ],
+  [
+    {
+      variant: "profileHeadline",
+    },
+  ],
+  [
+    {
+      variant: "link",
+      title: "Link",
+      icon: <BiUser />,
+    },
+    {
+      variant: "link",
+      title: "Github",
+      icon: <BiLogoGithub />,
+    },
+  ],
+  [
+    {
+      variant: "image",
+    },
+  ],
+];

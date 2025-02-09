@@ -7,10 +7,10 @@ import {
   useSidebar,
 } from "@/common/components/shadcn/ui/sidebar";
 import { IoMdAdd, IoMdClose } from "react-icons/io";
-import { leftSidebarCards } from "../constants/left-sidebar-item.const.tsx";
 import LeftBarCard from "./UI/LeftBarCard";
 import { useAppSelector } from "@/common/hooks/useAppSelector.ts";
 import { useEffect } from "react";
+import { leftSidebarCards } from "../constants/grid-card.const.tsx";
 
 function LeftBar() {
   const { open, setOpenMobile } = useSidebar();
