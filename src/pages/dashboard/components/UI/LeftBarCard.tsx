@@ -50,7 +50,7 @@ const ProfileCard = (props: any) => (
 const ImageCard = (props: any) => (
   <div
     {...props}
-    className={`${props.className} flex h-28 w-28 flex-col items-center justify-center gap-1`}
+    className={`${props.className} flex !h-28 !w-28 flex-col gap-1`}
   >
     <LazyImage
       wrapperClassName="h-28 w-28"
@@ -72,11 +72,21 @@ const LinkCard = (props: any) => (
   </div>
 );
 
+const TextCard = (props: any) => (
+  <div
+    {...props}
+    className={`${props.className} flex !h-28 !w-28 flex-col gap-1`}
+  >
+    <p>Hi there!</p>
+  </div>
+);
+
 // Wrapping Components with HOC
 const WrappedTitleCard = withDefaultProps(TitleCard);
 const WrappedProfileCard = withDefaultProps(ProfileCard);
 const WrappedLinkCard = withDefaultProps(LinkCard);
 const WrappedImageCard = withDefaultProps(ImageCard);
+const WrappedTextCard = withDefaultProps(TextCard);
 
 function LeftBarCard({ item }: { item: ILeftSidebarCard }) {
   switch (item.variant) {
@@ -88,6 +98,8 @@ function LeftBarCard({ item }: { item: ILeftSidebarCard }) {
       return <WrappedLinkCard item={item} />;
     case "image":
       return <WrappedImageCard item={item} />;
+    case "text":
+      return <WrappedTextCard item={item} />;
     default:
       return <WrappedProfileCard />;
   }

@@ -20,7 +20,7 @@ function Editor({ className, onChange, value, editable = true }: IEditor) {
     {
       initialContent,
     },
-    [value],
+    [],
   );
 
   return (
@@ -29,6 +29,16 @@ function Editor({ className, onChange, value, editable = true }: IEditor) {
       onChange={() => onChange?.(editor.document as any)}
       className={className}
       editor={editor}
+      sideMenu={false}
+      slashMenu={false}
+      theme={{
+        colors: {
+          editor: {
+            background: "inherit",
+            text: "inherit",
+          },
+        },
+      }}
     />
   );
 }

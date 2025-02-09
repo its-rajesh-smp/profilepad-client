@@ -28,7 +28,7 @@ function ProfileHeadlinePrimary() {
 
   return (
     <div
-      className={`flex h-full w-full flex-col items-center gap-1 rounded-2xl border ${colorSchema.backgroundColor} p-5 transition-all duration-300`}
+      className={`flex h-full w-full flex-col items-center justify-between gap-1 rounded-2xl border ${colorSchema.backgroundColor} p-5 transition-all duration-300`}
     >
       <div>
         <LazyImage

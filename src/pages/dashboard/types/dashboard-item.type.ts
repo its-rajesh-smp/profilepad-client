@@ -43,6 +43,7 @@ export interface IGridItemSetting {
 
 export type GridItemColorStyles = {
   backgroundColor: string;
+  secondaryBackgroundColor: string;
   primaryTextColor: string;
   secondaryTextColor: string;
   iconColor: string;

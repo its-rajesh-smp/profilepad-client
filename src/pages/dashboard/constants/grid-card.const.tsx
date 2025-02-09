@@ -15,7 +15,7 @@ const defaultLayoutConfig: ILeftSidebarDroppingItem = {
 };
 
 export const gridItemConfigs: IGridItemConfigs = {
-  text: { ...defaultLayoutConfig },
+  text: { ...defaultLayoutConfig, h: 2, w: 2 },
   image: {
     ...defaultLayoutConfig,
     h: 2,
@@ -64,7 +64,17 @@ export const gridItemSettings: IGridItemSettings = {
       availableDesigns: ["1x4", "1x100"],
     },
   ],
-  text: [],
+  text: [
+    {
+      type: "color",
+      title: "Color Variant",
+    },
+    {
+      type: "design",
+      title: "Design",
+      availableDesigns: ["2x2", "4x4"],
+    },
+  ],
   image: [
     {
       type: "color",
@@ -130,6 +140,9 @@ export const leftSidebarCards: ILeftSidebarCard[][] = [
   [
     {
       variant: "image",
+    },
+    {
+      variant: "text",
     },
   ],
 ];

@@ -8,6 +8,7 @@ import ProfileHeadlinePrimary from "../cards/profile-headline/ProfileHeadlinePri
 import TitlePrimary from "../cards/title/TitlePrimary";
 import GridItemActionBar from "./GridItemActionBar";
 import ImagePrimary from "../cards/image/ImagePrimary";
+import TextPrimary from "../cards/text/TextPrimary";
 
 interface IGridItemProps {
   index: number;
@@ -56,7 +57,7 @@ function GridItem({ index, isLast }: IGridItemProps) {
         onHoverEnd={() => {
           setIsHovered(false);
         }}
-        className={`relative flex h-full w-full cursor-move overflow-hidden rounded-2xl bg-white hover:shadow-sm`}
+        className={`relative flex h-full w-full cursor-move rounded-2xl bg-white hover:shadow-sm`}
         // onAnimationComplete={() => {
         //   isLast && dispatch(setIsFirstGridLoad(false));
         // }}
@@ -67,6 +68,7 @@ function GridItem({ index, isLast }: IGridItemProps) {
         {item.variant === "link" && <LinkPrimary />}
         {item.variant === "profileHeadline" && <ProfileHeadlinePrimary />}
         {item.variant === "image" && <ImagePrimary />}
+        {item.variant === "text" && <TextPrimary />}
       </motion.div>
     )
   );
