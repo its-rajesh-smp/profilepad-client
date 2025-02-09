@@ -1,6 +1,7 @@
 import { AppDispatch } from "@/common/hooks/useAppDispatch";
 import { RootState } from "@/store/store";
 import { Layout } from "react-grid-layout";
+import { setCurrentSelectedGridItemId } from "../reducers/dashboard.reducer";
 import {
   createNewLayoutItem,
   deleteGridLayoutItem,
@@ -11,9 +12,9 @@ import {
   createGridItem,
   deleteAGridItem,
   updateAGridItem,
+  uploadFileAndUpdateAGridItem,
 } from "../services/grid.service";
 import { TGridItemVariant } from "../types/dashboard-item.type";
-import { setCurrentSelectedGridItemId } from "../reducers/dashboard.reducer";
 
 export const createNewLayoutItemAct = (
   currentScreenSize: string,
@@ -45,6 +46,17 @@ export const updateAGridItemAct = (id: string, dataToUpdate: any) => {
   return async (dispatch: AppDispatch) => {
     dispatch(updateGridLayoutItem({ id, dataToUpdate }));
     await updateAGridItem(id, dataToUpdate);
+  };
+};
+
+export const uploadFileAndUpdateAGridItemAct = (
+  id: string,
+  fieldToUpdate: any,
+  formData: FormData,
+) => {
+  return async (dispatch: AppDispatch) => {
+    const res = await uploadFileAndUpdateAGridItem(id, fieldToUpdate, formData);
+    await dispatch(updateGridLayoutItem({ id, dataToUpdate: res.data }));
   };
 };
 

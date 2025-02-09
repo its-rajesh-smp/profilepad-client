@@ -13,7 +13,7 @@ function ImagePrimary() {
       <LazyImage
         wrapperClassName="h-full w-full"
         className="h-full w-full rounded-2xl object-cover"
-        src={item?.metadata?.src}
+        src={item?.metadata?.href}
       />
     </div>
   );

@@ -1,8 +1,9 @@
-import AutoSaveTextField from "@/common/components/UI/AutoSaveTextField";
+import UploadImage from "@/common/components/UI/UploadImage";
 import { useAppDispatch } from "@/common/hooks/useAppDispatch";
 import { useAppSelector } from "@/common/hooks/useAppSelector";
-import { updateAGridItemAct } from "../../actions-creators/grid.action";
+import { uploadFileAndUpdateAGridItemAct } from "../../actions-creators/grid.action";
 import useGridItem from "../../hooks/useGridItem";
+import { useState } from "react";
 
 function UploadImageUrl({ fieldToUpdate }: { fieldToUpdate?: string }) {
   const dispatch = useAppDispatch();
@@ -10,22 +11,28 @@ function UploadImageUrl({ fieldToUpdate }: { fieldToUpdate?: string }) {
     (state) => state.dashboardSlice.currentSelectedGridItemId,
   );
   const item = useGridItem(currentSelectedGridItemId);
+  const [uploading, setUploading] = useState(false);
 
-  const onChange = (_id: string, value: any) => {
-    const dataToUpdate = {
-      metadata: { ...item.metadata, ...value },
-    };
-    dispatch(updateAGridItemAct(item.id, dataToUpdate));
+  /**
+   * Handles the file change event by dispatching an action to upload
+   * the image and update the grid item with the given form data.
+   * @param formData - The form data containing the image to be uploaded.
+   */
+  const onFileChange = async (formData: FormData) => {
+    setUploading(true);
+    await dispatch(
+      uploadFileAndUpdateAGridItemAct(item.id, fieldToUpdate, formData),
+    );
+    setUploading(false);
   };
 
   return (
-    <AutoSaveTextField
-      id="src"
-      fieldToUpdate={fieldToUpdate || "metadata.src"}
-      value={(item?.metadata || {})[fieldToUpdate as any] || ""}
-      className="bg-white"
-      placeholder="Enter image URL"
-      onChange={onChange}
+    <UploadImage
+      defaultImage={
+        item?.metadata && fieldToUpdate ? item?.metadata[fieldToUpdate] : ""
+      }
+      onChange={onFileChange}
+      isUploading={uploading}
     />
   );
 }
