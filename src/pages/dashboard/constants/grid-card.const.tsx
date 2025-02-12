@@ -132,9 +132,7 @@ export const leftSidebarCards: ILeftSidebarCard[][] = [
       icon: <BiUser />,
     },
     {
-      variant: "link",
-      title: "Github",
-      icon: <BiLogoGithub />,
+      variant: "text",
     },
   ],
   [

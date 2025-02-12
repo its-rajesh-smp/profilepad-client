@@ -53,8 +53,8 @@ const ImageCard = (props: any) => (
     className={`${props.className} flex !h-28 !w-28 flex-col gap-1`}
   >
     <LazyImage
-      wrapperClassName="!h-28 !w-28"
-      className="!h-28 !w-28 object-cover"
+      wrapperClassName="h-full w-full"
+      className="h-full w-full select-none object-cover"
     />
   </div>
 );
