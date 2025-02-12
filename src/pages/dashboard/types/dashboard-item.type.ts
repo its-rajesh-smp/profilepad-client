@@ -27,7 +27,12 @@ export type IGridItem = {
   metadata?: any;
 };
 
-export type TGridItemSettingInputType = "color" | "position" | "design" | "src";
+export type TGridItemSettingInputType =
+  | "color"
+  | "position"
+  | "design"
+  | "src"
+  | "href";
 
 export type IGridItemSettings = {
   [key in TGridItemVariant]: IGridItemSetting[];

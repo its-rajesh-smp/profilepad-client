@@ -97,7 +97,7 @@ export const gridItemSettings: IGridItemSettings = {
       title: "Color Variant",
     },
     {
-      type: "src",
+      type: "href",
       title: "Website Url",
       fieldToUpdate: "href",
     },

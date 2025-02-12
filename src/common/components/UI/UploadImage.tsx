@@ -76,6 +76,7 @@ export default function UploadImage({
             onClick={handleButtonClick}
             aria-haspopup="dialog"
             loading={isUploading}
+            size="sm"
           >
             {fileName ? "Change image" : "Upload image"}
           </Button>

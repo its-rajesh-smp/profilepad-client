@@ -71,7 +71,7 @@ function DashboardGrid() {
           : formattedGridLayout["xs"]
         ).map((item, index, arr) => {
           return (
-            <div key={item.i} data-grid={item}>
+            <div className="z-10! relative!" key={item.i} data-grid={item}>
               <GridItemContextProvider {...item}>
                 <GridItem isLast={arr.length - 1 === index} index={index} />
               </GridItemContextProvider>

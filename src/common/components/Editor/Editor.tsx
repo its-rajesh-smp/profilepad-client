@@ -1,9 +1,14 @@
-// @ts-nocheck
-// @ts-ignore
 import "@blocknote/core/fonts/inter.css";
 import { BlockNoteView } from "@blocknote/mantine";
 import "@blocknote/mantine/style.css";
-import { useCreateBlockNote } from "@blocknote/react";
+import {
+  BasicTextStyleButton,
+  ColorStyleButton,
+  CreateLinkButton,
+  FormattingToolbar,
+  FormattingToolbarController,
+  useCreateBlockNote,
+} from "@blocknote/react";
 import "./style.css";
 
 interface IEditor {
@@ -13,8 +18,44 @@ interface IEditor {
   editable?: boolean;
 }
 
+function CustomFormattingToolbar() {
+  return (
+    <FormattingToolbarController
+      formattingToolbar={() => (
+        <FormattingToolbar>
+          <BasicTextStyleButton
+            basicTextStyle={"bold"}
+            key={"boldStyleButton"}
+          />
+          <BasicTextStyleButton
+            basicTextStyle={"italic"}
+            key={"italicStyleButton"}
+          />
+          <BasicTextStyleButton
+            basicTextStyle={"underline"}
+            key={"underlineStyleButton"}
+          />
+          <BasicTextStyleButton
+            basicTextStyle={"strike"}
+            key={"strikeStyleButton"}
+          />
+          {/* Extra button to toggle code styles */}
+          <BasicTextStyleButton
+            key={"codeStyleButton"}
+            basicTextStyle={"code"}
+          />
+
+          <ColorStyleButton key={"colorStyleButton"} />
+
+          <CreateLinkButton key={"createLinkButton"} />
+        </FormattingToolbar>
+      )}
+    />
+  );
+}
+
 function Editor({ className, onChange, value, editable = true }: IEditor) {
-  const initialContent = value || "";
+  const initialContent: any = value || "";
 
   const editor = useCreateBlockNote(
     {
@@ -31,6 +72,7 @@ function Editor({ className, onChange, value, editable = true }: IEditor) {
       editor={editor}
       sideMenu={false}
       slashMenu={false}
+      formattingToolbar={false}
       theme={{
         colors: {
           editor: {
@@ -39,7 +81,9 @@ function Editor({ className, onChange, value, editable = true }: IEditor) {
           },
         },
       }}
-    />
+    >
+      {/* <CustomFormattingToolbar /> */}
+    </BlockNoteView>
   );
 }
 

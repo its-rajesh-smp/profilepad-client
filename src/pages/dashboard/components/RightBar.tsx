@@ -20,6 +20,7 @@ import SelectCardColor from "./right-bar/SelectCardColor";
 import SelectCardType from "./right-bar/SelectCardType";
 import SelectTextPosition from "./right-bar/SelectTextPosition";
 import UploadImageUrl from "./right-bar/UploadImageUrl";
+import TextUpdate from "./right-bar/TextUpdate.tsx";
 
 function RightBar() {
   const dispatch = useAppDispatch();
@@ -89,6 +90,8 @@ const getSection = (setting: IGridItemSetting) => {
       return <SelectCardType availableDesigns={setting.availableDesigns} />;
     case "src":
       return <UploadImageUrl fieldToUpdate={setting.fieldToUpdate} />;
+    case "href":
+      return <TextUpdate fieldToUpdate={setting.fieldToUpdate} />;
     default:
       return <></>;
   }
