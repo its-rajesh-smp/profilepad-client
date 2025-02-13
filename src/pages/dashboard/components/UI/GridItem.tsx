@@ -3,12 +3,13 @@ import { useAppSelector } from "@/common/hooks/useAppSelector";
 import { motion } from "framer-motion";
 import { useContext, useState } from "react";
 import GridItemContext from "../../contexts/grid-item.context";
+import ImagePrimary from "../cards/image/ImagePrimary";
 import LinkPrimary from "../cards/link/LinkPrimary";
 import ProfileHeadlinePrimary from "../cards/profile-headline/ProfileHeadlinePrimary";
-import TitlePrimary from "../cards/title/TitlePrimary";
-import GridItemActionBar from "./GridItemActionBar";
-import ImagePrimary from "../cards/image/ImagePrimary";
 import TextPrimary from "../cards/text/TextPrimary";
+import TitlePrimary from "../cards/title/TitlePrimary";
+import WorkExperiencePrimary from "../cards/workExperience/WorkExperiencePrimary";
+import GridItemActionBar from "./GridItemActionBar";
 
 interface IGridItemProps {
   index: number;
@@ -69,6 +70,7 @@ function GridItem({ index, isLast }: IGridItemProps) {
         {item.variant === "profileHeadline" && <ProfileHeadlinePrimary />}
         {item.variant === "image" && <ImagePrimary />}
         {item.variant === "text" && <TextPrimary />}
+        {item.variant === "workExperience" && <WorkExperiencePrimary />}
       </motion.div>
     )
   );

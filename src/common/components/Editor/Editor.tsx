@@ -1,3 +1,4 @@
+import { locales } from "@blocknote/core";
 import "@blocknote/core/fonts/inter.css";
 import { BlockNoteView } from "@blocknote/mantine";
 import "@blocknote/mantine/style.css";
@@ -56,10 +57,20 @@ function CustomFormattingToolbar() {
 
 function Editor({ className, onChange, value, editable = true }: IEditor) {
   const initialContent: any = value || "";
+  // We use the English, default dictionary
+  const locale = locales["en"];
 
   const editor = useCreateBlockNote(
     {
       initialContent,
+      dictionary: {
+        ...locale,
+        placeholders: {
+          ...locale.placeholders,
+          // We override the default placeholder
+          default: "Type something...",
+        },
+      },
     },
     [],
   );

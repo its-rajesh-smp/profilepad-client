@@ -8,10 +8,12 @@ const withDefaultProps = (Component: React.FC<any>) => {
   return (props: any) => {
     const { onDragStartHandler } = useContext(reactGridLayoutContext);
     const defaultProps: any = {
-      className: `droppable-element h-fit w-full rounded-xl cursor-move border bg-white p-3 shadow-sm `,
-      draggable: true,
+      className: `${props?.item?.isComingSoon == true ? "opacity-50 select-none cursor-not-allowed" : "droppable-element"} h-fit w-full rounded-xl cursor-move border bg-white p-3 shadow-sm `,
+      draggable: props?.item?.isComingSoon == true ? false : true,
       unselectable: "on",
       onDragStart: (e: any) => {
+        if (props?.item?.isComingSoon) return;
+
         e.dataTransfer.setData("application/json", "");
         onDragStartHandler(props?.item?.variant);
       },
@@ -53,8 +55,8 @@ const ImageCard = (props: any) => (
     className={`${props.className} flex !h-28 !w-28 flex-col gap-1`}
   >
     <LazyImage
-      wrapperClassName="h-full w-full"
-      className="h-full w-full select-none object-cover"
+      wrapperClassName="h-full w-full rounded-xl  "
+      className="h-full w-full select-none rounded-xl object-cover"
     />
   </div>
 );
@@ -81,12 +83,23 @@ const TextCard = (props: any) => (
   </div>
 );
 
+const WorkExperienceCard = (props: any) => (
+  <div
+    {...props}
+    className={`${props.className} flex !h-28 !w-28 flex-col gap-1`}
+  >
+    <p className="text-xs">Work Experience</p>
+    <p className="text-xs">Coming Soon</p>
+  </div>
+);
+
 // Wrapping Components with HOC
 const WrappedTitleCard = withDefaultProps(TitleCard);
 const WrappedProfileCard = withDefaultProps(ProfileCard);
 const WrappedLinkCard = withDefaultProps(LinkCard);
 const WrappedImageCard = withDefaultProps(ImageCard);
 const WrappedTextCard = withDefaultProps(TextCard);
+const WrappedWorkExperienceCard = withDefaultProps(WorkExperienceCard);
 
 function LeftBarCard({ item }: { item: ILeftSidebarCard }) {
   switch (item.variant) {
@@ -100,6 +113,8 @@ function LeftBarCard({ item }: { item: ILeftSidebarCard }) {
       return <WrappedImageCard item={item} />;
     case "text":
       return <WrappedTextCard item={item} />;
+    case "workExperience":
+      return <WrappedWorkExperienceCard item={item} />;
     default:
       return <WrappedProfileCard />;
   }

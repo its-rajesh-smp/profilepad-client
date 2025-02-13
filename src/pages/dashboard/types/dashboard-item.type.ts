@@ -5,7 +5,8 @@ export type TGridItemVariant =
   | "text"
   | "image"
   | "profileHeadline"
-  | "link";
+  | "link"
+  | "workExperience";
 
 export type IGridItemConfigs = {
   [key in TGridItemVariant]: ILeftSidebarDroppingItem;
@@ -32,7 +33,8 @@ export type TGridItemSettingInputType =
   | "position"
   | "design"
   | "src"
-  | "href";
+  | "href"
+  | "item";
 
 export type IGridItemSettings = {
   [key in TGridItemVariant]: IGridItemSetting[];

@@ -1,4 +1,4 @@
-import { BiLogoGithub, BiUser } from "react-icons/bi";
+import { BiUser } from "react-icons/bi";
 import {
   IGridItemConfigs,
   IGridItemSettings,
@@ -27,6 +27,11 @@ export const gridItemConfigs: IGridItemConfigs = {
     w: 2,
   },
   profileHeadline: {
+    ...defaultLayoutConfig,
+    h: 2,
+    w: 100,
+  },
+  workExperience: {
     ...defaultLayoutConfig,
     h: 2,
     w: 100,
@@ -112,6 +117,22 @@ export const gridItemSettings: IGridItemSettings = {
       availableDesigns: ["1x4", "2x2", "4x4"],
     },
   ],
+  workExperience: [
+    {
+      type: "color",
+      title: "Color Variant",
+    },
+    {
+      title: "Add Item",
+      type: "item",
+      fieldToUpdate: "items",
+    },
+    {
+      type: "design",
+      title: "Design",
+      availableDesigns: ["2x100", "2x4"],
+    },
+  ],
 };
 
 export const leftSidebarCards: ILeftSidebarCard[][] = [
@@ -140,7 +161,8 @@ export const leftSidebarCards: ILeftSidebarCard[][] = [
       variant: "image",
     },
     {
-      variant: "text",
+      variant: "workExperience",
+      isComingSoon: true,
     },
   ],
 ];

@@ -4,6 +4,7 @@ export interface ILeftSidebarCard {
   variant: TGridItemVariant;
   icon?: React.ReactNode;
   title?: string;
+  isComingSoon?: boolean;
 }
 
 export interface ILeftSidebarDroppingItem {
