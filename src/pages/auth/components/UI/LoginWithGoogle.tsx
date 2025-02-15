@@ -6,6 +6,7 @@ import { useState } from "react";
 import { BiLogoGoogle } from "react-icons/bi";
 import { toast } from "sonner";
 import { googleLoginAct } from "../../action-creators/google-login.act";
+import { useNavigate } from "react-router-dom";
 
 function LoginWithGoogle({
   btnText = "Sign in with Google",
@@ -16,6 +17,7 @@ function LoginWithGoogle({
 }) {
   const dispatch = useAppDispatch();
   const [loader, setLoader] = useState(false);
+  const navigate = useNavigate();
 
   /**
    *  hook to handle login with google
@@ -23,7 +25,7 @@ function LoginWithGoogle({
   const loginWithGoogle = useGoogleLogin({
     onSuccess: (response) => {
       setLoader(false);
-      dispatch(googleLoginAct(response.access_token, slug));
+      dispatch(googleLoginAct(response.access_token, slug, navigate));
     },
     onError: (error) => {
       setLoader(false);

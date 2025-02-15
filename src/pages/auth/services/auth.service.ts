@@ -8,7 +8,7 @@ export const createAccount = (data: any) =>
 export const login = (data: any) => axiosInterceptors.post("/user/login", data);
 
 export const loginWithGoogle = (data: any) =>
-  axiosInterceptors.post("/user/google-login", data);
+  axiosInterceptors.post("/user/login/google", data);
 
 export const updateProfile = (_id: string, data: any) =>
   axiosInterceptors.patch(`/user/update/profile`, { data });

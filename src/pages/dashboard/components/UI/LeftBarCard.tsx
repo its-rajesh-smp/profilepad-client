@@ -58,6 +58,7 @@ const ImageCard = (props: any) => (
     <LazyImage
       wrapperClassName="h-full w-full rounded-xl  "
       className="h-full w-full select-none rounded-xl object-cover"
+      src="https://play-lh.googleusercontent.com/qjXTcCAhQxf2ifPgfsdooK74zjSZdegs5FrMhrG1zIyg9IL4RSmQG3jNfjkZ-MqFhUMX"
     />
   </div>
 );
@@ -87,7 +88,7 @@ const TextCard = (props: any) => (
 const WorkExperienceCard = (props: any) => (
   <div
     {...props}
-    className={`${props.className} flex !h-28 !w-28 flex-col gap-1`}
+    className={`${props.className} flex !h-28 !w-28 flex-col justify-between gap-3`}
   >
     <div className="h-10 w-10">
       <LazyImage src={DEFAULT_WORK_EXPERIENCE_IMAGE_SRC} />

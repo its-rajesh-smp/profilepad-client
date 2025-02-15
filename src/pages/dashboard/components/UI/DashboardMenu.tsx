@@ -13,6 +13,7 @@ import { CiGrid42, CiLaptop, CiLogout, CiMobile3 } from "react-icons/ci";
 import { IoMdClose } from "react-icons/io";
 import { setCurrentView } from "../../reducers/dashboard.reducer";
 import RightBarSection from "../right-bar/RightBarSection";
+import { logout } from "@/pages/auth/reducers/auth.reducer";
 
 function DashboardMenu() {
   const { open } = useSidebar();
@@ -64,7 +65,12 @@ function DashboardMenu() {
         <SidebarFooter>
           <div className="relative flex items-center justify-between gap-2 px-2">
             <p className="text-sm font-semibold text-primary">Logout</p>
-            <Button size="icon" variant="ghost" icon={<CiLogout />} />
+            <Button
+              onClick={() => dispatch(logout())}
+              size="icon"
+              variant="ghost"
+              icon={<CiLogout />}
+            />
           </div>
         </SidebarFooter>
       </Sidebar>
