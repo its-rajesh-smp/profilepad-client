@@ -24,6 +24,7 @@ module.exports = {
       },
       animation: {
         spotlight: "spotlight 2s ease .75s 1 forwards",
+        progress: "progress 1.5s linear infinite", // Infinite looping animation
       },
       keyframes: {
         spotlight: {
@@ -35,6 +36,10 @@ module.exports = {
             opacity: 1,
             transform: "translate(-50%,-40%) scale(1)",
           },
+        },
+        progress: {
+          "0%": { transform: "translateX(-100%)" }, // Start off-screen to the left
+          "100%": { transform: "translateX(200%)" }, // Move off-screen to the right
         },
       },
       textColor: {

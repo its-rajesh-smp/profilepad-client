@@ -6,6 +6,7 @@ import DashboardGrid from "./components/DashboardGrid";
 import LeftBar from "./components/LeftBar";
 import RightBar from "./components/RightBar";
 import { GridLayoutProvider } from "./contexts/grid-layout.context";
+import DashboardMenu from "./components/UI/DashboardMenu";
 
 function Dashboard() {
   const dispatch = useAppDispatch();
@@ -21,9 +22,9 @@ function Dashboard() {
     <div className="flex h-full w-full justify-center overflow-hidden">
       <div className="flex h-full w-full items-start justify-center gap-10">
         <GridLayoutProvider>
-          {/* <SidebarProvider className={sidebarClassName}>
+          <SidebarProvider className={sidebarClassName}>
             <DashboardMenu />
-          </SidebarProvider> */}
+          </SidebarProvider>
           <SidebarProvider className={sidebarClassName}>
             <LeftBar />
           </SidebarProvider>

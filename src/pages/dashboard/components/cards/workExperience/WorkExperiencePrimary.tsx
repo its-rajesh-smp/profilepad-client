@@ -110,7 +110,7 @@ function Experience({
               id="primaryText"
               fieldToUpdate="primaryText"
               placeholder="www.sharpener.tech"
-              className={`!mb-0 text-lg font-semibold ${colorSchema.primaryTextColor}`}
+              className={`!mb-0 text-base font-semibold ${colorSchema.primaryTextColor}`}
               value={metadataItem.primaryText}
             />
             <AutoSaveTextField

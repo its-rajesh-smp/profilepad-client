@@ -1,9 +1,15 @@
 import { useEffect, useState } from "react";
+import { useAppSelector } from "./useAppSelector";
 
 type Orientation = "h" | "v";
 export type TScreenSize = "xs" | "sm" | "md" | "lg";
 
-function useScreenSize(callback?: (size: TScreenSize) => void) {
+function useScreenSize(
+  callback?: (size: TScreenSize) => void,
+  overrideSize: boolean = true,
+) {
+  const { currentView } = useAppSelector((state) => state.dashboardSlice);
+
   // Define breakpoints for screen sizes
   const breakpoints = {
     xs: 576, // Extra small screens (e.g., phones)
@@ -46,10 +52,16 @@ function useScreenSize(callback?: (size: TScreenSize) => void) {
   }, []);
 
   const screenSizeArray = screenSize.split("-");
-  return {
+
+  const data = {
     size: screenSizeArray[0] as TScreenSize,
     orientation: screenSizeArray[1] as Orientation,
   };
+
+  // If user choose mobile view then explicitly setting the size
+  if (overrideSize && currentView === "mobile") data.size = "xs";
+
+  return data;
 }
 
 export default useScreenSize;

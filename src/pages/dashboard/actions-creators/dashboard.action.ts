@@ -18,7 +18,8 @@ export const getUserDashboardAct = () => {
 };
 
 export const updateDashboardGridAct = (updatedLayouts: Layouts) => {
-  return async (_dispatch: AppDispatch) => {
+  return async (dispatch: AppDispatch) => {
     await updateDashboard({ layouts: updatedLayouts });
+    dispatch(setGridLayouts(updatedLayouts));
   };
 };

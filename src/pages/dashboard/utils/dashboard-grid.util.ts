@@ -2,6 +2,7 @@ import { Layouts } from "react-grid-layout";
 import { COLS } from "../constants/dashboard-grid.const";
 import { ILeftSidebarDroppingItem } from "../types/left-sidebar-item.type";
 import { IGridItem } from "../types/dashboard-item.type";
+import { TViews } from "../types/dashboard.type";
 
 export const adjustDroppingItemWidthBasedOnGridSize = (
   droppingItem: ILeftSidebarDroppingItem | undefined,
@@ -49,4 +50,18 @@ export const formatGridLayout = (
       }));
   });
   return newLayouts;
+};
+
+export const getLayoutWidth = (currentView: TViews) => {
+  // For all the device width of small screen same
+  let width = "w-[400px] ";
+
+  // If user choose mobile view then explicitly setting the width
+  if (currentView === "mobile") {
+    width += "lg:w-[400px]";
+  } else if (currentView === "desktop") {
+    width += "lg:w-[800px]";
+  }
+
+  return width;
 };
