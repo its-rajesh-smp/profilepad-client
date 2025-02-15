@@ -40,6 +40,8 @@ export type IGridItemSettings = {
   [key in TGridItemVariant]: IGridItemSetting[];
 };
 
+export type TColorSchema = Record<string, GridItemColorStyles>;
+
 export interface IGridItemSetting {
   type: TGridItemSettingInputType;
   availableDesigns?: TGridItemSizeVariant[];
@@ -56,3 +58,11 @@ export type GridItemColorStyles = {
   iconColor: string;
   borderColor: string;
 };
+
+export interface IMetadataItem {
+  id: string;
+  primaryText: string;
+  secondaryText: string;
+  tertiaryText?: string;
+  href?: string;
+}

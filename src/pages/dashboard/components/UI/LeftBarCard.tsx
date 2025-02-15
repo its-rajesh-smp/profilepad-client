@@ -2,6 +2,7 @@ import LazyImage from "@/common/components/LazyImage/LazyImage";
 import { useContext } from "react";
 import reactGridLayoutContext from "../../contexts/grid-layout.context";
 import { ILeftSidebarCard } from "../../types/left-sidebar-item.type";
+import { DEFAULT_WORK_EXPERIENCE_IMAGE_SRC } from "@/common/constants/url.const";
 
 // Higher-Order Component for common styles and functionality
 const withDefaultProps = (Component: React.FC<any>) => {
@@ -88,8 +89,10 @@ const WorkExperienceCard = (props: any) => (
     {...props}
     className={`${props.className} flex !h-28 !w-28 flex-col gap-1`}
   >
+    <div className="h-10 w-10">
+      <LazyImage src={DEFAULT_WORK_EXPERIENCE_IMAGE_SRC} />
+    </div>
     <p className="text-xs">Work Experience</p>
-    <p className="text-xs">Coming Soon</p>
   </div>
 );
 

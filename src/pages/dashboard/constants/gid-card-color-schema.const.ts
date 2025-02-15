@@ -1,6 +1,6 @@
-import { GridItemColorStyles } from "../types/dashboard-item.type";
+import { TColorSchema } from "../types/dashboard-item.type";
 
-export const gridItemColorVariants: Record<string, GridItemColorStyles> = {
+export const gridItemColorVariants: TColorSchema = {
   blue: {
     backgroundColor: "bg-blue-500",
     primaryTextColor: "text-white",

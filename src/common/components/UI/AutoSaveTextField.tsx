@@ -4,7 +4,7 @@ import { useCallback, useRef } from "react";
 interface IAutoSaveTextFieldProps {
   children?: React.ReactNode;
   id: string;
-  fieldToUpdate: string; // JSON field path, e.g., "metadata.html" or simple field "primaryText"
+  fieldToUpdate: string;
   className?: string;
   onChange?: (id: string, data: any) => void;
   onFocus?: () => void;
@@ -61,7 +61,7 @@ function AutoSaveTextField({
   return (
     <span
       style={style}
-      className={`no-drag mb-1 w-full cursor-text rounded-md text-left outline-none transition-all duration-300 focus:bg-select focus:text-white ${className} `}
+      className={`no-drag mb-1 w-full cursor-text rounded-md text-left outline-none transition-all duration-300 ${className} `}
       contentEditable={true}
       suppressContentEditableWarning
       onInput={onTextChange}

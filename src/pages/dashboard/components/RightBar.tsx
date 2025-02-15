@@ -15,7 +15,7 @@ import { gridItemSettings } from "../constants/grid-card.const.tsx";
 import useGridItem from "../hooks/useGridItem";
 import { setCurrentSelectedGridItemId } from "../reducers/dashboard.reducer";
 import { IGridItemSetting } from "../types/dashboard-item.type";
-import AddItem from "./right-bar/AddItem.tsx";
+import AddItem from "./right-bar/AddMetadataItem.tsx";
 import RightBarSection from "./right-bar/RightBarSection";
 import SelectCardColor from "./right-bar/SelectCardColor";
 import SelectCardType from "./right-bar/SelectCardType";

@@ -37,15 +37,16 @@ function TextPrimary() {
 
   return (
     <div
-      className={`relative z-50 flex h-full w-full rounded-2xl border ${colorSchema.backgroundColor} ${colorSchema.primaryTextColor} p-2 transition-all duration-300`}
+      className={`flex h-full w-full rounded-2xl border ${colorSchema.backgroundColor} ${colorSchema.primaryTextColor} p-2 transition-all duration-300`}
     >
       <div
-        className={`no-scrollbar h-full ${colorSchema.backgroundColor} w-full cursor-text overflow-x-auto rounded-2xl p-2 transition-all duration-300 hover:${colorSchema.secondaryBackgroundColor} `}
+        className={`no-scrollbar no-drag h-full ${colorSchema.backgroundColor} w-full cursor-text overflow-x-auto rounded-2xl p-2 transition-all duration-300 hover:${colorSchema.secondaryBackgroundColor} `}
       >
         <Editor
           value={text}
           onChange={handleTextChange}
-          className="no-drag h-full w-full"
+          enableFormattingToolbar
+          enableSlashMenu
         />
       </div>
     </div>

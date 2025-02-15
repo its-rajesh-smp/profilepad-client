@@ -3,6 +3,10 @@ import { useAppSelector } from "@/common/hooks/useAppSelector";
 import { motion } from "framer-motion";
 import { useContext, useState } from "react";
 import GridItemContext from "../../contexts/grid-item.context";
+import {
+  setCurrentActiveGridItemId,
+  setIsFirstGridLoad,
+} from "../../reducers/dashboard.reducer";
 import ImagePrimary from "../cards/image/ImagePrimary";
 import LinkPrimary from "../cards/link/LinkPrimary";
 import ProfileHeadlinePrimary from "../cards/profile-headline/ProfileHeadlinePrimary";
@@ -17,8 +21,8 @@ interface IGridItemProps {
 }
 
 function GridItem({ index, isLast }: IGridItemProps) {
-  const isFirstGridLoad = useAppSelector(
-    (state) => state.dashboardSlice.isFirstGridLoad,
+  const { isFirstGridLoad, currentActiveGridItemId } = useAppSelector(
+    (state) => state.dashboardSlice,
   );
   const { item } = useContext(GridItemContext);
   const dispatch = useAppDispatch();
@@ -51,17 +55,18 @@ function GridItem({ index, isLast }: IGridItemProps) {
     item && (
       <motion.div
         {...animation}
-        whileHover={{ scale: 1.05 }}
+        whileHover={{ scale: 1.01 }}
         onHoverStart={() => {
           setIsHovered(true);
         }}
         onHoverEnd={() => {
           setIsHovered(false);
         }}
-        className={`relative flex h-full w-full cursor-move rounded-2xl bg-white hover:shadow-sm`}
-        // onAnimationComplete={() => {
-        //   isLast && dispatch(setIsFirstGridLoad(false));
-        // }}
+        className={`flex h-full w-full cursor-move rounded-2xl bg-white hover:shadow-sm`}
+        onAnimationComplete={() => {
+          isLast && dispatch(setIsFirstGridLoad(false));
+        }}
+        onClick={() => dispatch(setCurrentActiveGridItemId(item.id))}
       >
         {isHovered && <GridItemActionBar />}
 

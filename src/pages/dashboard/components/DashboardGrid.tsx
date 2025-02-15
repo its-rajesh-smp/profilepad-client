@@ -28,11 +28,14 @@ const ReactGridLayout = WidthProvider(ResponsiveGridLayout);
 
 function DashboardGrid() {
   const { size } = useScreenSize();
-  const { layouts } = useAppSelector((state) => state.gridSlice);
+  const { layouts, layoutItems } = useAppSelector((state) => state.gridSlice);
+  const { isFirstGridLoad, currentActiveGridItemId } = useAppSelector(
+    (state) => state.dashboardSlice,
+  );
   const { droppingItem, onDropHandler, onLayoutChangeHandler } =
     useContext(gridLayoutContext);
 
-  const formattedGridLayout = formatGridLayout(layouts);
+  const formattedGridLayout = formatGridLayout(layouts, layoutItems);
 
   // Only call onLayoutChangeHandler if the new layout is different from the current state layout
   const debouncedLayoutChangeHandler = debounce(
@@ -65,13 +68,20 @@ function DashboardGrid() {
         )}
         onDrop={onDropHandler}
         draggableCancel=".no-drag"
+        resizeHandle={isFirstGridLoad ? <></> : undefined}
       >
         {(size === "lg"
           ? formattedGridLayout["lg"]
           : formattedGridLayout["xs"]
         ).map((item, index, arr) => {
           return (
-            <div className="z-10! relative!" key={item.i} data-grid={item}>
+            <div
+              style={{
+                zIndex: currentActiveGridItemId === item.i ? 50 : undefined,
+              }}
+              key={item.i}
+              data-grid={item}
+            >
               <GridItemContextProvider {...item}>
                 <GridItem isLast={arr.length - 1 === index} index={index} />
               </GridItemContextProvider>

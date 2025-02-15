@@ -1,4 +1,4 @@
-import { BiUser } from "react-icons/bi";
+import { BiLink } from "react-icons/bi";
 import {
   IGridItemConfigs,
   IGridItemSettings,
@@ -127,11 +127,6 @@ export const gridItemSettings: IGridItemSettings = {
       type: "item",
       fieldToUpdate: "items",
     },
-    {
-      type: "design",
-      title: "Design",
-      availableDesigns: ["2x100", "2x4"],
-    },
   ],
 };
 
@@ -150,7 +145,7 @@ export const leftSidebarCards: ILeftSidebarCard[][] = [
     {
       variant: "link",
       title: "Link",
-      icon: <BiUser />,
+      icon: <BiLink />,
     },
     {
       variant: "text",
@@ -162,7 +157,6 @@ export const leftSidebarCards: ILeftSidebarCard[][] = [
     },
     {
       variant: "workExperience",
-      isComingSoon: true,
     },
   ],
 ];
