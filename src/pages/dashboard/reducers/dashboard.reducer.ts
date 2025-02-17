@@ -7,6 +7,7 @@ interface IInitialState {
   isDragging: boolean;
   currentActiveGridItemId: string;
   currentView: TViews;
+  currentDashboardSlug: string | undefined;
 }
 
 const initialState: IInitialState = {
@@ -15,6 +16,7 @@ const initialState: IInitialState = {
   currentActiveGridItemId: "",
   isDragging: false,
   currentView: "desktop",
+  currentDashboardSlug: undefined,
 };
 
 const dashboardSlice = createSlice({
@@ -36,6 +38,9 @@ const dashboardSlice = createSlice({
     setCurrentView: (state, action) => {
       state.currentView = action.payload;
     },
+    setCurrentDashboardSlug: (state, action) => {
+      state.currentDashboardSlug = action.payload;
+    },
   },
 });
 
@@ -45,5 +50,6 @@ export const {
   setIsDragging,
   setCurrentActiveGridItemId,
   setCurrentView,
+  setCurrentDashboardSlug,
 } = dashboardSlice.actions;
 export default dashboardSlice.reducer;

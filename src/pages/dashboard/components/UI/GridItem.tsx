@@ -21,9 +21,8 @@ interface IGridItemProps {
 }
 
 function GridItem({ index, isLast }: IGridItemProps) {
-  const { isFirstGridLoad, currentActiveGridItemId } = useAppSelector(
-    (state) => state.dashboardSlice,
-  );
+  const { isFirstGridLoad } = useAppSelector((state) => state.dashboardSlice);
+  const { isAuthenticated } = useAppSelector((state) => state.authSlice);
   const { item } = useContext(GridItemContext);
   const dispatch = useAppDispatch();
   const [isHovered, setIsHovered] = useState(false);
@@ -68,7 +67,7 @@ function GridItem({ index, isLast }: IGridItemProps) {
         }}
         onClick={() => dispatch(setCurrentActiveGridItemId(item.id))}
       >
-        {isHovered && <GridItemActionBar />}
+        {isAuthenticated && isHovered && <GridItemActionBar />}
 
         {item.variant === "title" && <TitlePrimary />}
         {item.variant === "link" && <LinkPrimary />}

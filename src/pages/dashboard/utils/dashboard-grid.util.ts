@@ -1,8 +1,8 @@
 import { Layouts } from "react-grid-layout";
 import { COLS } from "../constants/dashboard-grid.const";
-import { ILeftSidebarDroppingItem } from "../types/left-sidebar-item.type";
 import { IGridItem } from "../types/dashboard-item.type";
 import { TViews } from "../types/dashboard.type";
+import { ILeftSidebarDroppingItem } from "../types/left-sidebar-item.type";
 
 export const adjustDroppingItemWidthBasedOnGridSize = (
   droppingItem: ILeftSidebarDroppingItem | undefined,
@@ -28,6 +28,7 @@ export const adjustDroppingItemWidthBasedOnGridSize = (
 export const formatGridLayout = (
   layouts: Layouts,
   layoutItems: IGridItem[],
+  isAuthenticated: boolean | undefined,
 ) => {
   const newLayouts: Layouts = {};
 
@@ -42,11 +43,14 @@ export const formatGridLayout = (
       .filter((layout) => layoutItems.some((item) => item.id === layout.i))
       .map((layout) => ({
         ...layout,
-        isResizable: layoutItems.find(
-          (item) => item.id === layout.i && item.variant === "workExperience",
-        )
-          ? true
-          : false,
+        isDraggable: isAuthenticated ? true : false,
+        isResizable:
+          isAuthenticated &&
+          layoutItems.find(
+            (item) => item.id === layout.i && item.variant === "workExperience",
+          )
+            ? true
+            : false,
       }));
   });
   return newLayouts;

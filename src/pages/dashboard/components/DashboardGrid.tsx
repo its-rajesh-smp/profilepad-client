@@ -1,6 +1,6 @@
 import { useAppSelector } from "@/common/hooks/useAppSelector";
 import useScreenSize from "@/common/hooks/useScreenSize";
-import { debounce, isEqual } from "lodash";
+import { debounce } from "lodash";
 import { useContext } from "react";
 import {
   Layout,
@@ -32,10 +32,15 @@ function DashboardGrid() {
   const { layouts, layoutItems } = useAppSelector((state) => state.gridSlice);
   const { isFirstGridLoad, currentActiveGridItemId, currentView } =
     useAppSelector((state) => state.dashboardSlice);
+  const { isAuthenticated } = useAppSelector((state) => state.authSlice);
   const { droppingItem, onDropHandler, onLayoutChangeHandler } =
     useContext(gridLayoutContext);
 
-  const formattedGridLayout = formatGridLayout(layouts, layoutItems);
+  const formattedGridLayout = formatGridLayout(
+    layouts,
+    layoutItems,
+    isAuthenticated,
+  );
 
   // Only call onLayoutChangeHandler if the new layout is different from the current state layout
   const debouncedLayoutChangeHandler = debounce(
@@ -43,7 +48,7 @@ function DashboardGrid() {
       const isAnythingChanged =
         JSON.stringify(all) != JSON.stringify(formattedGridLayout);
       // Only call if the new layout is different from the current state layout
-      if (isAnythingChanged && !droppingItem) {
+      if (isAnythingChanged && isAuthenticated && !droppingItem) {
         onLayoutChangeHandler(updatedLayout, all);
       }
     },
@@ -71,6 +76,7 @@ function DashboardGrid() {
         onDrop={onDropHandler}
         draggableCancel=".no-drag"
         resizeHandle={isFirstGridLoad ? <></> : undefined}
+        isDraggable={isAuthenticated}
       >
         {(size === "lg"
           ? formattedGridLayout["lg"]

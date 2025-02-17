@@ -1,3 +1,4 @@
+import { useAppSelector } from "@/common/hooks/useAppSelector";
 import {
   BlockNoteEditor,
   filterSuggestionItems,
@@ -17,13 +18,14 @@ import {
   SuggestionMenuController,
   useCreateBlockNote,
 } from "@blocknote/react";
+import { debounce } from "lodash";
+import { useCallback } from "react";
 import "./style.css";
 
 interface IEditor {
   className?: string;
   onChange?: (value: string) => void;
   value?: string;
-  editable?: boolean;
   enableFormattingToolbar?: boolean;
   enableSlashMenu?: boolean;
 }
@@ -32,10 +34,10 @@ function Editor({
   className,
   onChange,
   value,
-  editable = true,
   enableFormattingToolbar = false,
   enableSlashMenu = false,
 }: IEditor) {
+  const { isAuthenticated } = useAppSelector((state) => state.authSlice);
   const initialContent: any = value || "";
   // We use the English, default dictionary
   const locale = locales["en"];
@@ -67,10 +69,23 @@ function Editor({
     return items;
   };
 
+  const debouncedUpdateOnDb = useCallback(
+    debounce((jsonString: any) => {
+      onChange?.(jsonString);
+    }, 500),
+    [onChange],
+  );
+
+  const onTextChange = () => {
+    debouncedUpdateOnDb(editor.document as any);
+  };
+
+  const isEditable = isAuthenticated === true ? true : false;
+
   return (
     <BlockNoteView
-      editable={editable}
-      onChange={() => onChange?.(editor.document as any)}
+      editable={isEditable}
+      onChange={() => isEditable && onTextChange()}
       className={className}
       editor={editor}
       sideMenu={false}

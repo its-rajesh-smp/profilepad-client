@@ -1,3 +1,4 @@
+import { useAppSelector } from "@/common/hooks/useAppSelector";
 import { debounce } from "@/common/utils/debounce.util";
 import { useCallback, useRef } from "react";
 
@@ -25,6 +26,7 @@ function AutoSaveTextField({
   value,
   placeholder,
 }: IAutoSaveTextFieldProps) {
+  const { isAuthenticated } = useAppSelector((state) => state.authSlice);
   const localRef = useRef(value?.trim() || placeholder);
 
   // Utility to update nested JSON field
@@ -62,7 +64,7 @@ function AutoSaveTextField({
     <span
       style={style}
       className={`no-drag mb-1 w-full cursor-text rounded-md text-left outline-none transition-all duration-300 ${className} `}
-      contentEditable={true}
+      contentEditable={isAuthenticated}
       suppressContentEditableWarning
       onInput={onTextChange}
       onFocus={onFocus}

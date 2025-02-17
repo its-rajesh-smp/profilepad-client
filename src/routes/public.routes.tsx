@@ -2,6 +2,7 @@ import Login from "@/pages/auth/Login";
 import Register from "@/pages/auth/Register";
 import Landing from "@/pages/landing/Landing";
 import GuestGuard from "./guards/GuestGuard";
+import Dashboard from "@/pages/dashboard/Dashboard";
 
 const publicRoutes = [
   {
@@ -20,6 +21,10 @@ const publicRoutes = [
         element: <Register />,
       },
     ],
+  },
+  {
+    path: "/:slug",
+    element: <Dashboard />,
   },
 ];
 

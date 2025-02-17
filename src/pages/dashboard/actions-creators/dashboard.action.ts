@@ -1,18 +1,27 @@
 import { AppDispatch } from "@/common/hooks/useAppDispatch";
+import { setIsAuthenticated } from "@/pages/auth/reducers/auth.reducer";
 import { Layouts } from "react-grid-layout";
+import { setCurrentDashboardSlug } from "../reducers/dashboard.reducer";
 import { setGridLayoutItems, setGridLayouts } from "../reducers/grid.reducer";
 import {
   getUserDashboard,
+  getUserDashboardWithSlug,
   updateDashboard,
 } from "../services/dashboard.service";
-import { getGridItems } from "../services/grid.service";
 
-export const getUserDashboardAct = () => {
+export const getUserDashboardAct = (slug?: string) => {
   return async (dispatch: AppDispatch) => {
-    const dashboardRes = await getUserDashboard();
-    const gridItemsRes = await getGridItems();
-    dispatch(setGridLayouts(dashboardRes.data.layouts));
-    dispatch(setGridLayoutItems(gridItemsRes.data));
+    let dashboardRes = null;
+    if (slug) {
+      dispatch(setIsAuthenticated(false));
+      dashboardRes = await getUserDashboardWithSlug(slug);
+    } else {
+      dashboardRes = await getUserDashboard();
+    }
+    const { dashboard, gridItems } = dashboardRes.data;
+    dispatch(setGridLayouts(dashboard.layouts));
+    dispatch(setGridLayoutItems(gridItems));
+    dispatch(setCurrentDashboardSlug(dashboard.slug));
     sessionStorage.setItem("isFirstTime", "true");
   };
 };
