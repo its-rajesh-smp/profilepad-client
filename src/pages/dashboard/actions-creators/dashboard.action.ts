@@ -12,11 +12,15 @@ import {
 export const getUserDashboardAct = (slug?: string) => {
   return async (dispatch: AppDispatch) => {
     let dashboardRes = null;
-    if (slug) {
-      dispatch(setIsAuthenticated(false));
-      dashboardRes = await getUserDashboardWithSlug(slug);
-    } else {
-      dashboardRes = await getUserDashboard();
+    try {
+      if (slug) {
+        dispatch(setIsAuthenticated(false));
+        dashboardRes = await getUserDashboardWithSlug(slug);
+      } else {
+        dashboardRes = await getUserDashboard();
+      }
+    } catch (error) {
+      throw error;
     }
     const { dashboard, gridItems } = dashboardRes.data;
     dispatch(setGridLayouts(dashboard.layouts));

@@ -2,8 +2,8 @@ import { useAppDispatch } from "@/common/hooks/useAppDispatch";
 import { useAppSelector } from "@/common/hooks/useAppSelector";
 import useScreenSize from "@/common/hooks/useScreenSize";
 import { Check } from "lucide-react";
+import { updateGridLayoutItemSizeAct } from "../../actions-creators/grid.action";
 import useGridItemSize from "../../hooks/useGridItemSize";
-import { updateGridLayoutItemSize } from "../../reducers/grid.reducer";
 import { TGridItemSizeVariant } from "../../types/dashboard-item.type";
 import { convertGridItemVariantToSize } from "../../utils/grid-item.util";
 
@@ -35,12 +35,7 @@ function SelectCardType({
   const onClickDesign = (variant: TGridItemSizeVariant) => {
     const { w, h } = convertGridItemVariantToSize(variant);
     dispatch(
-      updateGridLayoutItemSize({
-        i: currentSelectedGridItemId,
-        w,
-        h,
-        currentScreenSize: screenSize,
-      }),
+      updateGridLayoutItemSizeAct(currentSelectedGridItemId, w, h, screenSize),
     );
   };
 

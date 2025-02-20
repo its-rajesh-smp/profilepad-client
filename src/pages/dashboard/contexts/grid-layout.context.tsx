@@ -1,27 +1,28 @@
 import { useAppDispatch } from "@/common/hooks/useAppDispatch";
+import { useAppSelector } from "@/common/hooks/useAppSelector.ts";
 import useScreenSize from "@/common/hooks/useScreenSize";
 import { createUUID } from "@/common/utils/uuid.util";
 import { createContext, useState } from "react";
-import { Layout, Layouts } from "react-grid-layout";
+import { Layout } from "react-grid-layout";
 import { updateDashboardGridAct } from "../actions-creators/dashboard.action";
 import { createNewLayoutItemAct } from "../actions-creators/grid.action";
 import { gridItemConfigs } from "../constants/grid-card.const.tsx";
+import { setIsDragging } from "../reducers/dashboard.reducer";
 import { TGridItemVariant } from "../types/dashboard-item.type";
 import { ILeftSidebarDroppingItem } from "../types/left-sidebar-item.type";
-import { setIsDragging } from "../reducers/dashboard.reducer";
 
 interface IGridLayoutContext {
   onDragStartHandler: (variant: TGridItemVariant) => void;
   onDropHandler: (layout: Layout[], item: Layout) => void;
   droppingItem: ILeftSidebarDroppingItem | undefined;
-  onLayoutChangeHandler: (currentLayout: Layout[], allLayouts: Layouts) => void;
+  onLayoutResizeStop: (updatedLayout: Layout[]) => void;
 }
 
 const initialState: IGridLayoutContext = {
   onDragStartHandler: () => {},
   onDropHandler: () => {},
   droppingItem: undefined,
-  onLayoutChangeHandler: () => {},
+  onLayoutResizeStop: () => {},
 };
 
 const GridLayoutContext = createContext(initialState);
@@ -32,6 +33,7 @@ export const GridLayoutProvider = ({
   children: React.ReactNode;
 }) => {
   const { size } = useScreenSize();
+  const { layouts } = useAppSelector((state) => state.gridSlice);
 
   const [droppingItem, setDroppingItem] = useState<
     ILeftSidebarDroppingItem | undefined
@@ -60,11 +62,11 @@ export const GridLayoutProvider = ({
     setDroppingItemVariant(undefined);
   };
 
-  const onLayoutChangeHandler = (
-    _newLayouts: Layout[],
-    allLayouts: Layouts,
-  ) => {
-    dispatch(updateDashboardGridAct(allLayouts));
+  const onLayoutResizeStop = (allLayouts: Layout[]) => {
+    const currentLayouts = { ...layouts };
+    const currentScreenSize = size === "lg" ? "lg" : "xs";
+    currentLayouts[currentScreenSize] = allLayouts;
+    dispatch(updateDashboardGridAct(currentLayouts));
   };
 
   return (
@@ -73,7 +75,7 @@ export const GridLayoutProvider = ({
         onDragStartHandler,
         onDropHandler,
         droppingItem,
-        onLayoutChangeHandler,
+        onLayoutResizeStop,
       }}
     >
       {children}

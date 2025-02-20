@@ -30,7 +30,7 @@ export const formatGridLayout = (
   layoutItems: IGridItem[],
   isAuthenticated: boolean | undefined,
 ) => {
-  const newLayouts: Layouts = {};
+  const newLayouts: Layouts = { lg: [], xs: [] };
 
   /*
    * FIXME:

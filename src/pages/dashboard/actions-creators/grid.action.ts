@@ -8,6 +8,7 @@ import {
   setGridLayouts,
   updateGridLayoutItem,
 } from "../reducers/grid.reducer";
+import { updateDashboard } from "../services/dashboard.service";
 import {
   createGridItem,
   deleteAGridItem,
@@ -26,6 +27,7 @@ export const createNewLayoutItemAct = (
     const currentLayouts = { ...getState().gridSlice.layouts };
 
     let otherScreenSize = currentScreenSize === "lg" ? "xs" : "lg";
+
     currentLayouts[currentScreenSize] = newLayout;
     currentLayouts[otherScreenSize] = [
       ...currentLayouts[otherScreenSize],
@@ -37,8 +39,8 @@ export const createNewLayoutItemAct = (
       variant,
     };
     dispatch(setGridLayouts(currentLayouts));
-    const res = await createGridItem({ layouts: currentLayouts, newItem });
-    dispatch(createNewLayoutItem(res.data));
+    dispatch(createNewLayoutItem(newItem));
+    createGridItem({ layouts: currentLayouts, newItem });
   };
 };
 
@@ -73,5 +75,32 @@ export const deleteAGridItemAct = (id: string) => {
 
     const res = await deleteAGridItem(id);
     dispatch(setGridLayouts(res.data.layouts));
+  };
+};
+
+export const updateGridLayoutItemSizeAct = (
+  id: string,
+  newWidth: number,
+  newHeight: number,
+  currentScreenSize: string,
+) => {
+  return async (dispatch: AppDispatch, getState: () => RootState) => {
+    const updatedLayouts = { ...getState().gridSlice.layouts };
+
+    updatedLayouts[currentScreenSize] = updatedLayouts[currentScreenSize].map(
+      (item) => {
+        if (item.i === id) {
+          return {
+            ...item,
+            w: newWidth,
+            h: newHeight,
+          };
+        }
+        return item;
+      },
+    );
+
+    dispatch(setGridLayouts(updatedLayouts));
+    updateDashboard({ layouts: updatedLayouts });
   };
 };

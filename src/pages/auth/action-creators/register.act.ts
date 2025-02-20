@@ -1,5 +1,5 @@
 import { AppDispatch } from "@/common/hooks/useAppDispatch";
-import { authenticate } from "../reducers/auth.reducer";
+import { authenticate, logout } from "../reducers/auth.reducer";
 import { createAccount, fetchUser } from "../services/auth.service";
 
 export const registerAct = (formData: {
@@ -22,8 +22,13 @@ export const fetchUserAct = () => {
   return async (dispatch: AppDispatch) => {
     const authToken = localStorage.getItem("authToken");
     if (!authToken) return false;
-    const response = await fetchUser();
-    const { user } = response.data;
-    dispatch(authenticate({ user, authToken }));
+    try {
+      const response = await fetchUser();
+      const { user } = response.data;
+      dispatch(authenticate({ user, authToken }));
+    } catch (error) {
+      dispatch(logout());
+      throw error;
+    }
   };
 };

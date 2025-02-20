@@ -10,35 +10,16 @@ function useScreenSize(
 ) {
   const { currentView } = useAppSelector((state) => state.dashboardSlice);
 
-  // Define breakpoints for screen sizes
-  const breakpoints = {
-    xs: 576, // Extra small screens (e.g., phones)
-    sm: 768, // Small screens (e.g., tablets)
-    md: 992, // Medium screens (e.g., desktops)
-    lg: 1200, // Large screens (e.g., larger desktops)
-  };
-
   const getSize = () => {
     const width = window.innerWidth;
     const height = window.innerHeight;
 
-    // Determine the orientation
     const orientation: Orientation = height > width ? "v" : "h"; // 'v' for vertical, 'h' for horizontal
 
-    // Determine the screen size
-    let size: TScreenSize;
-    if (width < breakpoints.xs) {
-      size = "xs";
-    } else if (width < breakpoints.sm) {
-      size = "sm";
-    } else if (width < breakpoints.md) {
-      size = "md";
-    } else {
-      size = "lg";
-    }
+    // Since the container width changes at 400px, we check for that
+    const size: TScreenSize = width >= 1024 ? "lg" : "xs";
 
     callback?.(size);
-
     return `${size}-${orientation}`;
   };
 

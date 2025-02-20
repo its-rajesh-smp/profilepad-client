@@ -1,10 +1,7 @@
 import { useAppSelector } from "@/common/hooks/useAppSelector";
 import useScreenSize from "@/common/hooks/useScreenSize";
-import { debounce } from "lodash";
 import { useContext } from "react";
 import {
-  Layout,
-  Layouts,
   Responsive as ResponsiveGridLayout,
   WidthProvider,
 } from "react-grid-layout";
@@ -28,13 +25,14 @@ import GridItem from "./UI/GridItem";
 const ReactGridLayout = WidthProvider(ResponsiveGridLayout);
 
 function DashboardGrid() {
-  const { size } = useScreenSize();
   const { layouts, layoutItems } = useAppSelector((state) => state.gridSlice);
   const { isFirstGridLoad, currentActiveGridItemId, currentView } =
     useAppSelector((state) => state.dashboardSlice);
   const { isAuthenticated } = useAppSelector((state) => state.authSlice);
-  const { droppingItem, onDropHandler, onLayoutChangeHandler } =
+
+  const { droppingItem, onDropHandler, onLayoutResizeStop } =
     useContext(gridLayoutContext);
+  const { size } = useScreenSize();
 
   const formattedGridLayout = formatGridLayout(
     layouts,
@@ -42,41 +40,33 @@ function DashboardGrid() {
     isAuthenticated,
   );
 
-  // Only call onLayoutChangeHandler if the new layout is different from the current state layout
-  const debouncedLayoutChangeHandler = debounce(
-    (updatedLayout: Layout[], all: Layouts) => {
-      const isAnythingChanged =
-        JSON.stringify(all) != JSON.stringify(formattedGridLayout);
-      // Only call if the new layout is different from the current state layout
-      if (isAnythingChanged && isAuthenticated && !droppingItem) {
-        onLayoutChangeHandler(updatedLayout, all);
-      }
-    },
-    1000,
-  );
-
   return (
     <div
-      className={`min-h-[calc(100vh+100px)] pb-[200px] ${getLayoutWidth(currentView)} `}
+      className={`min-h-[calc(100vh+100px)] pb-[200px] ${getLayoutWidth(currentView)} transition-all duration-200`}
     >
       <ReactGridLayout
-        className={`layout h-full min-h-[calc(100vh+100px)] justify-center`}
+        className={`layout h-full min-h-[calc(100vh+100px)] w-full justify-center`}
         breakpoints={BREAKPOINTS}
         layouts={formattedGridLayout}
         cols={COLS}
         margin={MARGIN}
         rowHeight={size === "lg" ? ROW_HEIGHT.lg : ROW_HEIGHT.xs}
-        useCSSTransforms={true}
         isDroppable={true}
-        onLayoutChange={debouncedLayoutChangeHandler}
         droppingItem={adjustDroppingItemWidthBasedOnGridSize(
           droppingItem,
           size,
         )}
+        useCSSTransforms={true}
         onDrop={onDropHandler}
         draggableCancel=".no-drag"
         resizeHandle={isFirstGridLoad ? <></> : undefined}
         isDraggable={isAuthenticated}
+        onResizeStop={(layout) => {
+          onLayoutResizeStop(layout);
+        }}
+        onDragStop={(layout) => {
+          onLayoutResizeStop(layout);
+        }}
       >
         {(size === "lg"
           ? formattedGridLayout["lg"]
@@ -91,7 +81,10 @@ function DashboardGrid() {
               data-grid={item}
             >
               <GridItemContextProvider {...item}>
-                <GridItem isLast={arr.length - 1 === index} index={index} />
+                <GridItem
+                  isLast={arr.length - 1 === index || arr.length === 0}
+                  index={index}
+                />
               </GridItemContextProvider>
             </div>
           );

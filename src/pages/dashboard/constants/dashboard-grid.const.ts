@@ -1,6 +1,6 @@
 export const BREAKPOINTS = {
-  lg: 1200 - 800,
-  xs: 0,
+  lg: 400, // Large screens start from 1024px (laptops & desktops)
+  xs: 0, // Everything below is XS (mobile/tablets)
 };
 export const COLS = { lg: 8, xs: 4 };
 export const ROW_HEIGHT = { lg: 85, xs: 85 };
