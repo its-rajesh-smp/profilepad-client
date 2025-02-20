@@ -15,14 +15,14 @@ interface IGridLayoutContext {
   onDragStartHandler: (variant: TGridItemVariant) => void;
   onDropHandler: (layout: Layout[], item: Layout) => void;
   droppingItem: ILeftSidebarDroppingItem | undefined;
-  onLayoutResizeStop: (updatedLayout: Layout[]) => void;
+  onLayoutUpdate: (updatedLayout: Layout[]) => void;
 }
 
 const initialState: IGridLayoutContext = {
   onDragStartHandler: () => {},
   onDropHandler: () => {},
   droppingItem: undefined,
-  onLayoutResizeStop: () => {},
+  onLayoutUpdate: () => {},
 };
 
 const GridLayoutContext = createContext(initialState);
@@ -62,10 +62,10 @@ export const GridLayoutProvider = ({
     setDroppingItemVariant(undefined);
   };
 
-  const onLayoutResizeStop = (allLayouts: Layout[]) => {
+  const onLayoutUpdate = (updatedLayout: Layout[]) => {
     const currentLayouts = { ...layouts };
     const currentScreenSize = size === "lg" ? "lg" : "xs";
-    currentLayouts[currentScreenSize] = allLayouts;
+    currentLayouts[currentScreenSize] = updatedLayout;
     dispatch(updateDashboardGridAct(currentLayouts));
   };
 
@@ -75,7 +75,7 @@ export const GridLayoutProvider = ({
         onDragStartHandler,
         onDropHandler,
         droppingItem,
-        onLayoutResizeStop,
+        onLayoutUpdate,
       }}
     >
       {children}

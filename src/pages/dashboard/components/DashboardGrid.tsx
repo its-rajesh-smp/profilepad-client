@@ -30,7 +30,7 @@ function DashboardGrid() {
     useAppSelector((state) => state.dashboardSlice);
   const { isAuthenticated } = useAppSelector((state) => state.authSlice);
 
-  const { droppingItem, onDropHandler, onLayoutResizeStop } =
+  const { droppingItem, onDropHandler, onLayoutUpdate } =
     useContext(gridLayoutContext);
   const { size } = useScreenSize();
 
@@ -42,7 +42,7 @@ function DashboardGrid() {
 
   return (
     <div
-      className={`min-h-[calc(100vh+100px)] pb-[200px] ${getLayoutWidth(currentView)} transition-all duration-200`}
+      className={`min-h-[calc(100vh+100px)] pb-[100px] ${getLayoutWidth(currentView)} transition-all duration-200`}
     >
       <ReactGridLayout
         className={`layout h-full min-h-[calc(100vh+100px)] w-full justify-center`}
@@ -62,10 +62,10 @@ function DashboardGrid() {
         resizeHandle={isFirstGridLoad ? <></> : undefined}
         isDraggable={isAuthenticated}
         onResizeStop={(layout) => {
-          onLayoutResizeStop(layout);
+          onLayoutUpdate(layout);
         }}
         onDragStop={(layout) => {
-          onLayoutResizeStop(layout);
+          onLayoutUpdate(layout);
         }}
       >
         {(size === "lg"

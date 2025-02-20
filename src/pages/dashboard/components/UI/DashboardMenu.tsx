@@ -45,7 +45,7 @@ function DashboardMenu() {
     <>
       {!open && (
         <SidebarTrigger
-          className="fixed bottom-20 left-4 p-6 text-secondary transition-colors"
+          className="fixed bottom-20 left-4 bg-white p-6 text-secondary transition-colors"
           icon={<CiGrid42 className="!h-6 !w-6" />}
         />
       )}
