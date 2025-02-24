@@ -12,7 +12,7 @@ import DashboardMenu from "./components/UI/DashboardMenu";
 import { GridLayoutProvider } from "./contexts/grid-layout.context";
 import "./dashboard.css";
 
-function Dashboard() {
+function Dashboard({ slug }: { slug?: string }) {
   const dispatch = useAppDispatch();
   const { isAuthenticated } = useAppSelector((state) => state.authSlice);
   const [error, setError] = useState<boolean>(false);
@@ -22,7 +22,8 @@ function Dashboard() {
   useEffect(() => {
     (async () => {
       try {
-        await dispatch(getUserDashboardAct(params?.slug));
+        const dashboardSlug = slug || params?.slug;
+        await dispatch(getUserDashboardAct(dashboardSlug));
       } catch (error) {
         setError(true);
       }
