@@ -3,13 +3,13 @@ import AutoSaveTextField from "@/common/components/UI/AutoSaveTextField";
 import { useAppDispatch } from "@/common/hooks/useAppDispatch";
 import { useAppSelector } from "@/common/hooks/useAppSelector";
 import { createUUID } from "@/common/utils/uuid.util";
-import { LuBuilding2, LuCalendar, LuExternalLink } from "react-icons/lu";
+import { LuExternalLink } from "react-icons/lu";
 import { TiDeleteOutline } from "react-icons/ti";
 import { updateAGridItemAct } from "../../actions-creators/grid.action";
 import useGridItem from "../../hooks/useGridItem";
 import { IMetadataItem } from "../../types/dashboard-item.type";
 
-function AddMetadataItem({ fieldToUpdate }: { fieldToUpdate?: string }) {
+function AddMetadataItem({}: { fieldToUpdate?: string }) {
   const dispatch = useAppDispatch();
   const currentSelectedGridItemId = useAppSelector(
     (state) => state.dashboardSlice.currentSelectedGridItemId,

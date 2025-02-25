@@ -26,7 +26,7 @@ export const createNewLayoutItemAct = (
   return async (dispatch: AppDispatch, getState: () => RootState) => {
     const currentLayouts = { ...getState().gridSlice.layouts };
 
-    let otherScreenSize = currentScreenSize === "lg" ? "xs" : "lg";
+    const otherScreenSize = currentScreenSize === "lg" ? "xs" : "lg";
 
     currentLayouts[currentScreenSize] = newLayout;
     currentLayouts[otherScreenSize] = [

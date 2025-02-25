@@ -17,7 +17,7 @@ function SelectCardType({
     (state) => state.dashboardSlice.currentSelectedGridItemId,
   );
 
-  let sizeVariant = useGridItemSize(currentSelectedGridItemId);
+  const sizeVariant = useGridItemSize(currentSelectedGridItemId);
   const dispatch = useAppDispatch();
 
   const designConfigs: { variant: TGridItemSizeVariant; className: string }[] =

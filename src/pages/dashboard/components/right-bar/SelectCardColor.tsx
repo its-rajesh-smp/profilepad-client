@@ -1,10 +1,9 @@
-import ChooseColor from "@/common/components/shadcn/choose-color";
 import { useAppDispatch } from "@/common/hooks/useAppDispatch";
 import { useAppSelector } from "@/common/hooks/useAppSelector";
-import { updateAGridItemAct } from "../../actions-creators/grid.action";
-import useGridItem from "../../hooks/useGridItem";
 import { RadioGroup, RadioGroupItem } from "@radix-ui/react-radio-group";
+import { updateAGridItemAct } from "../../actions-creators/grid.action";
 import { gridItemColorVariants } from "../../constants/gid-card-color-schema.const";
+import useGridItem from "../../hooks/useGridItem";
 
 function SelectCardColor() {
   const currentSelectedGridItemId = useAppSelector(

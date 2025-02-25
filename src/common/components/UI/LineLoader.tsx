@@ -5,7 +5,7 @@ const LineLoader = () => {
   return (
     loading && (
       <div className="fixed left-0 top-0 z-50 h-0.5 w-full overflow-hidden bg-gray-200">
-        <div className="animate-progress h-full w-1/2 bg-blue-500"></div>
+        <div className="h-full w-1/2 animate-progress bg-blue-500"></div>
       </div>
     )
   );

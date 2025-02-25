@@ -1,14 +1,12 @@
-import { useAppDispatch } from "@/common/hooks/useAppDispatch";
 import { useAppSelector } from "@/common/hooks/useAppSelector";
 import { AlignCenter, AlignLeft, AlignRight } from "lucide-react";
 
-function SelectTextPosition({ stylesToUpdate }: { stylesToUpdate: string }) {
+function SelectTextPosition({}: { stylesToUpdate: string }) {
   const currentValue = useAppSelector(
     (state) => state.dashboardSlice.currentSelectedGridItemId,
   );
-  const dispatch = useAppDispatch();
 
-  const onClick = (alignment: "left" | "center" | "right") => {};
+  const onClick = (_alignment: "left" | "center" | "right") => {};
 
   return (
     <div className="flex flex-row gap-5">
