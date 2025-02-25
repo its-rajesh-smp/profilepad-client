@@ -1,86 +1,83 @@
+import { useAppDispatch } from "@/common/hooks/useAppDispatch";
 import { useAppSelector } from "@/common/hooks/useAppSelector";
 import { motion } from "framer-motion";
-import React, { MouseEvent, ReactNode, TouchEvent, useState } from "react";
-import { GridItemContextProvider } from "../../context/GridItemContext";
-import { IDashboardCard } from "../../types/dashboard.type";
-import { getToolbarVisibilityByType } from "../../utils/toolbarVisibility.util";
-import CardDeleteBtn from "./Toolbars/CardDeleteBtn";
-import MoveBtn from "./Toolbars/MoveBtn";
-import ResizeToolbar from "./Toolbars/ResizeToolbar";
+import { useContext, useState } from "react";
+import GridItemContext from "../../contexts/grid-item.context";
+import {
+  setCurrentActiveGridItemId,
+  setIsFirstGridLoad,
+} from "../../reducers/dashboard.reducer";
+import ImagePrimary from "../cards/image/ImagePrimary";
+import LinkPrimary from "../cards/link/LinkPrimary";
+import ProfileHeadlinePrimary from "../cards/profile-headline/ProfileHeadlinePrimary";
+import TextPrimary from "../cards/text/TextPrimary";
+import TitlePrimary from "../cards/title/TitlePrimary";
+import WorkExperiencePrimary from "../cards/workExperience/WorkExperiencePrimary";
+import GridItemActionBar from "./GridItemActionBar";
 
-interface GridItemProps {
-  style?: React.CSSProperties; // Style prop (optional)
-  className?: string; // Class name (optional)
-  onMouseDown?: (e: MouseEvent) => void; // Mouse down event handler (optional)
-  onMouseUp?: (e: MouseEvent) => void; // Mouse up event handler (optional)
-  onTouchEnd?: (e: TouchEvent) => void; // Touch end event handler (optional)
-  children: ReactNode; // Children of the component
-  item: IDashboardCard;
-  sidebarOpened: boolean;
-  setSidebarOpened: React.Dispatch<React.SetStateAction<boolean>>;
+interface IGridItemProps {
+  index: number;
+  isLast: boolean;
 }
 
-const GridItem = React.forwardRef<HTMLDivElement, GridItemProps>(
-  (
-    {
-      style,
-      className,
-      onMouseDown,
-      onMouseUp,
-      onTouchEnd,
-      children,
-      item,
-      sidebarOpened,
-      setSidebarOpened,
-      ...props
-    },
-    ref,
-  ) => {
-    const isEditMode = useAppSelector((state) => state.authSlice.editMode);
-    const isInitial = item.variant === "initial";
-    const [isHovered, setIsHovered] = useState(false);
+function GridItem({ index, isLast }: IGridItemProps) {
+  const { isFirstGridLoad } = useAppSelector((state) => state.dashboardSlice);
+  const { isAuthenticated } = useAppSelector((state) => state.authSlice);
+  const { item } = useContext(GridItemContext);
+  const dispatch = useAppDispatch();
+  const [isHovered, setIsHovered] = useState(false);
 
-    return (
+  const animation = isFirstGridLoad
+    ? {
+        initial: { y: "50%", opacity: 0 },
+        animate: { y: 0, opacity: 1 },
+        transition: {
+          duration: 0.5,
+          ease: "easeInOut",
+          type: "spring",
+          stiffness: 50,
+          delay: (1 + index) * 0.1,
+        },
+      }
+    : {
+        initial: { scale: 0.9, opacity: 0 },
+        animate: { scale: 1, opacity: 1 },
+        transition: {
+          duration: 0.5,
+          ease: "easeInOut",
+          type: "spring",
+          stiffness: 70,
+        },
+      };
+
+  return (
+    item && (
       <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 1, delay: Math.random() * 0.1 }}
-        style={{ ...style }}
-        className={`${className} `}
-        ref={ref}
-        onMouseDown={onMouseDown}
-        onMouseUp={onMouseUp}
-        onTouchEnd={onTouchEnd}
-        onMouseEnter={() => setIsHovered(true)} // Show toolbar on hover
-        onMouseLeave={() => !sidebarOpened && setIsHovered(false)} // Hide toolbar on hover exit
-        {...props} // Spread remaining props
+        {...animation}
+        whileHover={{ scale: 1.01 }}
+        onHoverStart={() => {
+          setIsHovered(true);
+        }}
+        onHoverEnd={() => {
+          setIsHovered(false);
+        }}
+        className={`flex h-full w-full cursor-move rounded-2xl bg-white hover:shadow-sm`}
+        onAnimationComplete={() => {
+          isLast && dispatch(setIsFirstGridLoad(false));
+        }}
+        onClick={() => dispatch(setCurrentActiveGridItemId(item.id))}
       >
-        <GridItemContextProvider
-          sidebarOpened={sidebarOpened}
-          setSidebarOpened={setSidebarOpened}
-          item={item}
-        >
-          {children}
-          {isHovered && !isInitial && isEditMode && (
-            <CardDeleteBtn id={item.id} />
-          )}
+        {isAuthenticated && isHovered && <GridItemActionBar />}
 
-          {isEditMode && isHovered && item.type === "carousel" && <MoveBtn />}
-
-          {isHovered &&
-            isEditMode &&
-            !isInitial &&
-            !getToolbarVisibilityByType(item.type) && (
-              <ResizeToolbar
-                sidebarOpened={sidebarOpened}
-                setSidebarOpened={setSidebarOpened}
-                id={item.id}
-              />
-            )}
-        </GridItemContextProvider>
+        {item.variant === "title" && <TitlePrimary />}
+        {item.variant === "link" && <LinkPrimary />}
+        {item.variant === "profileHeadline" && <ProfileHeadlinePrimary />}
+        {item.variant === "image" && <ImagePrimary />}
+        {item.variant === "text" && <TextPrimary />}
+        {item.variant === "workExperience" && <WorkExperiencePrimary />}
       </motion.div>
-    );
-  },
-);
+    )
+  );
+}
 
 export default GridItem;

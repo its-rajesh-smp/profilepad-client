@@ -1,11 +1,11 @@
 import { AppDispatch } from "@/common/hooks/useAppDispatch";
-import { authenticate } from "../reducers/auth.reducer";
-import { createAccount, verifyUser } from "../services/register.service";
+import { authenticate, logout } from "../reducers/auth.reducer";
+import { createAccount, fetchUser } from "../services/auth.service";
 
 export const registerAct = (formData: {
   email: string;
   password: string;
-  slug: string;
+  dashboardSlug: string;
 }) => {
   return async (dispatch: AppDispatch) => {
     try {
@@ -18,12 +18,17 @@ export const registerAct = (formData: {
   };
 };
 
-export const verifyUserAct = () => {
+export const fetchUserAct = () => {
   return async (dispatch: AppDispatch) => {
     const authToken = localStorage.getItem("authToken");
     if (!authToken) return false;
-    const response = await verifyUser();
-    const { user } = response.data;
-    dispatch(authenticate({ user, authToken }));
+    try {
+      const response = await fetchUser();
+      const { user } = response.data;
+      dispatch(authenticate({ user, authToken }));
+    } catch (error) {
+      dispatch(logout());
+      throw error;
+    }
   };
 };

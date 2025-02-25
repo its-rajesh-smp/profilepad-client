@@ -1,30 +1,33 @@
 import { useAppSelector } from "@/common/hooks/useAppSelector";
 import { debounce } from "@/common/utils/debounce.util";
-import { useCallback } from "react";
+import { useCallback, useRef } from "react";
 
 interface IAutoSaveTextFieldProps {
   children?: React.ReactNode;
   id: string;
-  fieldToUpdate: string; // JSON field path, e.g., "metadata.html" or simple field "primaryText"
+  fieldToUpdate: string;
   className?: string;
   onChange?: (id: string, data: any) => void;
-  onSave?: (data: any) => void;
   onFocus?: () => void;
   onBlur?: () => void;
   style?: React.CSSProperties;
+  value?: string;
+  placeholder?: string;
 }
 
 function AutoSaveTextField({
   id,
   fieldToUpdate,
-  children,
   className,
   onChange,
   style = {},
   onBlur = () => {},
   onFocus = () => {},
+  value,
+  placeholder,
 }: IAutoSaveTextFieldProps) {
-  const { editMode } = useAppSelector((state) => state.authSlice);
+  const { isAuthenticated } = useAppSelector((state) => state.authSlice);
+  const localRef = useRef(value?.trim() || placeholder);
 
   // Utility to update nested JSON field
   const updateNestedField = (path: string, value: any) => {
@@ -42,9 +45,14 @@ function AutoSaveTextField({
         // Update simple field
         updatedField = { [fieldToUpdate]: value };
       }
+
+      if (updatedField[fieldToUpdate].trim() === "") {
+        updatedField[fieldToUpdate] = undefined;
+      }
+
       onChange?.(id, updatedField);
     }, 500),
-    [id, fieldToUpdate],
+    [id, fieldToUpdate, onChange],
   );
 
   const onTextChange = (e: any) => {
@@ -55,14 +63,14 @@ function AutoSaveTextField({
   return (
     <span
       style={style}
-      className={`h-full w-full outline-none ${className}`}
-      contentEditable={editMode}
+      className={`no-drag mb-1 w-full cursor-text rounded-md text-left outline-none transition-all duration-300 ${className} `}
+      contentEditable={isAuthenticated}
       suppressContentEditableWarning
       onInput={onTextChange}
       onFocus={onFocus}
       onBlur={onBlur}
     >
-      {children}
+      {localRef.current}
     </span>
   );
 }

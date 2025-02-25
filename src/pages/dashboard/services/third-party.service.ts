@@ -1,5 +1,4 @@
 import axiosInterceptors from "@/setup/axios.conf";
 
-export const getGithubProfile = (username: string) => {
-  return axiosInterceptors.get(`/third-party/github/${username}`);
-};
+export const getGithubData = async (userName: string) =>
+  axiosInterceptors.get(`third-party/github/${userName}`);

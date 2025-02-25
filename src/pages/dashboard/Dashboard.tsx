@@ -1,41 +1,64 @@
+import { SidebarProvider } from "@/common/components/shadcn/ui/sidebar";
 import { useAppDispatch } from "@/common/hooks/useAppDispatch";
 import { useAppSelector } from "@/common/hooks/useAppSelector";
 import { useEffect, useState } from "react";
-import LoadingPage from "../loading-page/LoadingPage";
-import { getDashboardAct } from "./action-creators/dashboard.act";
-import ActionBar from "./components/ActionBar";
-import DashboardGrid from "./components/dashboard-grid/DashboardGrid";
-import Profile from "./components/Profile";
-import AnimatedModal from "./components/UI/AnimatedModal";
-import { AnimatedModalProvider } from "./context/AnimatedModalContext";
-import { getProfilePositionClassName } from "./utils/dashboard.util";
-function Dashboard() {
-  const dispatch = useAppDispatch();
-  const [loader, setLoader] = useState(true);
-  const { dashboardSetting } = useAppSelector(
-    (state) => state.gridLayoutConfigSlice,
-  );
+import { useParams } from "react-router-dom";
+import PageNotFound from "../page-not-found/PageNotFound";
+import { getUserDashboardAct } from "./actions-creators/dashboard.action";
+import DashboardGrid from "./components/DashboardGrid";
+import LeftBar from "./components/LeftBar";
+import RightBar from "./components/RightBar";
+import DashboardMenu from "./components/UI/DashboardMenu";
+import { GridLayoutProvider } from "./contexts/grid-layout.context";
+import "./dashboard.css";
 
-  // Fetch the layout
+function Dashboard({ slug }: { slug?: string }) {
+  const dispatch = useAppDispatch();
+  const { isAuthenticated } = useAppSelector((state) => state.authSlice);
+  const [error, setError] = useState<boolean>(false);
+  const params = useParams();
+
+  // Get the user dashboard
   useEffect(() => {
     (async () => {
-      await dispatch(getDashboardAct());
-      setLoader(false);
+      try {
+        const dashboardSlug = slug || params?.slug;
+        await dispatch(getUserDashboardAct(dashboardSlug));
+      } catch (error) {
+        setError(true);
+      }
     })();
   }, []);
 
-  if (loader) return <LoadingPage loadingText="Loading Dashboard..." />;
+  const sidebarClassName = "fixed left-0 top-0 z-[100] w-fit";
 
-  const containerClassName = `flex h-screen flex-col justify-between overflow-x-hidden p-0 ${getProfilePositionClassName(dashboardSetting.profileAlignment)} `;
+  if (error) {
+    return <PageNotFound />;
+  }
+
   return (
-    <AnimatedModalProvider>
-      <div className={containerClassName}>
-        {dashboardSetting.showProfile && <Profile />}
-        <DashboardGrid />
-        <ActionBar />
+    <div className="flex h-full w-full justify-center overflow-hidden">
+      <div className="flex h-full w-full items-start justify-center gap-10">
+        <GridLayoutProvider>
+          {isAuthenticated && (
+            <SidebarProvider className={sidebarClassName}>
+              <DashboardMenu />
+            </SidebarProvider>
+          )}
+          {isAuthenticated && (
+            <SidebarProvider className={sidebarClassName}>
+              <LeftBar />
+            </SidebarProvider>
+          )}
+          <DashboardGrid />
+          {isAuthenticated && (
+            <SidebarProvider className={sidebarClassName}>
+              <RightBar />
+            </SidebarProvider>
+          )}
+        </GridLayoutProvider>
       </div>
-      <AnimatedModal />
-    </AnimatedModalProvider>
+    </div>
   );
 }
 

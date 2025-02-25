@@ -4,22 +4,22 @@ import { createSlice } from "@reduxjs/toolkit";
 import { IAuthUser } from "../types/Auth.type";
 
 interface IAuthState {
-  isAuthenticated: boolean | undefined;
+  isAuthenticated: boolean;
   authToken?: string;
   user: IAuthUser;
-  editMode?: boolean;
+  dashboardSlug: string;
 }
 
 const initialState: IAuthState = {
-  isAuthenticated: undefined,
+  isAuthenticated: false,
   user: {
     id: "",
     name: "",
     email: "",
-    slug: "",
     profileImageSrc: "",
     headline: "",
   },
+  dashboardSlug: "",
 };
 
 const authSlice = createSlice({
@@ -39,9 +39,8 @@ const authSlice = createSlice({
       state.user = { ...state.user, ...action.payload };
       return state;
     },
-    setEditMode: (state, action) => {
-      state.editMode = action.payload;
-      return state;
+    setIsAuthenticated: (state, action) => {
+      state.isAuthenticated = action.payload;
     },
     logout: () => {
       localStorage.removeItem("authToken");
@@ -50,5 +49,6 @@ const authSlice = createSlice({
   },
 });
 
-export const { authenticate, logout, setUser, setEditMode } = authSlice.actions;
+export const { authenticate, logout, setUser, setIsAuthenticated } =
+  authSlice.actions;
 export default authSlice.reducer;

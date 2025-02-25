@@ -1,16 +1,15 @@
 import axiosInterceptors from "@/setup/axios.conf";
 
-export const getDashboard = () => axiosInterceptors.get(`/dashboard`);
+export const checkDashboardSlugAvailability = (slug: string) =>
+  axiosInterceptors.get(`/dashboard/${slug}/availability`);
 
-export const getDashboardPreview = (slug: string | undefined) =>
-  axiosInterceptors.get(`/dashboard/preview/${slug}`);
+export const getUserDashboard = () => axiosInterceptors.get(`/dashboard`);
 
-export const updateGridLayoutConfig = (data: any) =>
-  axiosInterceptors.patch("/dashboard/grid-layout-config/update", data);
+export const getUserDashboardWithSlug = (slug: string) =>
+  axiosInterceptors.get(`/dashboard/${slug}`);
 
-export const resetDashboard = () => axiosInterceptors.patch("/dashboard/reset");
+export const getPublicUserDashboard = (slug: string) =>
+  axiosInterceptors.get(`/dashboard/${slug}`);
 
-export const updateDashboardSetting = (data: any) =>
-  axiosInterceptors.patch("/dashboard/setting/update", {
-    dashboardSetting: data,
-  });
+export const updateDashboard = (data: any) =>
+  axiosInterceptors.patch(`/dashboard`, data);
