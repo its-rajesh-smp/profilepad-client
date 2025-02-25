@@ -14,7 +14,7 @@ export const getURLPreview = async (url: string | undefined) => {
 export const getSubdomain = () => {
   const host = window.location.hostname;
   const parts = host.split(".");
-  if (parts.length > 1) {
+  if (parts.length > 2) {
     return parts[0];
   }
   return null;
