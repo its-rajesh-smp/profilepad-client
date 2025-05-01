@@ -102,7 +102,7 @@ function LinkPrimary() {
     window.open(item?.metadata?.href, "_blank");
   };
 
-  const className = `flex h-full w-full rounded-2xl border p-5 transition-all duration-300 ${colorSchema.backgroundColor} ${isAuthenticated ? "cursor-pointer" : ""}`;
+  const className = `flex h-full w-full rounded-2xl border p-5 transition-all duration-300 ${colorSchema.backgroundColor} ${isAuthenticated ? "" : "cursor-pointer"}`;
 
   if (gridItemSizeVariant === "2x2") {
     return (
