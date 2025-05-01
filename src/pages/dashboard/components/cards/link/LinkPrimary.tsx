@@ -98,17 +98,15 @@ function LinkPrimary() {
   };
 
   const onClick = () => {
-    console.log("clicked", item?.metadata?.href);
-    if (isAuthenticated) return; //  TODO: need to make if it is not preview mode
+    if (isAuthenticated) return;
     window.open(item?.metadata?.href, "_blank");
   };
 
+  const className = `flex h-full w-full rounded-2xl border p-5 transition-all duration-300 ${colorSchema.backgroundColor} ${isAuthenticated ? "cursor-pointer" : ""}`;
+
   if (gridItemSizeVariant === "2x2") {
     return (
-      <div
-        onClick={onClick}
-        className={`flex h-full w-full flex-col gap-2 rounded-2xl border p-5 ${colorSchema.backgroundColor} transition-all duration-300`}
-      >
+      <div onClick={onClick} className={`flex-col gap-2 ${className}`}>
         {renderIcon()}
         {renderContent("text-sm")}
       </div>
@@ -117,10 +115,7 @@ function LinkPrimary() {
 
   if (gridItemSizeVariant === "1x100") {
     return (
-      <div
-        onClick={onClick}
-        className={`flex h-full w-full gap-5 rounded-2xl border p-5 ${colorSchema.backgroundColor} transition-all duration-300`}
-      >
+      <div onClick={onClick} className={`gap-5 ${className}`}>
         {renderIcon()}
         {renderContent("text-sm")}
       </div>
@@ -129,10 +124,7 @@ function LinkPrimary() {
 
   if (gridItemSizeVariant === "1x4") {
     return (
-      <div
-        onClick={onClick}
-        className={`flex h-full w-full items-center gap-5 rounded-2xl border p-5 ${colorSchema.backgroundColor} transition-all duration-300`}
-      >
+      <div onClick={onClick} className={`items-center gap-5 ${className}`}>
         {renderIcon()}
         {renderContent("text-sm")}
       </div>
@@ -141,10 +133,7 @@ function LinkPrimary() {
 
   if (gridItemSizeVariant === "4x4") {
     return (
-      <div
-        onClick={onClick}
-        className={`flex h-full w-full flex-col gap-5 rounded-2xl border p-5 ${colorSchema.backgroundColor} transition-all duration-300`}
-      >
+      <div onClick={onClick} className={`flex-col gap-5 ${className}`}>
         <div className="flex items-center gap-4">
           {renderIcon()}
           {renderContent("text-sm")}

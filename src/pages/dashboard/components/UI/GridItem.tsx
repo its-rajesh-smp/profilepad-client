@@ -61,7 +61,7 @@ function GridItem({ index, isLast }: IGridItemProps) {
         onHoverEnd={() => {
           setIsHovered(false);
         }}
-        className={`flex h-full w-full cursor-move rounded-2xl bg-white hover:shadow-sm`}
+        className={`flex h-full w-full ${isAuthenticated ? "cursor-pointer" : "cursor-default"} rounded-2xl bg-white hover:shadow-sm`}
         onAnimationComplete={() => {
           isLast && dispatch(setIsFirstGridLoad(false));
         }}
