@@ -79,6 +79,7 @@ function DashboardGrid() {
               }}
               key={item.i}
               data-grid={item}
+              className={isAuthenticated ? "" : "no-drag"} // TODO: need to make if it is not preview mode
             >
               <GridItemContextProvider {...item}>
                 <GridItem

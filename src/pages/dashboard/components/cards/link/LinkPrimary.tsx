@@ -98,6 +98,7 @@ function LinkPrimary() {
   };
 
   const onClick = () => {
+    console.log("clicked", item?.metadata?.href);
     if (isAuthenticated) return; //  TODO: need to make if it is not preview mode
     window.open(item?.metadata?.href, "_blank");
   };
