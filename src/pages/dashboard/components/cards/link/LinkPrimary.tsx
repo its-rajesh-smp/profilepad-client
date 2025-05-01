@@ -6,6 +6,7 @@ import { updateAGridItemAct } from "@/pages/dashboard/actions-creators/grid.acti
 import { gridItemColorVariants } from "@/pages/dashboard/constants/gid-card-color-schema.const";
 
 import { DEFAULT_LINK_PREVIEW_IMAGE_SRC } from "@/common/constants/url.const";
+import { useAppSelector } from "@/common/hooks/useAppSelector";
 import GridItemContext from "@/pages/dashboard/contexts/grid-item.context";
 import { useContext } from "react";
 import { BiLink } from "react-icons/bi";
@@ -13,6 +14,7 @@ import GithubHitmap from "./github-heatmap/GithubHitmap";
 
 function LinkPrimary() {
   const { item, gridItemSizeVariant } = useContext(GridItemContext);
+  const { isAuthenticated } = useAppSelector((state) => state.authSlice);
   const dispatch = useAppDispatch();
 
   /**
@@ -95,9 +97,15 @@ function LinkPrimary() {
     );
   };
 
+  const onClick = () => {
+    if (isAuthenticated) return; //  TODO: need to make if it is not preview mode
+    window.open(item?.metadata?.href, "_blank");
+  };
+
   if (gridItemSizeVariant === "2x2") {
     return (
       <div
+        onClick={onClick}
         className={`flex h-full w-full flex-col gap-2 rounded-2xl border p-5 ${colorSchema.backgroundColor} transition-all duration-300`}
       >
         {renderIcon()}
@@ -109,6 +117,7 @@ function LinkPrimary() {
   if (gridItemSizeVariant === "1x100") {
     return (
       <div
+        onClick={onClick}
         className={`flex h-full w-full gap-5 rounded-2xl border p-5 ${colorSchema.backgroundColor} transition-all duration-300`}
       >
         {renderIcon()}
@@ -120,6 +129,7 @@ function LinkPrimary() {
   if (gridItemSizeVariant === "1x4") {
     return (
       <div
+        onClick={onClick}
         className={`flex h-full w-full items-center gap-5 rounded-2xl border p-5 ${colorSchema.backgroundColor} transition-all duration-300`}
       >
         {renderIcon()}
@@ -131,6 +141,7 @@ function LinkPrimary() {
   if (gridItemSizeVariant === "4x4") {
     return (
       <div
+        onClick={onClick}
         className={`flex h-full w-full flex-col gap-5 rounded-2xl border p-5 ${colorSchema.backgroundColor} transition-all duration-300`}
       >
         <div className="flex items-center gap-4">
