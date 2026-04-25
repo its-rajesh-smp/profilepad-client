@@ -1,4 +1,7 @@
-import cloudinary from "../../config/cloudinary.config";
+import {
+  configureCloudinary,
+  default as cloudinary,
+} from "../../config/cloudinary.config";
 import axios from "axios";
 import { UploadApiResponse } from "cloudinary";
 import { getEnv } from "../utils/env.util";
@@ -64,6 +67,8 @@ async function uploadFileToCloudinary(
   file: any,
   folderPath: string
 ): Promise<UploadApiResponse | undefined> {
+  configureCloudinary();
+
   const fileName = file.originalname.split(".")[0]; // Get filename without extension
   const publicId = `profilepad_dev/${folderPath}/${fileName}`; // Unique Cloudinary ID
 
