@@ -1,3 +1,4 @@
+import "dotenv/config";
 import cors from "cors";
 import express from "express";
 import routes from "./api/routes";
@@ -8,10 +9,9 @@ export const app = express();
 app.use(express.json());
 app.use(cors({ origin: "*" }));
 
-
 app.get("/health", (_req, res) => {
   res.status(200).json({ status: "ok" });
-}
+});
 
 /* Routes */
 app.use(routes);

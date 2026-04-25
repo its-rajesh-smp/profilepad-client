@@ -36,4 +36,4 @@ COPY --from=build /app/node_modules /app/node_modules
 # COPY --from=build /app/.env /app/.env
 
 # Set the start command (or any other necessary environment setup)
-CMD ["node", "dist/index.js"]
+CMD ["node", "dist/src/index.js"]
